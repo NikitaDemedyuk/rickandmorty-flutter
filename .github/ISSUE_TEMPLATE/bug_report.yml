@@ -27,5 +27,9 @@ body:
   - type: textarea
     id: logs
     attributes:
-      label: Logs or screenshots
+      label: Logs
       render: shell
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
