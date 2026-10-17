@@ -1,0 +1,13 @@
+targets:
+  $default:
+    builders:
+      freezed:
+        options:
+          # DTOs are read-only: nothing is ever serialized back to the API.
+          to_json: false
+      json_serializable:
+        options:
+          # Malformed payloads throw CheckedFromJsonException (an Exception)
+          # instead of a TypeError, so the repository can map them to a Failure.
+          checked: true
+          create_to_json: false
