@@ -9,30 +9,27 @@ void main() {
   final getIt = GetIt.asNewInstance();
 
   testWidgets('renders the home page with the English title', (tester) async {
-    await tester.pumpWidget(App(getIt: getIt, locale: const Locale('en')));
+    await tester.pumpWidget(App(getIt: getIt));
     await tester.pumpAndSettle();
 
     expect(find.byType(HomePlaceholderPage), findsOneWidget);
     expect(find.text('Rick and Morty'), findsOneWidget);
   });
 
-  testWidgets('uses the Russian title for the ru locale', (tester) async {
-    await tester.pumpWidget(App(getIt: getIt, locale: const Locale('ru')));
+  testWidgets('stays in English on a non-English device', (tester) async {
+    tester.platformDispatcher.localesTestValue = const [Locale('ru')];
+    addTearDown(tester.platformDispatcher.clearLocalesTestValue);
+
+    await tester.pumpWidget(App(getIt: getIt));
     await tester.pumpAndSettle();
 
-    expect(find.text('Рик и Морти'), findsOneWidget);
+    expect(find.text('Rick and Morty'), findsOneWidget);
   });
 
   testWidgets('shows an error page for unknown routes and goes home', (
     tester,
   ) async {
-    await tester.pumpWidget(
-      App(
-        getIt: getIt,
-        locale: const Locale('en'),
-        initialLocation: '/nowhere',
-      ),
-    );
+    await tester.pumpWidget(App(getIt: getIt, initialLocation: '/nowhere'));
     await tester.pumpAndSettle();
 
     expect(find.byType(ErrorView), findsOneWidget);

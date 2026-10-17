@@ -28,16 +28,4 @@ void main() {
       expect(find.text(message), findsOneWidget);
     });
   }
-
-  testWidgets('uses the Russian translation for the ru locale', (tester) async {
-    await tester.pumpApp(
-      Builder(
-        builder: (context) =>
-            Text(failureMessage(context, const NotFoundFailure())),
-      ),
-      locale: const Locale('ru'),
-    );
-
-    expect(find.text('Ничего не найдено.'), findsOneWidget);
-  });
 }

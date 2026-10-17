@@ -9,15 +9,12 @@ class App extends StatefulWidget {
   const new({
     required this.getIt,
     super.key,
-    this.locale,
     this.initialLocation = AppRoutes.home,
   });
 
   /// Forwarded to the router; never resolved from inside widgets.
   final GetIt getIt;
 
-  /// Overrides the device locale; used by tests.
-  final Locale? locale;
   final String initialLocation;
 
   @override
@@ -42,7 +39,6 @@ class _AppState extends State<App> {
       routerConfig: _router,
       onGenerateTitle: (context) => context.l10n.appTitle,
       theme: AppTheme.light,
-      locale: widget.locale,
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [
         AppLocalizations.delegate,
