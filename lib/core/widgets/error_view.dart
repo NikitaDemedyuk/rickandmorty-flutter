@@ -13,7 +13,6 @@ class ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final onRetry = this.onRetry;
     return StatusView(
       icon: Icons.error_outline,
       iconColor: Theme.of(context).colorScheme.error,
