@@ -39,6 +39,16 @@ jobs:
             exit 1
           fi
 
+      - name: Check generated code is up to date
+        run: |
+          dart run build_runner build
+          stale="$(git status --porcelain -- lib)"
+          if [ -n "$stale" ]; then
+            echo "::error::Generated code is stale; run 'fvm dart run build_runner build' and commit:"
+            echo "$stale"
+            exit 1
+          fi
+
       - name: Check formatting
         run: dart format --output=none --set-exit-if-changed .
 
