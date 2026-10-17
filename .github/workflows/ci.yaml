@@ -32,8 +32,12 @@ jobs:
       - name: Check generated localizations are up to date
         run: |
           flutter gen-l10n
-          git diff --exit-code -- lib/l10n/gen
-          test -z "$(git status --porcelain -- lib/l10n/gen)"
+          stale="$(git status --porcelain -- lib/l10n/gen)"
+          if [ -n "$stale" ]; then
+            echo "::error::Generated localizations are stale; run 'fvm flutter gen-l10n' and commit:"
+            echo "$stale"
+            exit 1
+          fi
 
       - name: Check formatting
         run: dart format --output=none --set-exit-if-changed .
