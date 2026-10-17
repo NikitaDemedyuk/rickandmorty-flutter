@@ -1,12 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:rickandmorty/app/app.dart';
 import 'package:rickandmorty/app/home_placeholder_page.dart';
 import 'package:rickandmorty/core/widgets/error_view.dart';
 
 void main() {
+  final getIt = GetIt.asNewInstance();
+
   testWidgets('renders the home page with the English title', (tester) async {
-    await tester.pumpWidget(const App(locale: Locale('en')));
+    await tester.pumpWidget(App(getIt: getIt, locale: const Locale('en')));
     await tester.pumpAndSettle();
 
     expect(find.byType(HomePlaceholderPage), findsOneWidget);
@@ -14,7 +17,7 @@ void main() {
   });
 
   testWidgets('uses the Russian title for the ru locale', (tester) async {
-    await tester.pumpWidget(const App(locale: Locale('ru')));
+    await tester.pumpWidget(App(getIt: getIt, locale: const Locale('ru')));
     await tester.pumpAndSettle();
 
     expect(find.text('Рик и Морти'), findsOneWidget);
@@ -24,7 +27,11 @@ void main() {
     tester,
   ) async {
     await tester.pumpWidget(
-      const App(locale: Locale('en'), initialLocation: '/nowhere'),
+      App(
+        getIt: getIt,
+        locale: const Locale('en'),
+        initialLocation: '/nowhere',
+      ),
     );
     await tester.pumpAndSettle();
 

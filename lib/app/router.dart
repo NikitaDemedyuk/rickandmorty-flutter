@@ -1,3 +1,4 @@
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:rickandmorty/app/home_placeholder_page.dart';
@@ -8,7 +9,12 @@ abstract final class AppRoutes {
   static const String home = '/';
 }
 
-GoRouter createRouter({String initialLocation = AppRoutes.home}) => GoRouter(
+/// Route builders resolve their dependencies from [getIt], so tests can pass
+/// an isolated container instead of the global [GetIt.instance].
+GoRouter createRouter({
+  required GetIt getIt,
+  String initialLocation = AppRoutes.home,
+}) => GoRouter(
   initialLocation: initialLocation,
   routes: [
     GoRoute(
