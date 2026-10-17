@@ -3,9 +3,8 @@ import 'package:material_ui/material_ui.dart';
 import 'package:rickandmorty/app/app.dart';
 import 'package:rickandmorty/app/di.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+void main() {
   final getIt = GetIt.instance;
-  await configureDependencies(getIt);
+  configureDependencies(getIt);
   runApp(App(getIt: getIt));
 }

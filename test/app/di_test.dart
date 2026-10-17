@@ -5,9 +5,9 @@ import 'package:rickandmorty/app/di.dart';
 import 'package:rickandmorty/core/network/dio_client.dart';
 
 void main() {
-  test('registers a Dio pointed at the Rick and Morty API', () async {
+  test('registers a Dio pointed at the Rick and Morty API', () {
     final getIt = GetIt.asNewInstance();
-    await configureDependencies(getIt);
+    configureDependencies(getIt);
 
     final dio = getIt<Dio>();
     expect(dio.options.baseUrl, rickAndMortyApiBaseUrl);

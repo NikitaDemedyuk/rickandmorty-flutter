@@ -4,6 +4,6 @@ import 'package:rickandmorty/core/network/dio_client.dart';
 
 /// Composition root. The only place, besides route builders, that touches
 /// [GetIt].
-Future<void> configureDependencies(GetIt getIt) async {
+void configureDependencies(GetIt getIt) {
   getIt.registerLazySingleton<Dio>(createDio);
 }
