@@ -1,0 +1,31 @@
+name: Bug report
+description: Something doesn't work as expected.
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the app
+        2. Search for "rick"
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: iPhone 17 simulator, iOS 26 / Pixel 9 emulator, Android 16
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      render: shell
