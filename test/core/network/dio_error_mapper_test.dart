@@ -76,7 +76,10 @@ void main() {
       test('maps $type to UnknownFailure carrying the exception', () {
         final e = exception(type, error: StateError('boom'));
 
-        expect(mapDioException(e), UnknownFailure(e));
+        expect(
+          mapDioException(e),
+          isA<UnknownFailure>().having((f) => f.error, 'error', same(e)),
+        );
       });
     }
   });

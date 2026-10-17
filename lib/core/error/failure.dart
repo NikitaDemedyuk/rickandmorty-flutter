@@ -56,14 +56,15 @@ final class NotFoundFailure extends Failure {
 final class UnknownFailure extends Failure {
   const new([this.error]);
 
+  /// Kept for debugging only; excluded from equality because exceptions
+  /// compare by identity.
   final Object? error;
 
   @override
-  bool operator ==(Object other) =>
-      other is UnknownFailure && other.error == error;
+  bool operator ==(Object other) => other is UnknownFailure;
 
   @override
-  int get hashCode => Object.hash(UnknownFailure, error);
+  int get hashCode => (UnknownFailure).hashCode;
 
   @override
   String toString() => 'UnknownFailure($error)';
