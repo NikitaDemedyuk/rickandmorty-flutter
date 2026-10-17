@@ -116,6 +116,12 @@ abstract class AppLocalizations {
   /// **'No characters found'**
   String get emptyResults;
 
+  /// Button on the not-found page that navigates to the home screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Go home'**
+  String get goHome;
+
   /// Shown when navigating to an unknown route.
   ///
   /// In en, this message translates to:

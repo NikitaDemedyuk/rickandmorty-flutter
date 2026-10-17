@@ -21,6 +21,7 @@ GoRouter createRouter({String initialLocation = AppRoutes.home}) => GoRouter(
     body: ErrorView(
       message: context.l10n.pageNotFound,
       onRetry: () => context.go(AppRoutes.home),
+      actionLabel: context.l10n.goHome,
     ),
   ),
 );

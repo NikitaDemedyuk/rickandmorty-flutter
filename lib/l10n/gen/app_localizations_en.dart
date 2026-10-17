@@ -19,6 +19,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emptyResults => 'No characters found';
 
   @override
+  String get goHome => 'Go home';
+
+  @override
   String get pageNotFound => 'Page not found';
 
   @override

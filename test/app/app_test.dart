@@ -20,7 +20,7 @@ void main() {
     expect(find.text('Рик и Морти'), findsOneWidget);
   });
 
-  testWidgets('shows an error page for unknown routes and goes home on retry', (
+  testWidgets('shows an error page for unknown routes and goes home', (
     tester,
   ) async {
     await tester.pumpWidget(
@@ -31,7 +31,9 @@ void main() {
     expect(find.byType(ErrorView), findsOneWidget);
     expect(find.text('Page not found'), findsOneWidget);
 
-    await tester.tap(find.text('Retry'));
+    expect(find.text('Retry'), findsNothing);
+
+    await tester.tap(find.text('Go home'));
     await tester.pumpAndSettle();
 
     expect(find.byType(HomePlaceholderPage), findsOneWidget);

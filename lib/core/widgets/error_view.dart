@@ -2,10 +2,13 @@ import 'package:material_ui/material_ui.dart';
 import 'package:rickandmorty/l10n/l10n.dart';
 
 class ErrorView extends StatelessWidget {
-  const new({required this.message, this.onRetry, super.key});
+  const new({required this.message, this.onRetry, this.actionLabel, super.key});
 
   final String message;
   final VoidCallback? onRetry;
+
+  /// Label of the action button; defaults to "Retry".
+  final String? actionLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,7 @@ class ErrorView extends StatelessWidget {
               const SizedBox(height: 16),
               FilledButton.tonal(
                 onPressed: onRetry,
-                child: Text(context.l10n.retry),
+                child: Text(actionLabel ?? context.l10n.retry),
               ),
             ],
           ],

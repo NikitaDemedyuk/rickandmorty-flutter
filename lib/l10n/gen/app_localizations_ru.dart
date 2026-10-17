@@ -19,6 +19,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get emptyResults => 'Персонажи не найдены';
 
   @override
+  String get goHome => 'На главную';
+
+  @override
   String get pageNotFound => 'Страница не найдена';
 
   @override

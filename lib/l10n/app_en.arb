@@ -12,6 +12,10 @@
   "@emptyResults": {
     "description": "Shown when a search returns no characters."
   },
+  "goHome": "Go home",
+  "@goHome": {
+    "description": "Button on the not-found page that navigates to the home screen."
+  },
   "pageNotFound": "Page not found",
   "@pageNotFound": {
     "description": "Shown when navigating to an unknown route."
