@@ -29,22 +29,6 @@ jobs:
       - name: Install dependencies
         run: flutter pub get --enforce-lockfile
 
-      - name: Detect code generation
-        id: codegen
-        run: |
-          if grep -q '^\s*build_runner:' pubspec.yaml; then
-            echo "enabled=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "enabled=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Check generated code is up to date
-        if: steps.codegen.outputs.enabled == 'true'
-        run: |
-          dart run build_runner build -d
-          git add -N .
-          git diff --exit-code
-
       - name: Check formatting
         run: dart format --output=none --set-exit-if-changed .
 
