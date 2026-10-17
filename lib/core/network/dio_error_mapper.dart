@@ -16,7 +16,8 @@ Failure mapDioException(DioException exception) {
       return statusCode == HttpStatus.notFound
           ? const NotFoundFailure()
           : ServerFailure(statusCode);
-    case DioExceptionType.unknown when exception.error is SocketException:
+    // Socket, HTTP and TLS transport errors surface as `unknown`.
+    case DioExceptionType.unknown when exception.error is IOException:
       return const NetworkFailure();
     case DioExceptionType.badCertificate:
     case DioExceptionType.cancel:

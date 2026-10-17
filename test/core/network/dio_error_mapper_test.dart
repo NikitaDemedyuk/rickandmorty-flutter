@@ -37,14 +37,17 @@ void main() {
       });
     }
 
-    test('maps an unknown SocketException to NetworkFailure', () {
-      final e = exception(
-        DioExceptionType.unknown,
-        error: const SocketException('Failed host lookup'),
-      );
+    for (final error in <IOException>[
+      const SocketException('Failed host lookup'),
+      const HttpException('Connection closed before full header was received'),
+      const HandshakeException('Handshake error in client'),
+    ]) {
+      test('maps an unknown ${error.runtimeType} to NetworkFailure', () {
+        final e = exception(DioExceptionType.unknown, error: error);
 
-      expect(mapDioException(e), const NetworkFailure());
-    });
+        expect(mapDioException(e), const NetworkFailure());
+      });
+    }
 
     test('maps a 404 response to NotFoundFailure', () {
       final e = exception(DioExceptionType.badResponse, statusCode: 404);
