@@ -1,0 +1,54 @@
+{
+  "info": {
+    "count": 826,
+    "pages": 42,
+    "next": null,
+    "prev": "https://rickandmortyapi.com/api/character?page=41"
+  },
+  "results": [
+    {
+      "id": 825,
+      "name": "Young Jerry",
+      "status": "unknown",
+      "species": "Human",
+      "type": "",
+      "gender": "Male",
+      "origin": {
+        "name": "Earth (Unknown dimension)",
+        "url": "https://rickandmortyapi.com/api/location/30"
+      },
+      "location": {
+        "name": "Earth (Unknown dimension)",
+        "url": "https://rickandmortyapi.com/api/location/30"
+      },
+      "image": "https://rickandmortyapi.com/api/character/avatar/825.jpeg",
+      "episode": [
+        "https://rickandmortyapi.com/api/episode/51"
+      ],
+      "url": "https://rickandmortyapi.com/api/character/825",
+      "created": "2021-11-02T17:20:14.305Z"
+    },
+    {
+      "id": 826,
+      "name": "Butter Robot",
+      "status": "Alive",
+      "species": "Robot",
+      "type": "Passing Butter Robot",
+      "gender": "Genderless",
+      "origin": {
+        "name": "Earth (Replacement Dimension)",
+        "url": "https://rickandmortyapi.com/api/location/20"
+      },
+      "location": {
+        "name": "Earth (Replacement Dimension)",
+        "url": "https://rickandmortyapi.com/api/location/20"
+      },
+      "image": "https://rickandmortyapi.com/api/character/avatar/826.jpeg",
+      "episode": [
+        "https://rickandmortyapi.com/api/episode/9"
+      ],
+      "url": "https://rickandmortyapi.com/api/character/826",
+      "created": "2021-11-02T17:24:37.458Z"
+    }
+  ]
+}
