@@ -1,0 +1,35 @@
+{
+  "@@locale": "en",
+  "appTitle": "Rick and Morty",
+  "@appTitle": {
+    "description": "Application title shown in the app bar and task switcher."
+  },
+  "retry": "Retry",
+  "@retry": {
+    "description": "Button that repeats a failed request."
+  },
+  "emptyResults": "No characters found",
+  "@emptyResults": {
+    "description": "Shown when a search returns no characters."
+  },
+  "pageNotFound": "Page not found",
+  "@pageNotFound": {
+    "description": "Shown when navigating to an unknown route."
+  },
+  "errorNetwork": "No internet connection. Check your network and try again.",
+  "@errorNetwork": {
+    "description": "Shown when the device is offline or a request timed out."
+  },
+  "errorServer": "The server is not responding properly. Please try again later.",
+  "@errorServer": {
+    "description": "Shown when the API returns a 5xx or unexpected status code."
+  },
+  "errorNotFound": "Nothing was found.",
+  "@errorNotFound": {
+    "description": "Shown when the requested resource does not exist."
+  },
+  "errorUnknown": "Something went wrong. Please try again.",
+  "@errorUnknown": {
+    "description": "Fallback message for unexpected errors."
+  }
+}
