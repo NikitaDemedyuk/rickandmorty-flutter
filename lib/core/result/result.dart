@@ -24,7 +24,8 @@ final class Ok<T> extends Result<T> {
   final T value;
 
   @override
-  bool operator ==(Object other) => other is Ok<T> && other.value == value;
+  bool operator ==(Object other) =>
+      other is Ok<Object?> && other.value == value;
 
   @override
   int get hashCode => Object.hash(Ok, value);
@@ -39,7 +40,8 @@ final class Err<T> extends Result<T> {
   final Failure failure;
 
   @override
-  bool operator ==(Object other) => other is Err<T> && other.failure == failure;
+  bool operator ==(Object other) =>
+      other is Err<Object?> && other.failure == failure;
 
   @override
   int get hashCode => Object.hash(Err, failure);

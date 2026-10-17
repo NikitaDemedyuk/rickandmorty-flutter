@@ -32,4 +32,20 @@ void main() {
       isNot(const Err<int>(NetworkFailure())),
     );
   });
+
+  test('equality is symmetric across type arguments', () {
+    const Result<int> narrow = Ok(1);
+    const Result<num> wide = Ok<num>(1);
+
+    expect(narrow == wide, isTrue);
+    expect(wide == narrow, isTrue);
+    expect(
+      const Err<int>(NotFoundFailure()),
+      const Err<num>(NotFoundFailure()),
+    );
+    expect(
+      const Err<num>(NotFoundFailure()),
+      const Err<int>(NotFoundFailure()),
+    );
+  });
 }
