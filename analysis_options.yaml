@@ -1,7 +1,15 @@
-include: package:flutter_lints/flutter.yaml
+include: package:very_good_analysis/analysis_options.yaml
 
 analyzer:
   exclude:
     - build/**
     - android/**
     - ios/**
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - lib/l10n/gen/**
+
+linter:
+  rules:
+    # This is an app, not a package: public API docs add noise, not value.
+    public_member_api_docs: false
