@@ -13,6 +13,7 @@ import 'package:rickandmorty/features/characters/data/repositories/characters_re
 import 'package:rickandmorty/features/characters/domain/entities/character.dart';
 import 'package:rickandmorty/features/characters/domain/entities/characters_page.dart';
 
+import '../../../../helpers/dio_exceptions.dart';
 import '../../../../helpers/fixtures.dart';
 
 class _MockRemoteDataSource extends Mock implements CharactersRemoteDataSource;
@@ -21,25 +22,14 @@ void main() {
   late _MockRemoteDataSource remote;
   late CharactersRepositoryImpl repository;
 
-  final requestOptions = RequestOptions(path: '/character');
   final pageDto = CharactersResponseDto.fromJson(
     fixtureJson('characters_page.json'),
   );
   final characterDto = CharacterDto.fromJson(fixtureJson('character.json'));
 
-  DioException badResponse(int statusCode) => DioException.badResponse(
-    statusCode: statusCode,
-    requestOptions: requestOptions,
-    response: Response<void>(
-      requestOptions: requestOptions,
-      statusCode: statusCode,
-    ),
-  );
-
-  final timeout = DioException.connectionTimeout(
-    timeout: const Duration(seconds: 10),
-    requestOptions: requestOptions,
-  );
+  DioException badResponse(int statusCode) =>
+      dioException(DioExceptionType.badResponse, statusCode: statusCode);
+  final timeout = dioException(DioExceptionType.connectionTimeout);
   final malformed = CheckedFromJsonException(
     const {},
     'id',

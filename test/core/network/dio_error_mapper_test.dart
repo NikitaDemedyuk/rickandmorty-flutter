@@ -5,25 +5,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rickandmorty/core/error/failure.dart';
 import 'package:rickandmorty/core/network/dio_error_mapper.dart';
 
+import '../../helpers/dio_exceptions.dart';
+
 void main() {
-  final requestOptions = RequestOptions(path: '/character');
-
-  DioException exception(
-    DioExceptionType type, {
-    int? statusCode,
-    Object? error,
-  }) => DioException(
-    requestOptions: requestOptions,
-    type: type,
-    error: error,
-    response: statusCode == null
-        ? null
-        : Response<void>(
-            requestOptions: requestOptions,
-            statusCode: statusCode,
-          ),
-  );
-
   group('mapDioException', () {
     for (final type in [
       DioExceptionType.connectionTimeout,
@@ -33,7 +17,7 @@ void main() {
       DioExceptionType.connectionError,
     ]) {
       test('maps $type to NetworkFailure', () {
-        expect(mapDioException(exception(type)), const NetworkFailure());
+        expect(mapDioException(dioException(type)), const NetworkFailure());
       });
     }
 
@@ -43,25 +27,26 @@ void main() {
       const HandshakeException('Handshake error in client'),
     ]) {
       test('maps an unknown ${error.runtimeType} to NetworkFailure', () {
-        final e = exception(DioExceptionType.unknown, error: error);
+        final e = dioException(DioExceptionType.unknown, error: error);
 
         expect(mapDioException(e), const NetworkFailure());
       });
     }
 
     test('maps a 404 response to NotFoundFailure', () {
-      final e = exception(DioExceptionType.badResponse, statusCode: 404);
+      final e = dioException(DioExceptionType.badResponse, statusCode: 404);
 
       expect(mapDioException(e), const NotFoundFailure());
     });
 
     test('maps other bad responses to ServerFailure with the status code', () {
-      final e = exception(DioExceptionType.badResponse, statusCode: 500);
+      final e = dioException(DioExceptionType.badResponse, statusCode: 500);
 
       expect(mapDioException(e), const ServerFailure(500));
     });
 
     test('maps a bad response without a status code to ServerFailure', () {
+      final requestOptions = RequestOptions(path: '/character');
       final e = DioException.badResponse(
         statusCode: 0,
         requestOptions: requestOptions,
@@ -77,7 +62,7 @@ void main() {
       DioExceptionType.unknown,
     ]) {
       test('maps $type to UnknownFailure carrying the exception', () {
-        final e = exception(type, error: StateError('boom'));
+        final e = dioException(type, error: StateError('boom'));
 
         expect(
           mapDioException(e),
