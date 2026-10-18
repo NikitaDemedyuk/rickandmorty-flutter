@@ -121,7 +121,19 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
 }
 
 /// Waits for [duration] of quiet, then cancels the previous handler.
-EventTransformer<E> _debounceRestartable<E>(Duration duration) {
-  final restart = restartable<E>();
-  return (events, mapper) => restart(events.debounce(duration), mapper);
+///
+/// A query that trims to the previous one is dropped first: restarting would
+/// silence the handler still loading it, and the new one has nothing to load.
+EventTransformer<CharactersQueryChanged> _debounceRestartable(
+  Duration duration,
+) {
+  final restart = restartable<CharactersQueryChanged>();
+  return (events, mapper) => restart(
+    events
+        .debounce(duration)
+        .distinct(
+          (previous, next) => previous.query.trim() == next.query.trim(),
+        ),
+    mapper,
+  );
 }
