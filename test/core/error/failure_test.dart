@@ -51,9 +51,17 @@ void main() {
       expect(failure.hashCode, const TimeoutFailure().hashCode);
     });
 
-    test('differs from NetworkFailure', () {
-      expect(const TimeoutFailure(), isNot(const NetworkFailure()));
-      expect(const NetworkFailure(), isNot(const TimeoutFailure()));
+    test('differs from the other failures', () {
+      for (final other in <Failure>[
+        const NetworkFailure(),
+        const ServerFailure(),
+        const NotFoundFailure(),
+        const RateLimitFailure(),
+        const UnknownFailure(),
+      ]) {
+        expect(const TimeoutFailure(), isNot(other));
+        expect(other, isNot(const TimeoutFailure()));
+      }
     });
   });
 
