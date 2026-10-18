@@ -1,0 +1,54 @@
+import 'package:material_ui/material_ui.dart';
+
+/// Colors of a character's status. M3's `ColorScheme` has no "success" role,
+/// so they live in a theme extension instead of widget literals.
+///
+/// `dead` and `unknown` are copied from a `ColorScheme`, so they don't follow
+/// later scheme changes: every theme with its own scheme (a dark theme, a
+/// `copyWith(colorScheme: …)`) must build its own [StatusColors] from it.
+@immutable
+class StatusColors extends ThemeExtension<StatusColors> {
+  const new({required this.alive, required this.dead, required this.unknown});
+
+  final Color alive;
+  final Color dead;
+  final Color unknown;
+
+  static StatusColors of(BuildContext context) {
+    final colors = Theme.of(context).extension<StatusColors>();
+    assert(
+      colors != null,
+      'No StatusColors in ThemeData.extensions; register one (see AppTheme).',
+    );
+    return colors!;
+  }
+
+  @override
+  StatusColors copyWith({Color? alive, Color? dead, Color? unknown}) {
+    return StatusColors(
+      alive: alive ?? this.alive,
+      dead: dead ?? this.dead,
+      unknown: unknown ?? this.unknown,
+    );
+  }
+
+  @override
+  StatusColors lerp(StatusColors? other, double t) {
+    if (other == null) return this;
+    return StatusColors(
+      alive: Color.lerp(alive, other.alive, t)!,
+      dead: Color.lerp(dead, other.dead, t)!,
+      unknown: Color.lerp(unknown, other.unknown, t)!,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      other is StatusColors &&
+      other.alive == alive &&
+      other.dead == dead &&
+      other.unknown == unknown;
+
+  @override
+  int get hashCode => Object.hash(alive, dead, unknown);
+}
