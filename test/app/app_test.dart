@@ -2,7 +2,6 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:rickandmorty/app/app.dart';
 import 'package:rickandmorty/core/result/result.dart';
 import 'package:rickandmorty/core/widgets/error_view.dart';
@@ -11,21 +10,14 @@ import 'package:rickandmorty/features/characters/presentation/list/characters_li
 
 import '../helpers/characters.dart';
 import '../helpers/fake_cache_manager.dart';
-
-class _MockRepository extends Mock implements CharactersRepository;
+import '../helpers/mock_characters_repository.dart';
 
 void main() {
   late GetIt getIt;
 
   setUp(() {
-    final repository = _MockRepository();
-    when(
-      () => repository.getCharacters(
-        page: any(named: 'page'),
-        name: any(named: 'name'),
-        cancelSignal: any(named: 'cancelSignal'),
-      ),
-    ).thenAnswer((_) async => Ok(charactersPage([1], hasNext: false)));
+    final repository = MockCharactersRepository()
+      ..stubAnyPage(Ok(charactersPage([1], hasNext: false)));
     getIt = GetIt.asNewInstance()
       ..registerSingleton<CharactersRepository>(repository)
       ..registerSingleton<BaseCacheManager>(FakeCacheManager());

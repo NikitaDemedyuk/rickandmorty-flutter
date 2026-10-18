@@ -9,7 +9,6 @@ import 'package:rickandmorty/core/widgets/empty_view.dart';
 import 'package:rickandmorty/core/widgets/error_view.dart';
 import 'package:rickandmorty/core/widgets/loading_view.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character.dart';
-import 'package:rickandmorty/features/characters/domain/repositories/characters_repository.dart';
 import 'package:rickandmorty/features/characters/presentation/list/bloc/characters_bloc.dart';
 import 'package:rickandmorty/features/characters/presentation/list/characters_list_page.dart';
 import 'package:rickandmorty/features/characters/presentation/list/widgets/character_tile.dart';
@@ -17,11 +16,10 @@ import 'package:rickandmorty/features/characters/presentation/list/widgets/list_
 
 import '../../../../helpers/characters.dart';
 import '../../../../helpers/fake_cache_manager.dart';
+import '../../../../helpers/mock_characters_repository.dart';
 import '../../../../helpers/pump_app.dart';
 
 class _MockBloc extends Mock implements CharactersBloc;
-
-class _MockRepository extends Mock implements CharactersRepository;
 
 void main() {
   late _MockBloc bloc;
@@ -151,14 +149,8 @@ void main() {
   });
 
   testWidgets('pull-to-refresh reloads the first page', (tester) async {
-    final repository = _MockRepository();
-    when(
-      () => repository.getCharacters(
-        page: any(named: 'page'),
-        name: any(named: 'name'),
-        cancelSignal: any(named: 'cancelSignal'),
-      ),
-    ).thenAnswer((_) async => Ok(charactersPage([1, 2], hasNext: false)));
+    final repository = MockCharactersRepository()
+      ..stubAnyPage(Ok(charactersPage([1, 2], hasNext: false)));
 
     await tester.pumpApp(
       BlocProvider(

@@ -8,12 +8,10 @@ import 'package:rickandmorty/core/error/failure.dart';
 import 'package:rickandmorty/core/result/result.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character.dart';
 import 'package:rickandmorty/features/characters/domain/entities/characters_page.dart';
-import 'package:rickandmorty/features/characters/domain/repositories/characters_repository.dart';
 import 'package:rickandmorty/features/characters/presentation/list/bloc/characters_bloc.dart';
 
 import '../../../../../helpers/characters.dart';
-
-class _MockRepository extends Mock implements CharactersRepository;
+import '../../../../../helpers/mock_characters_repository.dart';
 
 /// A request held open until the test completes it; records cancellation.
 final class _PendingRequest {
@@ -47,9 +45,9 @@ CharactersState charactersState({
 }) => CharactersState(query: query, paging: paging ?? PagingState());
 
 void main() {
-  late _MockRepository repository;
+  late MockCharactersRepository repository;
 
-  setUp(() => repository = _MockRepository());
+  setUp(() => repository = MockCharactersRepository());
 
   void stubPage(
     int page,
