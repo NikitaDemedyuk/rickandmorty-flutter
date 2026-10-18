@@ -14,6 +14,15 @@ class StatusColors extends ThemeExtension<StatusColors> {
   final Color dead;
   final Color unknown;
 
+  static StatusColors of(BuildContext context) {
+    final colors = Theme.of(context).extension<StatusColors>();
+    assert(
+      colors != null,
+      'No StatusColors in ThemeData.extensions; register one (see AppTheme).',
+    );
+    return colors!;
+  }
+
   @override
   StatusColors copyWith({Color? alive, Color? dead, Color? unknown}) {
     return StatusColors(

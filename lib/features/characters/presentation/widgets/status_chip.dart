@@ -13,7 +13,7 @@ class StatusChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final statusColors = theme.extension<StatusColors>()!;
+    final statusColors = StatusColors.of(context);
     final l10n = context.l10n;
     final (label, color) = switch (status) {
       CharacterStatus.alive => (l10n.statusAlive, statusColors.alive),

@@ -38,5 +38,20 @@ void main() {
     test('lerp to null keeps the colors', () {
       expect(colors.lerp(null, 0.5), colors);
     });
+
+    testWidgets('of asserts when the theme has no StatusColors', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        Builder(
+          builder: (context) {
+            StatusColors.of(context);
+            return const SizedBox();
+          },
+        ),
+      );
+
+      expect(tester.takeException(), isAssertionError);
+    });
   });
 }
