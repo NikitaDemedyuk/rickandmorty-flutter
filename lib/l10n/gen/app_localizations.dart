@@ -1,0 +1,260 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart' as intl;
+
+import 'app_localizations_en.dart';
+
+// ignore_for_file: type=lint
+
+/// Callers can lookup localized strings with an instance of AppLocalizations
+/// returned by `AppLocalizations.of(context)`.
+///
+/// Applications need to include `AppLocalizations.delegate()` in their app's
+/// `localizationDelegates` list, and the locales they support in the app's
+/// `supportedLocales` list. For example:
+///
+/// ```dart
+/// import 'gen/app_localizations.dart';
+///
+/// return MaterialApp(
+///   localizationsDelegates: AppLocalizations.localizationsDelegates,
+///   supportedLocales: AppLocalizations.supportedLocales,
+///   home: MyApplicationHome(),
+/// );
+/// ```
+///
+/// ## Update pubspec.yaml
+///
+/// Please make sure to update your pubspec.yaml to include the following
+/// packages:
+///
+/// ```yaml
+/// dependencies:
+///   # Internationalization support.
+///   flutter_localizations:
+///     sdk: flutter
+///   intl: any # Use the pinned version from flutter_localizations
+///
+///   # Rest of dependencies
+/// ```
+///
+/// ## iOS Applications
+///
+/// iOS applications define key application metadata, including supported
+/// locales, in an Info.plist file that is built into the application bundle.
+/// To configure the locales supported by your app, you’ll need to edit this
+/// file.
+///
+/// First, open your project’s ios/Runner.xcworkspace Xcode workspace file.
+/// Then, in the Project Navigator, open the Info.plist file under the Runner
+/// project’s Runner folder.
+///
+/// Next, select the Information Property List item, select Add Item from the
+/// Editor menu, then select Localizations from the pop-up menu.
+///
+/// Select and expand the newly-created Localizations item then, for each
+/// locale your application supports, add a new item and select the locale
+/// you wish to add from the pop-up menu in the Value field. This list should
+/// be consistent with the languages listed in the AppLocalizations.supportedLocales
+/// property.
+abstract class AppLocalizations {
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+
+  final String localeName;
+
+  static AppLocalizations of(BuildContext context) {
+    return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
+  }
+
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
+
+  /// A list of this localizations delegate along with the default localizations
+  /// delegates.
+  ///
+  /// Returns a list of localizations delegates containing this delegate along with
+  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
+  /// and GlobalWidgetsLocalizations.delegate.
+  ///
+  /// Additional delegates can be added by appending to this list in
+  /// MaterialApp. This list does not have to be used at all if a custom list
+  /// of delegates is preferred or required.
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
+
+  /// A list of this localizations delegate's supported locales.
+  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+
+  /// Application title shown in the app bar and task switcher.
+  ///
+  /// In en, this message translates to:
+  /// **'Rick and Morty'**
+  String get appTitle;
+
+  /// Button that repeats a failed request.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// Shown when a search returns no characters.
+  ///
+  /// In en, this message translates to:
+  /// **'No characters found'**
+  String get emptyResults;
+
+  /// Button on the not-found page that navigates to the home screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Go home'**
+  String get goHome;
+
+  /// Shown when navigating to an unknown route.
+  ///
+  /// In en, this message translates to:
+  /// **'Page not found'**
+  String get pageNotFound;
+
+  /// Shown when the device is offline or the server can't be reached.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t reach the server. Check your internet connection and try again.'**
+  String get errorNetwork;
+
+  /// Shown when a request timed out.
+  ///
+  /// In en, this message translates to:
+  /// **'The request took too long. Please try again.'**
+  String get errorTimeout;
+
+  /// Shown when the API returns a 5xx or unexpected status code.
+  ///
+  /// In en, this message translates to:
+  /// **'The server is not responding properly. Please try again later.'**
+  String get errorServer;
+
+  /// Shown when the requested resource does not exist.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing was found.'**
+  String get errorNotFound;
+
+  /// Shown when the API rate-limits the app (HTTP 429).
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait a moment and try again.'**
+  String get errorRateLimited;
+
+  /// Fallback message for unexpected errors.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get errorUnknown;
+
+  /// Placeholder of the search field on the characters list.
+  ///
+  /// In en, this message translates to:
+  /// **'Search characters'**
+  String get searchHint;
+
+  /// Tooltip of the button that clears the search field.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search'**
+  String get clearSearch;
+
+  /// Status chip label for a living character.
+  ///
+  /// In en, this message translates to:
+  /// **'Alive'**
+  String get statusAlive;
+
+  /// Status chip label for a dead character.
+  ///
+  /// In en, this message translates to:
+  /// **'Dead'**
+  String get statusDead;
+
+  /// Status chip label when the character's status is unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get statusUnknown;
+
+  /// Footer shown after the last character of the list.
+  ///
+  /// In en, this message translates to:
+  /// **'That\'s everyone, Morty!'**
+  String get endOfList;
+
+  /// Label of the character's species on the details screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Species'**
+  String get speciesLabel;
+
+  /// Label of the character's place of origin on the details screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Origin'**
+  String get originLabel;
+
+  /// Label of the character's last known location on the details screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Last known location'**
+  String get locationLabel;
+
+  /// Shown on the details screen when the character's origin or location is unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get unknownPlace;
+
+  /// Shown when the details screen is opened for a character id the API doesn't know.
+  ///
+  /// In en, this message translates to:
+  /// **'This character doesn\'t exist.'**
+  String get characterNotFound;
+}
+
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
+  const _AppLocalizationsDelegate();
+
+  @override
+  Future<AppLocalizations> load(Locale locale) {
+    return SynchronousFuture<AppLocalizations>(lookupAppLocalizations(locale));
+  }
+
+  @override
+  bool isSupported(Locale locale) =>
+      <String>['en'].contains(locale.languageCode);
+
+  @override
+  bool shouldReload(_AppLocalizationsDelegate old) => false;
+}
+
+AppLocalizations lookupAppLocalizations(Locale locale) {
+  // Lookup logic when only language code is specified.
+  switch (locale.languageCode) {
+    case 'en':
+      return AppLocalizationsEn();
+  }
+
+  throw FlutterError(
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
+}

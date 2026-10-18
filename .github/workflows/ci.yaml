@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [develop, main]
+  push:
+    branches: [develop, main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  analyze-and-test:
+    name: analyze-and-test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version-file: pubspec.yaml
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get --enforce-lockfile
+
+      - name: Check generated localizations are up to date
+        run: |
+          flutter gen-l10n
+          stale="$(git status --porcelain -- lib/l10n/gen)"
+          if [ -n "$stale" ]; then
+            echo "::error::Generated localizations are stale; run 'fvm flutter gen-l10n' and commit:"
+            echo "$stale"
+            exit 1
+          fi
+
+      - name: Check generated code is up to date
+        run: |
+          dart run build_runner build
+          stale="$(git status --porcelain -- lib)"
+          if [ -n "$stale" ]; then
+            echo "::error::Generated code is stale; run 'fvm dart run build_runner build' and commit:"
+            echo "$stale"
+            exit 1
+          fi
+
+      - name: Check app icons are up to date
+        run: |
+          dart run tool/generate_app_icons.dart
+          stale="$(git status --porcelain -- android/app/src/main/res ios/Runner/Assets.xcassets)"
+          if [ -n "$stale" ]; then
+            echo "::error::App icons are stale; run 'fvm dart run tool/generate_app_icons.dart' and commit:"
+            echo "$stale"
+            exit 1
+          fi
+
+      # Info.plist is left out: the generator only re-indents it.
+      - name: Check splash screen is up to date
+        run: |
+          dart run flutter_native_splash:create
+          stale="$(git status --porcelain -- android/app/src/main/res ios/Runner/Assets.xcassets ios/Runner/Base.lproj)"
+          if [ -n "$stale" ]; then
+            echo "::error::Splash screen is stale; run 'fvm dart run flutter_native_splash:create' and commit:"
+            echo "$stale"
+            exit 1
+          fi
+
+      - name: Check formatting
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: Analyze
+        run: flutter analyze --fatal-infos
+
+      - name: Test
+        run: flutter test --coverage
+
+      - name: Coverage summary
+        if: always() && hashFiles('coverage/lcov.info') != ''
+        run: |
+          awk -F: '
+            /^LF:/ { found += $2 }
+            /^LH:/ { hit += $2 }
+            END {
+              pct = found ? hit * 100 / found : 0
+              printf "### Coverage\n\n%.1f%% (%d / %d lines)\n", pct, hit, found
+            }
+          ' coverage/lcov.info >> "$GITHUB_STEP_SUMMARY"

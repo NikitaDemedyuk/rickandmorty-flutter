@@ -1,0 +1,156 @@
+import 'dart:async';
+
+import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:rickandmorty/core/error/failure.dart';
+import 'package:rickandmorty/core/result/result.dart';
+import 'package:rickandmorty/features/characters/domain/entities/character.dart';
+import 'package:rickandmorty/features/characters/domain/repositories/characters_repository.dart';
+import 'package:stream_transform/stream_transform.dart';
+
+part 'characters_bloc.freezed.dart';
+part 'characters_event.dart';
+part 'characters_state.dart';
+
+class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
+  new(this._repository) : super(CharactersState.initial()) {
+    on<CharactersQueryChanged>(
+      _onQueryChanged,
+      transformer: _debounceRestartable(searchDebounce),
+    );
+    on<CharactersNextPageRequested>(
+      _onNextPageRequested,
+      transformer: droppable(),
+    );
+    on<CharactersRefreshRequested>(
+      _onRefreshRequested,
+      transformer: restartable(),
+    );
+  }
+
+  static const Duration searchDebounce = Duration(milliseconds: 400);
+
+  final CharactersRepository _repository;
+
+  /// Completing it cancels the request currently in flight. Every request
+  /// replaces it, so it also tells a response whether it is still the latest.
+  Completer<void>? _cancelInFlight;
+
+  Future<void> _onQueryChanged(
+    CharactersQueryChanged event,
+    Emitter<CharactersState> emit,
+  ) async {
+    final query = event.query.trim();
+    if (query == state.query) return;
+    emit(CharactersState(query: query, paging: PagingState(isLoading: true)));
+    // Fetched here rather than through the list's `fetchNextPage`: that
+    // request could be dropped while a stale next page is still in flight.
+    await _fetchPage(1, emit);
+  }
+
+  Future<void> _onNextPageRequested(
+    CharactersNextPageRequested event,
+    Emitter<CharactersState> emit,
+  ) async {
+    final paging = state.paging;
+    // The list also asks while the first page of a new query is loading.
+    if (paging.isLoading || !paging.hasNextPage) return;
+    emit(state.copyWith(paging: paging.copyWith(isLoading: true, error: null)));
+    await _fetchPage(paging.nextIntPageKey, emit);
+  }
+
+  Future<void> _onRefreshRequested(
+    CharactersRefreshRequested event,
+    Emitter<CharactersState> emit,
+  ) async {
+    // Keeps the current items on screen until the fresh page arrives.
+    emit(
+      state.copyWith(
+        paging: state.paging.copyWith(isLoading: true, error: null),
+      ),
+    );
+    await _fetchPage(1, emit);
+  }
+
+  /// Loads [page] of the current query on top of the current paging state;
+  /// page 1 replaces the list once it arrives.
+  Future<void> _fetchPage(int page, Emitter<CharactersState> emit) async {
+    _cancelInFlight?.complete();
+    final cancel = _cancelInFlight = Completer<void>();
+    final requested = state.paging;
+
+    final result = await _repository.getCharacters(
+      page: page,
+      name: state.query,
+      cancelSignal: cancel.future,
+    );
+
+    // Stale guard: a new query or a refresh started a newer request meanwhile
+    // (this also discards the cancelled request's UnknownFailure). Keyed on
+    // the request, not on `state.paging`: Bloc skips emitting a state equal to
+    // the current one, so a refresh during a load leaves the paging untouched.
+    if (!identical(_cancelInFlight, cancel)) return;
+    _cancelInFlight = null;
+
+    final base = page == 1 ? PagingState<int, Character>() : requested;
+    emit(
+      state.copyWith(
+        paging: switch (result) {
+          Ok(:final value) => base.copyWith(
+            pages: [...?base.pages, _unseen(value.characters, base)],
+            keys: [...?base.keys, page],
+            hasNextPage: value.hasNext,
+            isLoading: false,
+          ),
+          // A failed refresh keeps the items the user was reading.
+          Err(:final failure) => requested.copyWith(
+            error: failure,
+            isLoading: false,
+          ),
+        },
+      ),
+    );
+  }
+
+  /// Drops characters an earlier page already holds: the data can shift
+  /// between page requests, and a repeated id would repeat its Hero tag.
+  static List<Character> _unseen(
+    List<Character> characters,
+    PagingState<int, Character> loaded,
+  ) {
+    final ids = {...?loaded.items?.map((character) => character.id)};
+    return [
+      for (final character in characters)
+        if (!ids.contains(character.id)) character,
+    ];
+  }
+
+  @override
+  Future<void> close() {
+    // Cleared so a second close() doesn't complete it again, and so the
+    // cancelled response counts as stale.
+    _cancelInFlight?.complete();
+    _cancelInFlight = null;
+    return super.close();
+  }
+}
+
+/// Waits for [duration] of quiet, then cancels the previous handler.
+///
+/// A query that trims to the previous one is dropped first: restarting would
+/// silence the handler still loading it, and the new one has nothing to load.
+EventTransformer<CharactersQueryChanged> _debounceRestartable(
+  Duration duration,
+) {
+  final restart = restartable<CharactersQueryChanged>();
+  return (events, mapper) => restart(
+    events
+        .debounce(duration)
+        .distinct(
+          (previous, next) => previous.query.trim() == next.query.trim(),
+        ),
+    mapper,
+  );
+}

@@ -1,0 +1,91 @@
+{
+  "@@locale": "en",
+  "appTitle": "Rick and Morty",
+  "@appTitle": {
+    "description": "Application title shown in the app bar and task switcher."
+  },
+  "retry": "Retry",
+  "@retry": {
+    "description": "Button that repeats a failed request."
+  },
+  "emptyResults": "No characters found",
+  "@emptyResults": {
+    "description": "Shown when a search returns no characters."
+  },
+  "goHome": "Go home",
+  "@goHome": {
+    "description": "Button on the not-found page that navigates to the home screen."
+  },
+  "pageNotFound": "Page not found",
+  "@pageNotFound": {
+    "description": "Shown when navigating to an unknown route."
+  },
+  "errorNetwork": "Can't reach the server. Check your internet connection and try again.",
+  "@errorNetwork": {
+    "description": "Shown when the device is offline or the server can't be reached."
+  },
+  "errorTimeout": "The request took too long. Please try again.",
+  "@errorTimeout": {
+    "description": "Shown when a request timed out."
+  },
+  "errorServer": "The server is not responding properly. Please try again later.",
+  "@errorServer": {
+    "description": "Shown when the API returns a 5xx or unexpected status code."
+  },
+  "errorNotFound": "Nothing was found.",
+  "@errorNotFound": {
+    "description": "Shown when the requested resource does not exist."
+  },
+  "errorRateLimited": "Too many requests. Wait a moment and try again.",
+  "@errorRateLimited": {
+    "description": "Shown when the API rate-limits the app (HTTP 429)."
+  },
+  "errorUnknown": "Something went wrong. Please try again.",
+  "@errorUnknown": {
+    "description": "Fallback message for unexpected errors."
+  },
+  "searchHint": "Search characters",
+  "@searchHint": {
+    "description": "Placeholder of the search field on the characters list."
+  },
+  "clearSearch": "Clear search",
+  "@clearSearch": {
+    "description": "Tooltip of the button that clears the search field."
+  },
+  "statusAlive": "Alive",
+  "@statusAlive": {
+    "description": "Status chip label for a living character."
+  },
+  "statusDead": "Dead",
+  "@statusDead": {
+    "description": "Status chip label for a dead character."
+  },
+  "statusUnknown": "Unknown",
+  "@statusUnknown": {
+    "description": "Status chip label when the character's status is unknown."
+  },
+  "endOfList": "That's everyone, Morty!",
+  "@endOfList": {
+    "description": "Footer shown after the last character of the list."
+  },
+  "speciesLabel": "Species",
+  "@speciesLabel": {
+    "description": "Label of the character's species on the details screen."
+  },
+  "originLabel": "Origin",
+  "@originLabel": {
+    "description": "Label of the character's place of origin on the details screen."
+  },
+  "locationLabel": "Last known location",
+  "@locationLabel": {
+    "description": "Label of the character's last known location on the details screen."
+  },
+  "unknownPlace": "Unknown",
+  "@unknownPlace": {
+    "description": "Shown on the details screen when the character's origin or location is unknown."
+  },
+  "characterNotFound": "This character doesn't exist.",
+  "@characterNotFound": {
+    "description": "Shown when the details screen is opened for a character id the API doesn't know."
+  }
+}
