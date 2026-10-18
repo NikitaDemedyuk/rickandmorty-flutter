@@ -194,5 +194,21 @@ void main() {
 
       expect(result, const Err<Character>(NetworkFailure()));
     });
+
+    test('maps other bad responses to ServerFailure', () async {
+      when(() => remote.fetchCharacter(any())).thenThrow(badResponse(500));
+
+      final result = await repository.getCharacter(1);
+
+      expect(result, const Err<Character>(ServerFailure(500)));
+    });
+
+    test('maps a malformed payload to UnknownFailure', () async {
+      when(() => remote.fetchCharacter(any())).thenThrow(malformed);
+
+      final result = await repository.getCharacter(1);
+
+      expect(result, const Err<Character>(UnknownFailure()));
+    });
   });
 }
