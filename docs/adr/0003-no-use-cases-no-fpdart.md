@@ -1,7 +1,7 @@
 # 3. No use cases, no fpdart
 
 - **Status:** Accepted
-- **Date:** 2026-10-18
+- **Date:** 2026-10-17
 
 ## Context
 
