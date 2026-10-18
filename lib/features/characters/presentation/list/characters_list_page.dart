@@ -84,7 +84,7 @@ class _CharactersListPageState extends State<CharactersListPage> {
             child: RefreshIndicator(
               onRefresh: _refresh,
               child: BlocBuilder<CharactersBloc, CharactersState>(
-                builder: (context, state) => PagedListView<int, Character>(
+                builder: (_, state) => PagedListView<int, Character>(
                   key: const PageStorageKey('characters-list'),
                   state: state.paging,
                   fetchNextPage: _requestNextPage,

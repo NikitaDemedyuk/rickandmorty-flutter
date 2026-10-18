@@ -217,7 +217,7 @@ void main() {
       );
     });
 
-    testBloc('ignores requests while a page is loading', (async, bloc, states) {
+    testBloc('ignores requests while a page is loading', (async, bloc, _) {
       final request = _PendingRequest();
       stubPage(1, request.answer);
 
@@ -395,11 +395,7 @@ void main() {
       verifyZeroInteractions(repository);
     });
 
-    testBloc('shows no items for a search without matches', (
-      async,
-      bloc,
-      states,
-    ) {
+    testBloc('shows no items for a search without matches', (async, bloc, _) {
       stubResult(1, const Ok(CharactersPage.empty), name: 'zzz');
 
       search(async, bloc, 'zzz');
@@ -447,7 +443,7 @@ void main() {
       );
     });
 
-    testBloc('cancels and discards the previous query', (async, bloc, states) {
+    testBloc('cancels and discards the previous query', (async, bloc, _) {
       final stale = _PendingRequest();
       final fresh = _PendingRequest();
       stubPage(1, stale.answer, name: 'morty');
