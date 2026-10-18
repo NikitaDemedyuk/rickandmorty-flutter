@@ -23,8 +23,10 @@ class _MockBloc extends Mock implements CharactersBloc;
 
 void main() {
   late _MockBloc bloc;
+  late List<Character> tapped;
 
   setUp(() {
+    tapped = [];
     bloc = _MockBloc();
     when(() => bloc.stream).thenAnswer((_) => const Stream.empty());
   });
@@ -38,7 +40,10 @@ void main() {
     await tester.pumpApp(
       BlocProvider<CharactersBloc>.value(
         value: bloc,
-        child: CharactersListPage(cacheManager: FakeCacheManager()),
+        child: CharactersListPage(
+          cacheManager: FakeCacheManager(),
+          onCharacterTap: tapped.add,
+        ),
       ),
     );
     // Lets the list run its post-frame fetchNextPage, if any.
@@ -128,6 +133,17 @@ void main() {
       expect(find.byType(EndOfListFooter), findsOneWidget);
       expect(find.text("That's everyone, Morty!"), findsOneWidget);
     });
+
+    testWidgets('opens the tapped character', (tester) async {
+      await pumpWithState(
+        tester,
+        PagingState(pages: pageOf([1, 2]), keys: const [1], hasNextPage: false),
+      );
+
+      await tester.tap(find.text('Character 2'));
+
+      expect(tapped, [character(2)]);
+    });
   });
 
   group('search', () {
@@ -155,7 +171,10 @@ void main() {
     await tester.pumpApp(
       BlocProvider(
         create: (_) => CharactersBloc(repository),
-        child: CharactersListPage(cacheManager: FakeCacheManager()),
+        child: CharactersListPage(
+          cacheManager: FakeCacheManager(),
+          onCharacterTap: tapped.add,
+        ),
       ),
     );
     await tester.pumpAndSettle();

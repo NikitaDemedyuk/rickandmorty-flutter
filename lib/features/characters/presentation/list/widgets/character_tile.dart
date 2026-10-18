@@ -5,16 +5,23 @@ import 'package:rickandmorty/features/characters/presentation/widgets/character_
 import 'package:rickandmorty/features/characters/presentation/widgets/status_chip.dart';
 
 class CharacterTile extends StatelessWidget {
-  const new({required this.character, required this.cacheManager, super.key});
+  const new({
+    required this.character,
+    required this.cacheManager,
+    required this.onTap,
+    super.key,
+  });
 
   final Character character;
   final BaseCacheManager cacheManager;
+  final VoidCallback onTap;
 
   static const double _avatarSize = 56;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: onTap,
       leading: ClipOval(
         child: SizedBox.square(
           dimension: _avatarSize,

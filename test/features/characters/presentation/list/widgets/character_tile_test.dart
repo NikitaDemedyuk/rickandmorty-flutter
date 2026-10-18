@@ -15,6 +15,7 @@ void main() {
       CharacterTile(
         character: character(1, status: CharacterStatus.dead),
         cacheManager: cacheManager,
+        onTap: () {},
       ),
     );
 
@@ -27,5 +28,20 @@ void main() {
     expect(image.cacheManager, same(cacheManager));
     // Decoded at thumbnail size: 56 logical px at the test's 3x ratio.
     expect(image.memCacheWidth, 168);
+  });
+
+  testWidgets('calls onTap when tapped', (tester) async {
+    var taps = 0;
+    await tester.pumpApp(
+      CharacterTile(
+        character: character(1),
+        cacheManager: FakeCacheManager(),
+        onTap: () => taps++,
+      ),
+    );
+
+    await tester.tap(find.byType(CharacterTile));
+
+    expect(taps, 1);
   });
 }
