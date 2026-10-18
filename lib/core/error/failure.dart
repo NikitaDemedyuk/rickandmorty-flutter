@@ -7,29 +7,29 @@ sealed class Failure {
   const new();
 }
 
-/// Equality for failures without fields: equal when the type matches.
-/// `toString` stays per class, since `runtimeType` names are obfuscated in
-/// release builds.
-@immutable
-mixin _TypeEquality {
-  @override
-  bool operator ==(Object other) => other.runtimeType == runtimeType;
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-}
-
 /// No connection: the device is offline or the host is unreachable.
-final class NetworkFailure extends Failure with _TypeEquality {
+final class NetworkFailure extends Failure {
   const new();
+
+  @override
+  bool operator ==(Object other) => other is NetworkFailure;
+
+  @override
+  int get hashCode => (NetworkFailure).hashCode;
 
   @override
   String toString() => 'NetworkFailure()';
 }
 
 /// The connection was made but the server took too long to answer.
-final class TimeoutFailure extends Failure with _TypeEquality {
+final class TimeoutFailure extends Failure {
   const new();
+
+  @override
+  bool operator ==(Object other) => other is TimeoutFailure;
+
+  @override
+  int get hashCode => (TimeoutFailure).hashCode;
 
   @override
   String toString() => 'TimeoutFailure()';
@@ -53,8 +53,14 @@ final class ServerFailure extends Failure {
 }
 
 /// The requested resource does not exist (HTTP 404).
-final class NotFoundFailure extends Failure with _TypeEquality {
+final class NotFoundFailure extends Failure {
   const new();
+
+  @override
+  bool operator ==(Object other) => other is NotFoundFailure;
+
+  @override
+  int get hashCode => (NotFoundFailure).hashCode;
 
   @override
   String toString() => 'NotFoundFailure()';
@@ -79,12 +85,18 @@ final class RateLimitFailure extends Failure {
 }
 
 /// Anything else, including cancelled requests.
-final class UnknownFailure extends Failure with _TypeEquality {
+final class UnknownFailure extends Failure {
   const new([this.error]);
 
   /// Kept for debugging only; excluded from equality because exceptions
   /// compare by identity.
   final Object? error;
+
+  @override
+  bool operator ==(Object other) => other is UnknownFailure;
+
+  @override
+  int get hashCode => (UnknownFailure).hashCode;
 
   @override
   String toString() => 'UnknownFailure($error)';
