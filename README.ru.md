@@ -6,6 +6,10 @@
 
 Flutter-клиент для [Rick and Morty API](https://rickandmortyapi.com): постраничный список персонажей с поиском и экран с подробностями.
 
+| Список | Поиск | Подробности | Ошибка |
+| ------ | ----- | ----------- | ------ |
+| <img src="docs/screenshots/characters-list/list.png" alt="Список" width="180"> | <img src="docs/screenshots/characters-list/search.png" alt="Поиск" width="180"> | <img src="docs/screenshots/character-details/details.png" alt="Подробности" width="180"> | <img src="docs/screenshots/characters-list/first-page-error.png" alt="Ошибка" width="180"> |
+
 ## Возможности
 
 - **Бесконечная прокрутка** по всем персонажам API, по 20 на страницу, с pull-to-refresh.

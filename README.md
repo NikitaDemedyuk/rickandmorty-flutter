@@ -6,6 +6,10 @@ English | [Русский](README.ru.md)
 
 A Flutter client for the [Rick and Morty API](https://rickandmortyapi.com): a paginated, searchable character list and a details screen.
 
+| List | Search | Details | Error |
+| ---- | ------ | ------- | ----- |
+| <img src="docs/screenshots/characters-list/list.png" alt="List" width="180"> | <img src="docs/screenshots/characters-list/search.png" alt="Search" width="180"> | <img src="docs/screenshots/character-details/details.png" alt="Details" width="180"> | <img src="docs/screenshots/characters-list/first-page-error.png" alt="Error" width="180"> |
+
 ## Features
 
 - **Infinite scroll** over every character in the API, 20 per page, with pull-to-refresh.
