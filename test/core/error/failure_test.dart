@@ -11,6 +11,17 @@ void main() {
       );
     });
 
+    test('differs by retryAfter', () {
+      expect(
+        const RateLimitFailure(Duration(seconds: 1)),
+        isNot(const RateLimitFailure(Duration(seconds: 2))),
+      );
+      expect(
+        const RateLimitFailure(Duration(seconds: 1)),
+        isNot(const RateLimitFailure()),
+      );
+    });
+
     test('differs from the other failures', () {
       for (final other in <Failure>[
         const NetworkFailure(),

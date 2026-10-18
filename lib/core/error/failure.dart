@@ -40,16 +40,20 @@ final class ServerFailure extends Failure {
 
 /// The API is throttling this client (HTTP 429).
 final class RateLimitFailure extends Failure {
-  const new();
+  const new([this.retryAfter]);
+
+  /// How long the API asked to wait (`Retry-After`), if it said.
+  final Duration? retryAfter;
 
   @override
-  bool operator ==(Object other) => other is RateLimitFailure;
+  bool operator ==(Object other) =>
+      other is RateLimitFailure && other.retryAfter == retryAfter;
 
   @override
-  int get hashCode => (RateLimitFailure).hashCode;
+  int get hashCode => Object.hash(RateLimitFailure, retryAfter);
 
   @override
-  String toString() => 'RateLimitFailure()';
+  String toString() => 'RateLimitFailure($retryAfter)';
 }
 
 /// The requested resource does not exist (HTTP 404).
