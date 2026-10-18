@@ -57,6 +57,15 @@ void main() {
         ),
       );
     });
+
+    test('throws CheckedFromJsonException on an empty body', () async {
+      adapter.respond('');
+
+      expect(
+        () => dataSource.fetchCharacters(page: 1),
+        throwsA(isA<CheckedFromJsonException>()),
+      );
+    });
   });
 
   group('fetchCharacter', () {
@@ -71,6 +80,15 @@ void main() {
 
     test('throws CheckedFromJsonException on a malformed payload', () async {
       adapter.respond(fixture('malformed_character.json'));
+
+      expect(
+        () => dataSource.fetchCharacter(1),
+        throwsA(isA<CheckedFromJsonException>()),
+      );
+    });
+
+    test('throws CheckedFromJsonException on an empty body', () async {
+      adapter.respond('');
 
       expect(
         () => dataSource.fetchCharacter(1),
