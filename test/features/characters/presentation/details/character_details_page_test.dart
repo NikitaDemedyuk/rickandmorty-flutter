@@ -44,6 +44,12 @@ void main() {
     );
   }
 
+  testWidgets('shows a loader before the first load', (tester) async {
+    await pumpWithState(tester, const CharacterDetailsInitial());
+
+    expect(find.byType(LoadingView), findsOneWidget);
+  });
+
   group('while fetching', () {
     testWidgets('shows only a loader without a handed-over portrait', (
       tester,

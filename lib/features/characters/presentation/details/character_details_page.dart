@@ -34,6 +34,7 @@ class CharacterDetailsPage extends StatelessWidget {
           },
         ),
         body: switch (state) {
+          CharacterDetailsInitial() ||
           CharacterDetailsLoading() when imageUrl != null => _DetailsLayout(
             characterId: context.read<CharacterDetailsCubit>().id,
             imageUrl: imageUrl,
@@ -42,6 +43,7 @@ class CharacterDetailsPage extends StatelessWidget {
               Padding(padding: EdgeInsets.all(24), child: LoadingView()),
             ],
           ),
+          CharacterDetailsInitial() ||
           CharacterDetailsLoading() => const LoadingView(),
           // Retrying an id the API doesn't know can't help; Back is there.
           CharacterDetailsFailure(failure: NotFoundFailure()) => ErrorView(

@@ -56,10 +56,11 @@ extension CharacterDetailsStatePatterns on CharacterDetailsState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( CharacterDetailsLoading value)?  loading,TResult Function( CharacterDetailsLoaded value)?  loaded,TResult Function( CharacterDetailsFailure value)?  failure,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( CharacterDetailsInitial value)?  initial,TResult Function( CharacterDetailsLoading value)?  loading,TResult Function( CharacterDetailsLoaded value)?  loaded,TResult Function( CharacterDetailsFailure value)?  failure,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case CharacterDetailsLoading() when loading != null:
+case CharacterDetailsInitial() when initial != null:
+return initial(_that);case CharacterDetailsLoading() when loading != null:
 return loading(_that);case CharacterDetailsLoaded() when loaded != null:
 return loaded(_that);case CharacterDetailsFailure() when failure != null:
 return failure(_that);case _:
@@ -80,10 +81,11 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( CharacterDetailsLoading value)  loading,required TResult Function( CharacterDetailsLoaded value)  loaded,required TResult Function( CharacterDetailsFailure value)  failure,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( CharacterDetailsInitial value)  initial,required TResult Function( CharacterDetailsLoading value)  loading,required TResult Function( CharacterDetailsLoaded value)  loaded,required TResult Function( CharacterDetailsFailure value)  failure,}){
 final _that = this;
 switch (_that) {
-case CharacterDetailsLoading():
+case CharacterDetailsInitial():
+return initial(_that);case CharacterDetailsLoading():
 return loading(_that);case CharacterDetailsLoaded():
 return loaded(_that);case CharacterDetailsFailure():
 return failure(_that);}
@@ -100,10 +102,11 @@ return failure(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( CharacterDetailsLoading value)?  loading,TResult? Function( CharacterDetailsLoaded value)?  loaded,TResult? Function( CharacterDetailsFailure value)?  failure,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( CharacterDetailsInitial value)?  initial,TResult? Function( CharacterDetailsLoading value)?  loading,TResult? Function( CharacterDetailsLoaded value)?  loaded,TResult? Function( CharacterDetailsFailure value)?  failure,}){
 final _that = this;
 switch (_that) {
-case CharacterDetailsLoading() when loading != null:
+case CharacterDetailsInitial() when initial != null:
+return initial(_that);case CharacterDetailsLoading() when loading != null:
 return loading(_that);case CharacterDetailsLoaded() when loaded != null:
 return loaded(_that);case CharacterDetailsFailure() when failure != null:
 return failure(_that);case _:
@@ -123,9 +126,10 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loading,TResult Function( Character character)?  loaded,TResult Function( Failure failure)?  failure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( Character character)?  loaded,TResult Function( Failure failure)?  failure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case CharacterDetailsLoading() when loading != null:
+case CharacterDetailsInitial() when initial != null:
+return initial();case CharacterDetailsLoading() when loading != null:
 return loading();case CharacterDetailsLoaded() when loaded != null:
 return loaded(_that.character);case CharacterDetailsFailure() when failure != null:
 return failure(_that.failure);case _:
@@ -146,9 +150,10 @@ return failure(_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loading,required TResult Function( Character character)  loaded,required TResult Function( Failure failure)  failure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( Character character)  loaded,required TResult Function( Failure failure)  failure,}) {final _that = this;
 switch (_that) {
-case CharacterDetailsLoading():
+case CharacterDetailsInitial():
+return initial();case CharacterDetailsLoading():
 return loading();case CharacterDetailsLoaded():
 return loaded(_that.character);case CharacterDetailsFailure():
 return failure(_that.failure);}
@@ -165,9 +170,10 @@ return failure(_that.failure);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loading,TResult? Function( Character character)?  loaded,TResult? Function( Failure failure)?  failure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( Character character)?  loaded,TResult? Function( Failure failure)?  failure,}) {final _that = this;
 switch (_that) {
-case CharacterDetailsLoading() when loading != null:
+case CharacterDetailsInitial() when initial != null:
+return initial();case CharacterDetailsLoading() when loading != null:
 return loading();case CharacterDetailsLoaded() when loaded != null:
 return loaded(_that.character);case CharacterDetailsFailure() when failure != null:
 return failure(_that.failure);case _:
@@ -177,6 +183,38 @@ return failure(_that.failure);case _:
 }
 
 }
+
+/// @nodoc
+
+
+class CharacterDetailsInitial implements CharacterDetailsState {
+  const CharacterDetailsInitial();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CharacterDetailsInitial);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+    return 'CharacterDetailsState.initial()';
+}
+
+
+}
+
+
+
 
 /// @nodoc
 

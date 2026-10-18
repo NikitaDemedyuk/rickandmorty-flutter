@@ -29,8 +29,8 @@ void main() {
   /// Lets the cubit's broadcast stream deliver what it emitted.
   Future<void> settle() => pumpEventQueue();
 
-  test('starts loading and requests nothing until load()', () {
-    expect(cubit.state, isA<CharacterDetailsLoading>());
+  test('starts initial and requests nothing until load()', () {
+    expect(cubit.state, isA<CharacterDetailsInitial>());
     verifyZeroInteractions(repository);
   });
 
@@ -40,7 +40,10 @@ void main() {
     await cubit.load();
     await settle();
 
-    expect(states, [CharacterDetailsLoaded(character(1))]);
+    expect(states, [
+      const CharacterDetailsLoading(),
+      CharacterDetailsLoaded(character(1)),
+    ]);
   });
 
   test('emits the failure', () async {
@@ -49,7 +52,10 @@ void main() {
     await cubit.load();
     await settle();
 
-    expect(states, [const CharacterDetailsFailure(NetworkFailure())]);
+    expect(states, [
+      const CharacterDetailsLoading(),
+      const CharacterDetailsFailure(NetworkFailure()),
+    ]);
   });
 
   test('a retry after a failure loads again', () async {
@@ -61,6 +67,7 @@ void main() {
     await settle();
 
     expect(states, [
+      const CharacterDetailsLoading(),
       const CharacterDetailsFailure(NetworkFailure()),
       const CharacterDetailsLoading(),
       CharacterDetailsLoaded(character(1)),
@@ -78,7 +85,10 @@ void main() {
     await settle();
 
     verify(() => repository.getCharacter(1)).called(1);
-    expect(states, [CharacterDetailsLoaded(character(1))]);
+    expect(states, [
+      const CharacterDetailsLoading(),
+      CharacterDetailsLoaded(character(1)),
+    ]);
   });
 
   test('drops a response that arrives after close()', () async {
@@ -90,6 +100,6 @@ void main() {
     response.complete(Ok(character(1)));
 
     await expectLater(load, completes);
-    expect(states, isEmpty);
+    expect(states, [const CharacterDetailsLoading()]);
   });
 }
