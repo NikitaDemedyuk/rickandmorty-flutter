@@ -33,13 +33,13 @@ class StatusChip extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         child: Row(
           mainAxisSize: MainAxisSize.min,
+          spacing: 6,
           children: [
             DecoratedBox(
               key: dotKey,
               decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               child: const SizedBox.square(dimension: 8),
             ),
-            const SizedBox(width: 6),
             Text(label, style: theme.textTheme.labelMedium),
           ],
         ),
