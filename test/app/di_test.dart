@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rickandmorty/app/di.dart';
@@ -24,5 +25,10 @@ void main() {
     final repository = getIt<CharactersRepository>();
     expect(repository, isA<CharactersRepositoryImpl>());
     expect(identical(repository, getIt<CharactersRepository>()), isTrue);
+  });
+
+  test('registers the image cache manager', () {
+    // Not resolved: DefaultCacheManager needs platform plugins.
+    expect(getIt.isRegistered<BaseCacheManager>(), isTrue);
   });
 }

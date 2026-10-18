@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rickandmorty/core/network/dio_client.dart';
 import 'package:rickandmorty/features/characters/data/datasources/characters_remote_data_source.dart';
@@ -13,5 +14,6 @@ void configureDependencies(GetIt getIt) {
     ..registerLazySingleton(() => CharactersRemoteDataSource(getIt<Dio>()))
     ..registerLazySingleton<CharactersRepository>(
       () => CharactersRepositoryImpl(getIt<CharactersRemoteDataSource>()),
-    );
+    )
+    ..registerLazySingleton<BaseCacheManager>(DefaultCacheManager.new);
 }

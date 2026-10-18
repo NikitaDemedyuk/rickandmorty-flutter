@@ -153,6 +153,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong. Please try again.'**
   String get errorUnknown;
+
+  /// Placeholder of the search field on the characters list.
+  ///
+  /// In en, this message translates to:
+  /// **'Search characters'**
+  String get searchHint;
+
+  /// Tooltip of the button that clears the search field.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search'**
+  String get clearSearch;
+
+  /// Status chip label for a living character.
+  ///
+  /// In en, this message translates to:
+  /// **'Alive'**
+  String get statusAlive;
+
+  /// Status chip label for a dead character.
+  ///
+  /// In en, this message translates to:
+  /// **'Dead'**
+  String get statusDead;
+
+  /// Status chip label when the character's status is unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get statusUnknown;
+
+  /// Footer shown after the last character of the list.
+  ///
+  /// In en, this message translates to:
+  /// **'That\'s everyone, Morty!'**
+  String get endOfList;
 }
 
 class _AppLocalizationsDelegate
