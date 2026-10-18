@@ -5,6 +5,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-10-18
+
 ### Added
 
 - Characters list with infinite scroll, pull-to-refresh, and debounced search by name ([#4](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/4)).
@@ -17,5 +19,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - An original portal app icon, adaptive on Android and with dark and tinted variants on iOS ([#12](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/12)).
 - A native splash screen showing the portal icon on the app's dark background ([#13](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/13)).
 - README in English and Russian, with an architecture overview ([#11](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/11)).
+- Release workflow: a version tag publishes a GitHub Release with the APK ([#14](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/14)).
 
-[Unreleased]: https://github.com/NikitaDemedyuk/rickandmorty-flutter/compare/main...develop
+[Unreleased]: https://github.com/NikitaDemedyuk/rickandmorty-flutter/compare/v1.0.0...develop
+[1.0.0]: https://github.com/NikitaDemedyuk/rickandmorty-flutter/releases/tag/v1.0.0
