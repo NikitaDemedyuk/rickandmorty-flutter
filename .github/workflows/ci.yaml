@@ -49,6 +49,16 @@ jobs:
             exit 1
           fi
 
+      - name: Check app icons are up to date
+        run: |
+          dart run tool/generate_app_icons.dart
+          stale="$(git status --porcelain -- android/app/src/main/res ios/Runner/Assets.xcassets)"
+          if [ -n "$stale" ]; then
+            echo "::error::App icons are stale; run 'fvm dart run tool/generate_app_icons.dart' and commit:"
+            echo "$stale"
+            exit 1
+          fi
+
       - name: Check formatting
         run: dart format --output=none --set-exit-if-changed .
 
