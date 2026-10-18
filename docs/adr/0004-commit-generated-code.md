@@ -11,6 +11,7 @@ The app uses code generation for `freezed` and `json_serializable` (`*.freezed.d
 
 - Generated files are committed.
 - CI regenerates them (`flutter gen-l10n`, `dart run build_runner build`) and fails if `git status` shows any change under `lib/`. That means a committed file is either fresh or the build is red.
+- The same holds for the platform app icons and native splash files (`android/app/src/main/res`, `ios/Runner/Assets.xcassets`, `ios/Runner/Base.lproj`): CI regenerates them with `dart run tool/generate_app_icons.dart` and `dart run flutter_native_splash:create`. Edit their sources (`assets/icon/`, `flutter_native_splash.yaml`), never the platform files.
 
 ## Consequences
 
