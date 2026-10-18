@@ -8,7 +8,7 @@ Flutter-клиент для [Rick and Morty API](https://rickandmortyapi.com): �
 
 | Список | Поиск | Подробности | Ошибка |
 | ------ | ----- | ----------- | ------ |
-| ![Список](docs/screenshots/characters-list/list.png) | ![Поиск](docs/screenshots/characters-list/search.png) | ![Подробности](docs/screenshots/character-details/details.png) | ![Ошибка](docs/screenshots/characters-list/first-page-error.png) |
+| <img src="docs/screenshots/characters-list/list.png" alt="Список" width="180"> | <img src="docs/screenshots/characters-list/search.png" alt="Поиск" width="180"> | <img src="docs/screenshots/character-details/details.png" alt="Подробности" width="180"> | <img src="docs/screenshots/characters-list/first-page-error.png" alt="Ошибка" width="180"> |
 
 ## Возможности
 

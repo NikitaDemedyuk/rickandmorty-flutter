@@ -8,7 +8,7 @@ A Flutter client for the [Rick and Morty API](https://rickandmortyapi.com): a pa
 
 | List | Search | Details | Error |
 | ---- | ------ | ------- | ----- |
-| ![List](docs/screenshots/characters-list/list.png) | ![Search](docs/screenshots/characters-list/search.png) | ![Details](docs/screenshots/character-details/details.png) | ![Error](docs/screenshots/characters-list/first-page-error.png) |
+| <img src="docs/screenshots/characters-list/list.png" alt="List" width="180"> | <img src="docs/screenshots/characters-list/search.png" alt="Search" width="180"> | <img src="docs/screenshots/character-details/details.png" alt="Details" width="180"> | <img src="docs/screenshots/characters-list/first-page-error.png" alt="Error" width="180"> |
 
 ## Features
 
