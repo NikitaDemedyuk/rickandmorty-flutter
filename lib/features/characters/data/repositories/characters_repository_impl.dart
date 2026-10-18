@@ -19,7 +19,10 @@ final class CharactersRepositoryImpl implements CharactersRepository {
     required int page,
     String? name,
   }) async {
-    final query = name == null || name.isEmpty ? null : name;
+    final query = switch (name?.trim()) {
+      null || '' => null,
+      final trimmed => trimmed,
+    };
     final result = await _guard(
       () async =>
           (await _remote.fetchCharacters(page: page, name: query)).toEntity(),

@@ -85,13 +85,23 @@ void main() {
       verify(() => remote.fetchCharacters(page: 3, name: 'rick')).called(1);
     });
 
-    test('drops an empty name filter', () async {
+    test('trims the name filter', () async {
       stubFetch(() async => pageDto);
 
-      await repository.getCharacters(page: 1, name: '');
+      await repository.getCharacters(page: 1, name: '  rick ');
 
-      verify(() => remote.fetchCharacters(page: 1)).called(1);
+      verify(() => remote.fetchCharacters(page: 1, name: 'rick')).called(1);
     });
+
+    for (final name in ['', '   ']) {
+      test('drops a blank name filter "$name"', () async {
+        stubFetch(() async => pageDto);
+
+        await repository.getCharacters(page: 1, name: name);
+
+        verify(() => remote.fetchCharacters(page: 1)).called(1);
+      });
+    }
 
     test('maps a 404 on a search to an empty page', () async {
       stubFetch(() => Future.error(badResponse(404)));
