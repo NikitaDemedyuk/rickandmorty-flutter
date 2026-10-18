@@ -1,0 +1,20 @@
+# Native launch screen. After editing, regenerate the platform files with
+#   fvm dart run flutter_native_splash:create
+# and commit them; never hand-edit the generated launch files.
+flutter_native_splash:
+  # Night sky at the top of the artwork: fills around the image and behind the
+  # Android 12+ icon.
+  color: "#151629"
+
+  # The whole poster, on `color` where the screen's ratio differs. `image`, not
+  # `background_image`, which stretches; aspect-fill would crop the title.
+  image: assets/splash/splash.png
+  ios_content_mode: scaleAspectFit
+  android_gravity: center
+
+  # Android 12+ only allows a centered icon on a solid color.
+  android_12:
+    image: assets/icon/icon_foreground.png
+    color: "#151629"
+
+  web: false

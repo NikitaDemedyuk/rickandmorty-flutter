@@ -21,6 +21,7 @@ fvm flutter run
 ## Development
 
 ```bash
+fvm dart run flutter_native_splash:create  # after editing flutter_native_splash.yaml
 fvm dart format .
 fvm flutter analyze --fatal-infos
 fvm flutter test --coverage
