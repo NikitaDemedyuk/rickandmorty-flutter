@@ -395,11 +395,7 @@ void main() {
       verifyZeroInteractions(repository);
     });
 
-    testBloc('shows no items for a search without matches', (
-      async,
-      bloc,
-      states,
-    ) {
+    testBloc('shows no items for a search without matches', (async, bloc, _) {
       stubResult(1, const Ok(CharactersPage.empty), name: 'zzz');
 
       search(async, bloc, 'zzz');
