@@ -142,6 +142,12 @@ abstract class AppLocalizations {
   /// **'Nothing was found.'**
   String get errorNotFound;
 
+  /// Shown when the API rate-limits the app (HTTP 429).
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait a moment and try again.'**
+  String get errorRateLimited;
+
   /// Fallback message for unexpected errors.
   ///
   /// In en, this message translates to:

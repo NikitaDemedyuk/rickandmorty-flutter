@@ -12,10 +12,11 @@ Failure mapDioException(DioException exception) {
     case DioExceptionType.connectionError:
       return const NetworkFailure();
     case DioExceptionType.badResponse:
-      final statusCode = exception.response?.statusCode;
-      return statusCode == HttpStatus.notFound
-          ? const NotFoundFailure()
-          : ServerFailure(statusCode);
+      return switch (exception.response?.statusCode) {
+        HttpStatus.notFound => const NotFoundFailure(),
+        HttpStatus.tooManyRequests => const RateLimitFailure(),
+        final statusCode => ServerFailure(statusCode),
+      };
     // Socket, HTTP and TLS transport errors surface as `unknown`.
     case DioExceptionType.unknown when exception.error is IOException:
       return const NetworkFailure();

@@ -38,6 +38,20 @@ final class ServerFailure extends Failure {
   String toString() => 'ServerFailure($statusCode)';
 }
 
+/// The API is throttling this client (HTTP 429).
+final class RateLimitFailure extends Failure {
+  const new();
+
+  @override
+  bool operator ==(Object other) => other is RateLimitFailure;
+
+  @override
+  int get hashCode => (RateLimitFailure).hashCode;
+
+  @override
+  String toString() => 'RateLimitFailure()';
+}
+
 /// The requested resource does not exist (HTTP 404).
 final class NotFoundFailure extends Failure {
   const new();

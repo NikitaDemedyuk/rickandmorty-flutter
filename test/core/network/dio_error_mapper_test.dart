@@ -39,6 +39,12 @@ void main() {
       expect(mapDioException(e), const NotFoundFailure());
     });
 
+    test('maps a 429 response to RateLimitFailure', () {
+      final e = dioException(DioExceptionType.badResponse, statusCode: 429);
+
+      expect(mapDioException(e), const RateLimitFailure());
+    });
+
     test('maps other bad responses to ServerFailure with the status code', () {
       final e = dioException(DioExceptionType.badResponse, statusCode: 500);
 

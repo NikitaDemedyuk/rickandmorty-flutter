@@ -16,6 +16,10 @@ void main() {
       'The server is not responding properly. Please try again later.',
     ),
     (const NotFoundFailure(), 'Nothing was found.'),
+    (
+      const RateLimitFailure(),
+      'Too many requests. Wait a moment and try again.',
+    ),
     (const UnknownFailure(), 'Something went wrong. Please try again.'),
   ];
 
