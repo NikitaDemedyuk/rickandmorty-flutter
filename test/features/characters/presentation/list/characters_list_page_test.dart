@@ -125,6 +125,25 @@ void main() {
       verify(() => bloc.add(const CharactersNextPageRequested())).called(1);
     });
 
+    testWidgets('shows the timeout message in the next-page footer', (
+      tester,
+    ) async {
+      await pumpWithState(
+        tester,
+        PagingState(
+          pages: pageOf([1, 2]),
+          keys: const [1],
+          error: const TimeoutFailure(),
+        ),
+      );
+
+      expect(find.byType(NextPageErrorFooter), findsOneWidget);
+      expect(
+        find.text('The request took too long. Please try again.'),
+        findsOneWidget,
+      );
+    });
+
     testWidgets('shows the end-of-list footer after the last page', (
       tester,
     ) async {

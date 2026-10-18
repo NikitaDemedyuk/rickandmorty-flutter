@@ -130,6 +130,19 @@ void main() {
     verify(() => cubit.load()).called(1);
   });
 
+  testWidgets('shows the timeout message', (tester) async {
+    await pumpWithState(
+      tester,
+      const CharacterDetailsLoadFailure(TimeoutFailure()),
+    );
+
+    expect(find.byType(ErrorView), findsOneWidget);
+    expect(
+      find.text('The request took too long. Please try again.'),
+      findsOneWidget,
+    );
+  });
+
   testWidgets('says the character does not exist, without a retry', (
     tester,
   ) async {
