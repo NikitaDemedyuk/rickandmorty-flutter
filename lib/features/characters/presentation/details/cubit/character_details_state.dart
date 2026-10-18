@@ -6,10 +6,10 @@ sealed class CharacterDetailsState with _$CharacterDetailsState {
   const factory initial() = CharacterDetailsInitial;
 
   /// A request is in flight.
-  const factory loading() = CharacterDetailsLoading;
+  const factory loadInProgress() = CharacterDetailsLoadInProgress;
 
-  const factory loaded(Character character) = CharacterDetailsLoaded;
+  const factory loadSuccess(Character character) = CharacterDetailsLoadSuccess;
 
   /// The UI maps it to a localized message.
-  const factory failure(Failure failure) = CharacterDetailsFailure;
+  const factory loadFailure(Failure failure) = CharacterDetailsLoadFailure;
 }

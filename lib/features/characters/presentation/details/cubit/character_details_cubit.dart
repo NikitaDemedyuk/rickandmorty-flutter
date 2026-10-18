@@ -19,14 +19,14 @@ class CharacterDetailsCubit extends Cubit<CharacterDetailsState> {
   /// Fetches the character; ignored while a fetch is already in flight
   /// (e.g. a double tap on Retry).
   Future<void> load() async {
-    if (state is CharacterDetailsLoading) return;
-    emit(const CharacterDetailsLoading());
+    if (state is CharacterDetailsLoadInProgress) return;
+    emit(const CharacterDetailsLoadInProgress());
     final result = await _repository.getCharacter(id);
     // The user may have left the screen while the request was in flight.
     if (isClosed) return;
     emit(switch (result) {
-      Ok(:final value) => CharacterDetailsLoaded(value),
-      Err(:final failure) => CharacterDetailsFailure(failure),
+      Ok(:final value) => CharacterDetailsLoadSuccess(value),
+      Err(:final failure) => CharacterDetailsLoadFailure(failure),
     });
   }
 }

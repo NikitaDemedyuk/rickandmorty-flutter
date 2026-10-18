@@ -54,7 +54,7 @@ void main() {
     testWidgets('shows only a loader without a handed-over portrait', (
       tester,
     ) async {
-      await pumpWithState(tester, const CharacterDetailsLoading());
+      await pumpWithState(tester, const CharacterDetailsLoadInProgress());
 
       expect(find.byType(LoadingView), findsOneWidget);
       expect(find.byType(CharacterImage), findsNothing);
@@ -66,7 +66,7 @@ void main() {
       final url = character(1).imageUrl;
       await pumpWithState(
         tester,
-        const CharacterDetailsLoading(),
+        const CharacterDetailsLoadInProgress(),
         imageUrl: url,
       );
 
@@ -83,7 +83,7 @@ void main() {
       1,
       status: CharacterStatus.dead,
     ).copyWith(originName: 'Earth (C-137)', locationName: 'Citadel of Ricks');
-    await pumpWithState(tester, CharacterDetailsLoaded(rick));
+    await pumpWithState(tester, CharacterDetailsLoadSuccess(rick));
 
     // In the app bar and under the portrait.
     expect(find.text('Character 1'), findsNWidgets(2));
@@ -105,7 +105,7 @@ void main() {
   testWidgets('shows a placeholder for an unknown origin and location', (
     tester,
   ) async {
-    await pumpWithState(tester, CharacterDetailsLoaded(character(1)));
+    await pumpWithState(tester, CharacterDetailsLoadSuccess(character(1)));
 
     expect(find.text('Unknown'), findsNWidgets(2));
   });
@@ -114,7 +114,7 @@ void main() {
     when(() => cubit.load()).thenAnswer((_) async {});
     await pumpWithState(
       tester,
-      const CharacterDetailsFailure(NetworkFailure()),
+      const CharacterDetailsLoadFailure(NetworkFailure()),
     );
 
     expect(find.byType(ErrorView), findsOneWidget);
@@ -132,7 +132,7 @@ void main() {
   ) async {
     await pumpWithState(
       tester,
-      const CharacterDetailsFailure(NotFoundFailure()),
+      const CharacterDetailsLoadFailure(NotFoundFailure()),
     );
 
     expect(find.text("This character doesn't exist."), findsOneWidget);

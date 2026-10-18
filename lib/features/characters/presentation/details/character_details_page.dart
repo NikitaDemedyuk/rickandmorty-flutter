@@ -29,31 +29,34 @@ class CharacterDetailsPage extends StatelessWidget {
       builder: (context, state) => Scaffold(
         appBar: AppBar(
           title: switch (state) {
-            CharacterDetailsLoaded(:final character) => Text(character.name),
+            CharacterDetailsLoadSuccess(:final character) => Text(
+              character.name,
+            ),
             _ => null,
           },
         ),
         body: switch (state) {
+          CharacterDetailsInitial() || CharacterDetailsLoadInProgress()
+              when imageUrl != null =>
+            _DetailsLayout(
+              characterId: context.read<CharacterDetailsCubit>().id,
+              imageUrl: imageUrl,
+              cacheManager: cacheManager,
+              children: const [
+                Padding(padding: EdgeInsets.all(24), child: LoadingView()),
+              ],
+            ),
           CharacterDetailsInitial() ||
-          CharacterDetailsLoading() when imageUrl != null => _DetailsLayout(
-            characterId: context.read<CharacterDetailsCubit>().id,
-            imageUrl: imageUrl,
-            cacheManager: cacheManager,
-            children: const [
-              Padding(padding: EdgeInsets.all(24), child: LoadingView()),
-            ],
-          ),
-          CharacterDetailsInitial() ||
-          CharacterDetailsLoading() => const LoadingView(),
+          CharacterDetailsLoadInProgress() => const LoadingView(),
           // Retrying an id the API doesn't know can't help; Back is there.
-          CharacterDetailsFailure(failure: NotFoundFailure()) => ErrorView(
+          CharacterDetailsLoadFailure(failure: NotFoundFailure()) => ErrorView(
             message: context.l10n.characterNotFound,
           ),
-          CharacterDetailsFailure(:final failure) => ErrorView(
+          CharacterDetailsLoadFailure(:final failure) => ErrorView(
             message: failureMessage(context, failure),
             onRetry: context.read<CharacterDetailsCubit>().load,
           ),
-          CharacterDetailsLoaded(:final character) => _DetailsLayout(
+          CharacterDetailsLoadSuccess(:final character) => _DetailsLayout(
             characterId: character.id,
             imageUrl: character.imageUrl,
             cacheManager: cacheManager,

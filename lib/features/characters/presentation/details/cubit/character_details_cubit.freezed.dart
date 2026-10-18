@@ -56,14 +56,14 @@ extension CharacterDetailsStatePatterns on CharacterDetailsState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( CharacterDetailsInitial value)?  initial,TResult Function( CharacterDetailsLoading value)?  loading,TResult Function( CharacterDetailsLoaded value)?  loaded,TResult Function( CharacterDetailsFailure value)?  failure,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( CharacterDetailsInitial value)?  initial,TResult Function( CharacterDetailsLoadInProgress value)?  loadInProgress,TResult Function( CharacterDetailsLoadSuccess value)?  loadSuccess,TResult Function( CharacterDetailsLoadFailure value)?  loadFailure,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case CharacterDetailsInitial() when initial != null:
-return initial(_that);case CharacterDetailsLoading() when loading != null:
-return loading(_that);case CharacterDetailsLoaded() when loaded != null:
-return loaded(_that);case CharacterDetailsFailure() when failure != null:
-return failure(_that);case _:
+return initial(_that);case CharacterDetailsLoadInProgress() when loadInProgress != null:
+return loadInProgress(_that);case CharacterDetailsLoadSuccess() when loadSuccess != null:
+return loadSuccess(_that);case CharacterDetailsLoadFailure() when loadFailure != null:
+return loadFailure(_that);case _:
   return orElse();
 
 }
@@ -81,14 +81,14 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( CharacterDetailsInitial value)  initial,required TResult Function( CharacterDetailsLoading value)  loading,required TResult Function( CharacterDetailsLoaded value)  loaded,required TResult Function( CharacterDetailsFailure value)  failure,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( CharacterDetailsInitial value)  initial,required TResult Function( CharacterDetailsLoadInProgress value)  loadInProgress,required TResult Function( CharacterDetailsLoadSuccess value)  loadSuccess,required TResult Function( CharacterDetailsLoadFailure value)  loadFailure,}){
 final _that = this;
 switch (_that) {
 case CharacterDetailsInitial():
-return initial(_that);case CharacterDetailsLoading():
-return loading(_that);case CharacterDetailsLoaded():
-return loaded(_that);case CharacterDetailsFailure():
-return failure(_that);}
+return initial(_that);case CharacterDetailsLoadInProgress():
+return loadInProgress(_that);case CharacterDetailsLoadSuccess():
+return loadSuccess(_that);case CharacterDetailsLoadFailure():
+return loadFailure(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -102,14 +102,14 @@ return failure(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( CharacterDetailsInitial value)?  initial,TResult? Function( CharacterDetailsLoading value)?  loading,TResult? Function( CharacterDetailsLoaded value)?  loaded,TResult? Function( CharacterDetailsFailure value)?  failure,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( CharacterDetailsInitial value)?  initial,TResult? Function( CharacterDetailsLoadInProgress value)?  loadInProgress,TResult? Function( CharacterDetailsLoadSuccess value)?  loadSuccess,TResult? Function( CharacterDetailsLoadFailure value)?  loadFailure,}){
 final _that = this;
 switch (_that) {
 case CharacterDetailsInitial() when initial != null:
-return initial(_that);case CharacterDetailsLoading() when loading != null:
-return loading(_that);case CharacterDetailsLoaded() when loaded != null:
-return loaded(_that);case CharacterDetailsFailure() when failure != null:
-return failure(_that);case _:
+return initial(_that);case CharacterDetailsLoadInProgress() when loadInProgress != null:
+return loadInProgress(_that);case CharacterDetailsLoadSuccess() when loadSuccess != null:
+return loadSuccess(_that);case CharacterDetailsLoadFailure() when loadFailure != null:
+return loadFailure(_that);case _:
   return null;
 
 }
@@ -126,13 +126,13 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( Character character)?  loaded,TResult Function( Failure failure)?  failure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loadInProgress,TResult Function( Character character)?  loadSuccess,TResult Function( Failure failure)?  loadFailure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case CharacterDetailsInitial() when initial != null:
-return initial();case CharacterDetailsLoading() when loading != null:
-return loading();case CharacterDetailsLoaded() when loaded != null:
-return loaded(_that.character);case CharacterDetailsFailure() when failure != null:
-return failure(_that.failure);case _:
+return initial();case CharacterDetailsLoadInProgress() when loadInProgress != null:
+return loadInProgress();case CharacterDetailsLoadSuccess() when loadSuccess != null:
+return loadSuccess(_that.character);case CharacterDetailsLoadFailure() when loadFailure != null:
+return loadFailure(_that.failure);case _:
   return orElse();
 
 }
@@ -150,13 +150,13 @@ return failure(_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( Character character)  loaded,required TResult Function( Failure failure)  failure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loadInProgress,required TResult Function( Character character)  loadSuccess,required TResult Function( Failure failure)  loadFailure,}) {final _that = this;
 switch (_that) {
 case CharacterDetailsInitial():
-return initial();case CharacterDetailsLoading():
-return loading();case CharacterDetailsLoaded():
-return loaded(_that.character);case CharacterDetailsFailure():
-return failure(_that.failure);}
+return initial();case CharacterDetailsLoadInProgress():
+return loadInProgress();case CharacterDetailsLoadSuccess():
+return loadSuccess(_that.character);case CharacterDetailsLoadFailure():
+return loadFailure(_that.failure);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -170,13 +170,13 @@ return failure(_that.failure);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( Character character)?  loaded,TResult? Function( Failure failure)?  failure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loadInProgress,TResult? Function( Character character)?  loadSuccess,TResult? Function( Failure failure)?  loadFailure,}) {final _that = this;
 switch (_that) {
 case CharacterDetailsInitial() when initial != null:
-return initial();case CharacterDetailsLoading() when loading != null:
-return loading();case CharacterDetailsLoaded() when loaded != null:
-return loaded(_that.character);case CharacterDetailsFailure() when failure != null:
-return failure(_that.failure);case _:
+return initial();case CharacterDetailsLoadInProgress() when loadInProgress != null:
+return loadInProgress();case CharacterDetailsLoadSuccess() when loadSuccess != null:
+return loadSuccess(_that.character);case CharacterDetailsLoadFailure() when loadFailure != null:
+return loadFailure(_that.failure);case _:
   return null;
 
 }
@@ -219,8 +219,8 @@ String toString() {
 /// @nodoc
 
 
-class CharacterDetailsLoading implements CharacterDetailsState {
-  const CharacterDetailsLoading();
+class CharacterDetailsLoadInProgress implements CharacterDetailsState {
+  const CharacterDetailsLoadInProgress();
   
 
 
@@ -230,7 +230,7 @@ class CharacterDetailsLoading implements CharacterDetailsState {
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is CharacterDetailsLoading);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CharacterDetailsLoadInProgress);
 }
 
 
@@ -239,7 +239,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-    return 'CharacterDetailsState.loading()';
+    return 'CharacterDetailsState.loadInProgress()';
 }
 
 
@@ -251,8 +251,8 @@ String toString() {
 /// @nodoc
 
 
-class CharacterDetailsLoaded implements CharacterDetailsState {
-  const CharacterDetailsLoaded(this.character);
+class CharacterDetailsLoadSuccess implements CharacterDetailsState {
+  const CharacterDetailsLoadSuccess(this.character);
   
 
  final  Character character;
@@ -261,13 +261,13 @@ class CharacterDetailsLoaded implements CharacterDetailsState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$CharacterDetailsLoadedCopyWith<CharacterDetailsLoaded> get copyWith => _$CharacterDetailsLoadedCopyWithImpl<CharacterDetailsLoaded>(this, _$identity);
+$CharacterDetailsLoadSuccessCopyWith<CharacterDetailsLoadSuccess> get copyWith => _$CharacterDetailsLoadSuccessCopyWithImpl<CharacterDetailsLoadSuccess>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is CharacterDetailsLoaded&&(identical(other.character, character) || other.character == character));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CharacterDetailsLoadSuccess&&(identical(other.character, character) || other.character == character));
 }
 
 
@@ -278,15 +278,15 @@ int get hashCode {
 
 @override
 String toString() {
-    return 'CharacterDetailsState.loaded(character: $character)';
+    return 'CharacterDetailsState.loadSuccess(character: $character)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $CharacterDetailsLoadedCopyWith<$Res> implements $CharacterDetailsStateCopyWith<$Res> {
-  factory $CharacterDetailsLoadedCopyWith(CharacterDetailsLoaded value, $Res Function(CharacterDetailsLoaded) _then) = _$CharacterDetailsLoadedCopyWithImpl;
+abstract mixin class $CharacterDetailsLoadSuccessCopyWith<$Res> implements $CharacterDetailsStateCopyWith<$Res> {
+  factory $CharacterDetailsLoadSuccessCopyWith(CharacterDetailsLoadSuccess value, $Res Function(CharacterDetailsLoadSuccess) _then) = _$CharacterDetailsLoadSuccessCopyWithImpl;
 @useResult
 $Res call({
  Character character
@@ -297,17 +297,17 @@ $CharacterCopyWith<$Res> get character;
 
 }
 /// @nodoc
-class _$CharacterDetailsLoadedCopyWithImpl<$Res>
-    implements $CharacterDetailsLoadedCopyWith<$Res> {
-  _$CharacterDetailsLoadedCopyWithImpl(this._self, this._then);
+class _$CharacterDetailsLoadSuccessCopyWithImpl<$Res>
+    implements $CharacterDetailsLoadSuccessCopyWith<$Res> {
+  _$CharacterDetailsLoadSuccessCopyWithImpl(this._self, this._then);
 
-  final CharacterDetailsLoaded _self;
-  final $Res Function(CharacterDetailsLoaded) _then;
+  final CharacterDetailsLoadSuccess _self;
+  final $Res Function(CharacterDetailsLoadSuccess) _then;
 
 /// Create a copy of CharacterDetailsState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? character = null,}) {
-  return _then(CharacterDetailsLoaded(
+  return _then(CharacterDetailsLoadSuccess(
 null == character ? _self.character : character // ignore: cast_nullable_to_non_nullable
 as Character,
   ));
@@ -328,8 +328,8 @@ $CharacterCopyWith<$Res> get character {
 /// @nodoc
 
 
-class CharacterDetailsFailure implements CharacterDetailsState {
-  const CharacterDetailsFailure(this.failure);
+class CharacterDetailsLoadFailure implements CharacterDetailsState {
+  const CharacterDetailsLoadFailure(this.failure);
   
 
  final  Failure failure;
@@ -338,13 +338,13 @@ class CharacterDetailsFailure implements CharacterDetailsState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$CharacterDetailsFailureCopyWith<CharacterDetailsFailure> get copyWith => _$CharacterDetailsFailureCopyWithImpl<CharacterDetailsFailure>(this, _$identity);
+$CharacterDetailsLoadFailureCopyWith<CharacterDetailsLoadFailure> get copyWith => _$CharacterDetailsLoadFailureCopyWithImpl<CharacterDetailsLoadFailure>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is CharacterDetailsFailure&&(identical(other.failure, failure) || other.failure == failure));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CharacterDetailsLoadFailure&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
@@ -355,15 +355,15 @@ int get hashCode {
 
 @override
 String toString() {
-    return 'CharacterDetailsState.failure(failure: $failure)';
+    return 'CharacterDetailsState.loadFailure(failure: $failure)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $CharacterDetailsFailureCopyWith<$Res> implements $CharacterDetailsStateCopyWith<$Res> {
-  factory $CharacterDetailsFailureCopyWith(CharacterDetailsFailure value, $Res Function(CharacterDetailsFailure) _then) = _$CharacterDetailsFailureCopyWithImpl;
+abstract mixin class $CharacterDetailsLoadFailureCopyWith<$Res> implements $CharacterDetailsStateCopyWith<$Res> {
+  factory $CharacterDetailsLoadFailureCopyWith(CharacterDetailsLoadFailure value, $Res Function(CharacterDetailsLoadFailure) _then) = _$CharacterDetailsLoadFailureCopyWithImpl;
 @useResult
 $Res call({
  Failure failure
@@ -374,17 +374,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$CharacterDetailsFailureCopyWithImpl<$Res>
-    implements $CharacterDetailsFailureCopyWith<$Res> {
-  _$CharacterDetailsFailureCopyWithImpl(this._self, this._then);
+class _$CharacterDetailsLoadFailureCopyWithImpl<$Res>
+    implements $CharacterDetailsLoadFailureCopyWith<$Res> {
+  _$CharacterDetailsLoadFailureCopyWithImpl(this._self, this._then);
 
-  final CharacterDetailsFailure _self;
-  final $Res Function(CharacterDetailsFailure) _then;
+  final CharacterDetailsLoadFailure _self;
+  final $Res Function(CharacterDetailsLoadFailure) _then;
 
 /// Create a copy of CharacterDetailsState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? failure = null,}) {
-  return _then(CharacterDetailsFailure(
+  return _then(CharacterDetailsLoadFailure(
 null == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
 as Failure,
   ));

@@ -41,8 +41,8 @@ void main() {
     await settle();
 
     expect(states, [
-      const CharacterDetailsLoading(),
-      CharacterDetailsLoaded(character(1)),
+      const CharacterDetailsLoadInProgress(),
+      CharacterDetailsLoadSuccess(character(1)),
     ]);
   });
 
@@ -53,8 +53,8 @@ void main() {
     await settle();
 
     expect(states, [
-      const CharacterDetailsLoading(),
-      const CharacterDetailsFailure(NetworkFailure()),
+      const CharacterDetailsLoadInProgress(),
+      const CharacterDetailsLoadFailure(NetworkFailure()),
     ]);
   });
 
@@ -67,10 +67,10 @@ void main() {
     await settle();
 
     expect(states, [
-      const CharacterDetailsLoading(),
-      const CharacterDetailsFailure(NetworkFailure()),
-      const CharacterDetailsLoading(),
-      CharacterDetailsLoaded(character(1)),
+      const CharacterDetailsLoadInProgress(),
+      const CharacterDetailsLoadFailure(NetworkFailure()),
+      const CharacterDetailsLoadInProgress(),
+      CharacterDetailsLoadSuccess(character(1)),
     ]);
   });
 
@@ -86,8 +86,8 @@ void main() {
 
     verify(() => repository.getCharacter(1)).called(1);
     expect(states, [
-      const CharacterDetailsLoading(),
-      CharacterDetailsLoaded(character(1)),
+      const CharacterDetailsLoadInProgress(),
+      CharacterDetailsLoadSuccess(character(1)),
     ]);
   });
 
@@ -100,6 +100,6 @@ void main() {
     response.complete(Ok(character(1)));
 
     await expectLater(load, completes);
-    expect(states, [const CharacterDetailsLoading()]);
+    expect(states, [const CharacterDetailsLoadInProgress()]);
   });
 }
