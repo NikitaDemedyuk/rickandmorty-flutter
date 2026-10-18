@@ -133,7 +133,7 @@ abstract class AppLocalizations {
   /// Shown when a request timed out.
   ///
   /// In en, this message translates to:
-  /// **'The server is taking too long to respond. Check your connection and try again.'**
+  /// **'The request took too long. Please try again.'**
   String get errorTimeout;
 
   /// Shown when the API returns a 5xx or unexpected status code.

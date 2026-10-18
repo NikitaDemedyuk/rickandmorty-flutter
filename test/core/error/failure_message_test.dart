@@ -12,11 +12,7 @@ void main() {
       "Can't reach the server. "
           'Check your internet connection and try again.',
     ),
-    (
-      const TimeoutFailure(),
-      'The server is taking too long to respond. '
-          'Check your connection and try again.',
-    ),
+    (const TimeoutFailure(), 'The request took too long. Please try again.'),
     (
       const ServerFailure(503),
       'The server is not responding properly. Please try again later.',

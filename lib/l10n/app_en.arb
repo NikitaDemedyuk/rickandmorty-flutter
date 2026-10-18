@@ -24,7 +24,7 @@
   "@errorNetwork": {
     "description": "Shown when the device is offline or the server can't be reached."
   },
-  "errorTimeout": "The server is taking too long to respond. Check your connection and try again.",
+  "errorTimeout": "The request took too long. Please try again.",
   "@errorTimeout": {
     "description": "Shown when a request timed out."
   },
