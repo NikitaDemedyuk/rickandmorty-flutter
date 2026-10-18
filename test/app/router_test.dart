@@ -211,10 +211,14 @@ void main() {
     verify(() => repository.getCharacter(2)).called(1);
   });
 
-  testWidgets('a non-numeric id shows the not-found page', (tester) async {
-    await pumpAt(tester, '/character/abc');
+  for (final id in ['abc', '0x10', '+1', '-3', '0', '01']) {
+    testWidgets('a malformed id "$id" shows the not-found page', (
+      tester,
+    ) async {
+      await pumpAt(tester, '/character/$id');
 
-    expect(find.text('Page not found'), findsOneWidget);
-    verifyNever(() => repository.getCharacter(any()));
-  });
+      expect(find.text('Page not found'), findsOneWidget);
+      verifyNever(() => repository.getCharacter(any()));
+    });
+  }
 }

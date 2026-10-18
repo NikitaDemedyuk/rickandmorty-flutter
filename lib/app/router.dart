@@ -47,7 +47,9 @@ GoRouter createRouter({
         GoRoute(
           path: 'character/:id',
           builder: (_, state) {
-            final id = int.tryParse(state.pathParameters['id']!);
+            final rawId = state.pathParameters['id']!;
+            // int.tryParse also takes 0x, +/-, spaces and leading zeros.
+            final id = _idPattern.hasMatch(rawId) ? int.tryParse(rawId) : null;
             if (id == null) return const _NotFoundPage();
             // A deep link has no extra: it just shows a loader instead.
             final imageUrl = switch (state.extra) {
@@ -79,6 +81,9 @@ GoRouter createRouter({
   ],
   errorBuilder: (_, _) => const _NotFoundPage(),
 );
+
+/// A positive decimal id, written one way only.
+final _idPattern = RegExp(r'^[1-9]\d*$');
 
 class _NotFoundPage extends StatelessWidget {
   const new();
