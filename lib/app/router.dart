@@ -55,6 +55,9 @@ GoRouter createRouter({
               _ => null,
             };
             return BlocProvider(
+              // go_router keys the page by the path pattern, so going to
+              // another id reuses it; a new id needs a new cubit.
+              key: ValueKey(id),
               create: (_) {
                 final cubit = CharacterDetailsCubit(
                   getIt<CharactersRepository>(),

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:mocktail/mocktail.dart';
@@ -190,6 +191,24 @@ void main() {
     await pumpAt(tester, AppRoutes.character(9999));
 
     expect(find.text("This character doesn't exist."), findsOneWidget);
+  });
+
+  testWidgets('going to another character loads that character', (
+    tester,
+  ) async {
+    repository
+      ..stubCharacter(1, Ok(character(1)))
+      ..stubCharacter(2, Ok(character(2)));
+    await pumpAt(tester, AppRoutes.character(1));
+
+    // Same route pattern, so go_router reuses the page.
+    tester
+        .element(find.byType(CharacterDetailsPage))
+        .go(AppRoutes.character(2));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Character 2'), findsNWidgets(2));
+    verify(() => repository.getCharacter(2)).called(1);
   });
 
   testWidgets('a non-numeric id shows the not-found page', (tester) async {
