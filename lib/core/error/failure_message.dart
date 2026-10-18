@@ -6,6 +6,7 @@ String failureMessage(BuildContext context, Failure failure) {
   final l10n = context.l10n;
   return switch (failure) {
     NetworkFailure() => l10n.errorNetwork,
+    TimeoutFailure() => l10n.errorTimeout,
     ServerFailure() => l10n.errorServer,
     NotFoundFailure() => l10n.errorNotFound,
     RateLimitFailure() => l10n.errorRateLimited,

@@ -33,6 +33,7 @@ fvm flutter run
 ```bash
 fvm flutter gen-l10n               # after editing lib/l10n/app_en.arb
 fvm dart run build_runner build    # after editing a freezed / json_serializable class
+fvm dart run flutter_native_splash:create  # after editing flutter_native_splash.yaml
 fvm dart format .
 fvm flutter analyze --fatal-infos
 fvm flutter test --coverage
