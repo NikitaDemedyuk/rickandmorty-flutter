@@ -6,10 +6,6 @@ English | [Русский](README.ru.md)
 
 A Flutter client for the [Rick and Morty API](https://rickandmortyapi.com): a paginated, searchable character list and a details screen.
 
-| List | Search | Details | Error |
-| ---- | ------ | ------- | ----- |
-| <img src="docs/screenshots/characters-list/list.png" alt="List" width="180"> | <img src="docs/screenshots/characters-list/search.png" alt="Search" width="180"> | <img src="docs/screenshots/character-details/details.png" alt="Details" width="180"> | <img src="docs/screenshots/characters-list/first-page-error.png" alt="Error" width="180"> |
-
 ## Features
 
 - **Infinite scroll** over every character in the API, 20 per page, with pull-to-refresh.
@@ -95,13 +91,6 @@ lib/
 | `cached_network_image` | The list and details share one cached decode, so the `Hero` flies the real image. |
 | `material_ui` | The decoupled Material library. |
 | `mocktail`, `fake_async` | Mocks and deterministic time for the debounce and cancellation tests. |
-
-The reasoning behind the main decisions is in [`docs/adr/`](docs/adr):
-
-1. [Bloc for the list, Cubit for details](docs/adr/0001-bloc-for-list-cubit-for-details.md)
-2. [Controller-less pagination](docs/adr/0002-controller-less-pagination.md)
-3. [No use cases, no fpdart](docs/adr/0003-no-use-cases-no-fpdart.md)
-4. [Commit generated code](docs/adr/0004-commit-generated-code.md)
 
 ## Workflow
 

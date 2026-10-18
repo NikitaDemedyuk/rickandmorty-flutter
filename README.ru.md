@@ -6,10 +6,6 @@
 
 Flutter-клиент для [Rick and Morty API](https://rickandmortyapi.com): постраничный список персонажей с поиском и экран с подробностями.
 
-| Список | Поиск | Подробности | Ошибка |
-| ------ | ----- | ----------- | ------ |
-| <img src="docs/screenshots/characters-list/list.png" alt="Список" width="180"> | <img src="docs/screenshots/characters-list/search.png" alt="Поиск" width="180"> | <img src="docs/screenshots/character-details/details.png" alt="Подробности" width="180"> | <img src="docs/screenshots/characters-list/first-page-error.png" alt="Ошибка" width="180"> |
-
 ## Возможности
 
 - **Бесконечная прокрутка** по всем персонажам API, по 20 на страницу, с pull-to-refresh.
@@ -96,16 +92,9 @@ lib/
 | `material_ui` | Отделённая от фреймворка библиотека Material. |
 | `mocktail`, `fake_async` | Моки и детерминированное время для тестов debounce и отмены. |
 
-Обоснование основных решений лежит в [`docs/adr/`](docs/adr) (ADR и [CHANGELOG.md](CHANGELOG.md) на английском):
-
-1. [Bloc для списка, Cubit для подробностей](docs/adr/0001-bloc-for-list-cubit-for-details.md)
-2. [Пагинация без контроллера](docs/adr/0002-controller-less-pagination.md)
-3. [Без use cases и fpdart](docs/adr/0003-no-use-cases-no-fpdart.md)
-4. [Сгенерированный код в репозитории](docs/adr/0004-commit-generated-code.md)
-
 ## Процесс
 
 - `main` содержит только релизы; каждый merge в него помечается тегом.
 - `develop` — интеграционная ветка и ветка по умолчанию.
 - Ветки фич (`feat/…`, `chore/…`, `fix/…`, `docs/…`) создаются от `develop` и возвращаются в неё через pull request со squash merge.
-- Коммиты следуют [Conventional Commits](https://www.conventionalcommits.org). Изменения перечислены в [CHANGELOG.md](CHANGELOG.md).
+- Коммиты следуют [Conventional Commits](https://www.conventionalcommits.org). Изменения перечислены в [CHANGELOG.md](CHANGELOG.md) (на английском).

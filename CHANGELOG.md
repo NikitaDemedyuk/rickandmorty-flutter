@@ -16,6 +16,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - "Rick and Morty" as the app name on the Android and iOS launchers ([#10](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/10)).
 - An original portal app icon, adaptive on Android and with dark and tinted variants on iOS ([#12](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/12)).
 - A native splash screen showing the portal icon on the app's dark background ([#13](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/13)).
-- README with an architecture overview, and ADRs in `docs/adr/` ([#11](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/11)).
+- README in English and Russian, with an architecture overview ([#11](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/11)).
 
 [Unreleased]: https://github.com/NikitaDemedyuk/rickandmorty-flutter/compare/main...develop
