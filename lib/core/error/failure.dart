@@ -21,7 +21,7 @@ final class NetworkFailure extends Failure {
   String toString() => 'NetworkFailure()';
 }
 
-/// The connection was made (or tried) but the server took too long.
+/// The connection was made but the server took too long to answer.
 final class TimeoutFailure extends Failure {
   const new();
 

@@ -29,7 +29,7 @@ void main() {
 
   DioException badResponse(int statusCode) =>
       dioException(DioExceptionType.badResponse, statusCode: statusCode);
-  final timeout = dioException(DioExceptionType.connectionTimeout);
+  final timeout = dioException(DioExceptionType.receiveTimeout);
   final malformed = CheckedFromJsonException(
     const {},
     'id',

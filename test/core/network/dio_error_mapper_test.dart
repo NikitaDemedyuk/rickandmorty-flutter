@@ -10,7 +10,6 @@ import '../../helpers/dio_exceptions.dart';
 void main() {
   group('mapDioException', () {
     for (final type in [
-      DioExceptionType.connectionTimeout,
       DioExceptionType.sendTimeout,
       DioExceptionType.receiveTimeout,
       DioExceptionType.transformTimeout,
@@ -20,12 +19,14 @@ void main() {
       });
     }
 
-    test('maps connectionError to NetworkFailure', () {
-      expect(
-        mapDioException(dioException(DioExceptionType.connectionError)),
-        const NetworkFailure(),
-      );
-    });
+    for (final type in [
+      DioExceptionType.connectionTimeout,
+      DioExceptionType.connectionError,
+    ]) {
+      test('maps $type to NetworkFailure', () {
+        expect(mapDioException(dioException(type)), const NetworkFailure());
+      });
+    }
 
     for (final error in <IOException>[
       const SocketException('Failed host lookup'),
