@@ -2,6 +2,10 @@ import 'package:material_ui/material_ui.dart';
 
 /// Colors of a character's status. M3's `ColorScheme` has no "success" role,
 /// so they live in a theme extension instead of widget literals.
+///
+/// `dead` and `unknown` are copied from a `ColorScheme`, so they don't follow
+/// later scheme changes: every theme with its own scheme (a dark theme, a
+/// `copyWith(colorScheme: …)`) must build its own [StatusColors] from it.
 @immutable
 class StatusColors extends ThemeExtension<StatusColors> {
   const new({required this.alive, required this.dead, required this.unknown});
