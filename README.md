@@ -66,7 +66,7 @@ flowchart LR
 ```
 lib/
   app/        composition root (get_it), go_router, theme
-  core/       Failure, Result, Dio client + error mapper, shared state views
+  core/       Failure + its l10n message, Result, Dio client + error mapper, StatusColors theme extension, shared state views
   features/characters/
     domain/        entities, repository contract
     data/          DTOs, mappers, remote data source, repository impl
