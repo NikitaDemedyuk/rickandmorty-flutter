@@ -1,5 +1,7 @@
 # Rick and Morty Character Catalog
 
+English | [Русский](README.ru.md)
+
 [![CI](https://github.com/NikitaDemedyuk/rickandmorty-flutter/actions/workflows/ci.yaml/badge.svg?branch=develop)](https://github.com/NikitaDemedyuk/rickandmorty-flutter/actions/workflows/ci.yaml)
 
 A Flutter client for the [Rick and Morty API](https://rickandmortyapi.com): a paginated, searchable character list and a details screen.
