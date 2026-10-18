@@ -37,4 +37,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorUnknown => 'Something went wrong. Please try again.';
+
+  @override
+  String get searchHint => 'Search characters';
+
+  @override
+  String get clearSearch => 'Clear search';
+
+  @override
+  String get statusAlive => 'Alive';
+
+  @override
+  String get statusDead => 'Dead';
+
+  @override
+  String get statusUnknown => 'Unknown';
+
+  @override
+  String get endOfList => 'That\'s everyone, Morty!';
 }

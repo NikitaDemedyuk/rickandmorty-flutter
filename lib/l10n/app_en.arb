@@ -35,5 +35,29 @@
   "errorUnknown": "Something went wrong. Please try again.",
   "@errorUnknown": {
     "description": "Fallback message for unexpected errors."
+  },
+  "searchHint": "Search characters",
+  "@searchHint": {
+    "description": "Placeholder of the search field on the characters list."
+  },
+  "clearSearch": "Clear search",
+  "@clearSearch": {
+    "description": "Tooltip of the button that clears the search field."
+  },
+  "statusAlive": "Alive",
+  "@statusAlive": {
+    "description": "Status chip label for a living character."
+  },
+  "statusDead": "Dead",
+  "@statusDead": {
+    "description": "Status chip label for a dead character."
+  },
+  "statusUnknown": "Unknown",
+  "@statusUnknown": {
+    "description": "Status chip label when the character's status is unknown."
+  },
+  "endOfList": "That's everyone, Morty!",
+  "@endOfList": {
+    "description": "Footer shown after the last character of the list."
   }
 }
