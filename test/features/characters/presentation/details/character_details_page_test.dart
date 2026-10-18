@@ -24,6 +24,7 @@ void main() {
     cubit = _MockCubit();
     cacheManager = FakeCacheManager();
     when(() => cubit.stream).thenAnswer((_) => const Stream.empty());
+    when(() => cubit.id).thenReturn(1);
   });
 
   Future<void> pumpWithState(
@@ -36,7 +37,6 @@ void main() {
       BlocProvider<CharacterDetailsCubit>.value(
         value: cubit,
         child: CharacterDetailsPage(
-          characterId: 1,
           imageUrl: imageUrl,
           cacheManager: cacheManager,
         ),

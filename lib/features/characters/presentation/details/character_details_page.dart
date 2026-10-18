@@ -14,14 +14,8 @@ import 'package:rickandmorty/l10n/l10n.dart';
 /// A character's portrait, status and facts. Expects a
 /// [CharacterDetailsCubit] above it.
 class CharacterDetailsPage extends StatelessWidget {
-  const new({
-    required this.characterId,
-    required this.cacheManager,
-    this.imageUrl,
-    super.key,
-  });
+  const new({required this.cacheManager, this.imageUrl, super.key});
 
-  final int characterId;
   final BaseCacheManager cacheManager;
 
   /// Portrait handed over by the list, shown while the character loads so
@@ -41,7 +35,7 @@ class CharacterDetailsPage extends StatelessWidget {
         ),
         body: switch (state) {
           CharacterDetailsLoading() when imageUrl != null => _DetailsLayout(
-            characterId: characterId,
+            characterId: context.read<CharacterDetailsCubit>().id,
             imageUrl: imageUrl,
             cacheManager: cacheManager,
             children: const [

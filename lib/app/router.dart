@@ -75,7 +75,6 @@ GoRouter createRouter({
                 return cubit;
               },
               child: CharacterDetailsPage(
-                characterId: id,
                 imageUrl: imageUrl,
                 cacheManager: getIt<BaseCacheManager>(),
               ),
