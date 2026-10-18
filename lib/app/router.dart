@@ -16,7 +16,13 @@ import 'package:rickandmorty/l10n/l10n.dart';
 abstract final class AppRoutes {
   static const String home = '/';
 
-  static String character(int id) => '/character/$id';
+  static const String _characterSegment = 'character';
+  static const String characterIdParam = 'id';
+
+  /// Nested under [home], so it's relative.
+  static const String characterPath = '$_characterSegment/:$characterIdParam';
+
+  static String character(int id) => '/$_characterSegment/$id';
 }
 
 /// Route builders resolve their dependencies from [getIt], so tests can pass
@@ -45,9 +51,9 @@ GoRouter createRouter({
       routes: [
         // Nested, so a deep link still has the list to go back to.
         GoRoute(
-          path: 'character/:id',
+          path: AppRoutes.characterPath,
           builder: (_, state) {
-            final rawId = state.pathParameters['id']!;
+            final rawId = state.pathParameters[AppRoutes.characterIdParam]!;
             // int.tryParse also takes 0x, +/-, spaces and leading zeros.
             final id = _idPattern.hasMatch(rawId) ? int.tryParse(rawId) : null;
             if (id == null) return const _NotFoundPage();
