@@ -12,7 +12,6 @@ void main() {
     for (final type in [
       DioExceptionType.sendTimeout,
       DioExceptionType.receiveTimeout,
-      DioExceptionType.transformTimeout,
     ]) {
       test('maps $type to TimeoutFailure', () {
         expect(mapDioException(dioException(type)), const TimeoutFailure());
@@ -99,6 +98,7 @@ void main() {
     for (final type in [
       DioExceptionType.cancel,
       DioExceptionType.badCertificate,
+      DioExceptionType.transformTimeout,
       DioExceptionType.unknown,
     ]) {
       test('maps $type to UnknownFailure carrying the exception', () {
