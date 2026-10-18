@@ -217,7 +217,7 @@ void main() {
       );
     });
 
-    testBloc('ignores requests while a page is loading', (async, bloc, states) {
+    testBloc('ignores requests while a page is loading', (async, bloc, _) {
       final request = _PendingRequest();
       stubPage(1, request.answer);
 
@@ -447,7 +447,7 @@ void main() {
       );
     });
 
-    testBloc('cancels and discards the previous query', (async, bloc, states) {
+    testBloc('cancels and discards the previous query', (async, bloc, _) {
       final stale = _PendingRequest();
       final fresh = _PendingRequest();
       stubPage(1, stale.answer, name: 'morty');
