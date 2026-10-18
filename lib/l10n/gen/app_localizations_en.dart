@@ -36,6 +36,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorNotFound => 'Nothing was found.';
 
   @override
+  String get errorRateLimited =>
+      'Too many requests. Wait a moment and try again.';
+
+  @override
   String get errorUnknown => 'Something went wrong. Please try again.';
 
   @override

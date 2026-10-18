@@ -8,6 +8,7 @@ String failureMessage(BuildContext context, Failure failure) {
     NetworkFailure() => l10n.errorNetwork,
     ServerFailure() => l10n.errorServer,
     NotFoundFailure() => l10n.errorNotFound,
+    RateLimitFailure() => l10n.errorRateLimited,
     UnknownFailure() => l10n.errorUnknown,
   };
 }

@@ -12,10 +12,13 @@ Failure mapDioException(DioException exception) {
     case DioExceptionType.connectionError:
       return const NetworkFailure();
     case DioExceptionType.badResponse:
-      final statusCode = exception.response?.statusCode;
-      return statusCode == HttpStatus.notFound
-          ? const NotFoundFailure()
-          : ServerFailure(statusCode);
+      return switch (exception.response?.statusCode) {
+        HttpStatus.notFound => const NotFoundFailure(),
+        HttpStatus.tooManyRequests => RateLimitFailure(
+          _retryAfter(exception.response?.headers),
+        ),
+        final statusCode => ServerFailure(statusCode),
+      };
     // Socket, HTTP and TLS transport errors surface as `unknown`.
     case DioExceptionType.unknown when exception.error is IOException:
       return const NetworkFailure();
@@ -24,4 +27,11 @@ Failure mapDioException(DioException exception) {
     case DioExceptionType.unknown:
       return UnknownFailure(exception);
   }
+}
+
+/// Reads `Retry-After` in its delay-seconds form; an HTTP date gives `null`.
+Duration? _retryAfter(Headers? headers) {
+  final value = headers?.value(HttpHeaders.retryAfterHeader);
+  final seconds = value == null ? null : int.tryParse(value);
+  return seconds == null || seconds < 0 ? null : Duration(seconds: seconds);
 }

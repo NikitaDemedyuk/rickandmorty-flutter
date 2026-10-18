@@ -52,6 +52,24 @@ final class NotFoundFailure extends Failure {
   String toString() => 'NotFoundFailure()';
 }
 
+/// The API is throttling this client (HTTP 429).
+final class RateLimitFailure extends Failure {
+  const new([this.retryAfter]);
+
+  /// How long the API asked to wait (`Retry-After`), if it said.
+  final Duration? retryAfter;
+
+  @override
+  bool operator ==(Object other) =>
+      other is RateLimitFailure && other.retryAfter == retryAfter;
+
+  @override
+  int get hashCode => Object.hash(RateLimitFailure, retryAfter);
+
+  @override
+  String toString() => 'RateLimitFailure($retryAfter)';
+}
+
 /// Anything else, including cancelled requests.
 final class UnknownFailure extends Failure {
   const new([this.error]);

@@ -32,6 +32,10 @@
   "@errorNotFound": {
     "description": "Shown when the requested resource does not exist."
   },
+  "errorRateLimited": "Too many requests. Wait a moment and try again.",
+  "@errorRateLimited": {
+    "description": "Shown when the API rate-limits the app (HTTP 429)."
+  },
   "errorUnknown": "Something went wrong. Please try again.",
   "@errorUnknown": {
     "description": "Fallback message for unexpected errors."

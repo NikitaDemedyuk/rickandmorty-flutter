@@ -39,6 +39,39 @@ void main() {
       expect(mapDioException(e), const NotFoundFailure());
     });
 
+    test('maps a 429 response to RateLimitFailure', () {
+      final e = dioException(DioExceptionType.badResponse, statusCode: 429);
+
+      expect(mapDioException(e), const RateLimitFailure());
+    });
+
+    test('keeps the Retry-After delay of a 429 response', () {
+      final e = dioException(
+        DioExceptionType.badResponse,
+        statusCode: 429,
+        headers: {
+          HttpHeaders.retryAfterHeader: ['120'],
+        },
+      );
+
+      expect(
+        mapDioException(e),
+        const RateLimitFailure(Duration(seconds: 120)),
+      );
+    });
+
+    test('ignores a Retry-After that is not a number of seconds', () {
+      final e = dioException(
+        DioExceptionType.badResponse,
+        statusCode: 429,
+        headers: {
+          HttpHeaders.retryAfterHeader: ['Wed, 21 Oct 2026 07:28:00 GMT'],
+        },
+      );
+
+      expect(mapDioException(e), const RateLimitFailure());
+    });
+
     test('maps other bad responses to ServerFailure with the status code', () {
       final e = dioException(DioExceptionType.badResponse, statusCode: 500);
 
