@@ -38,6 +38,20 @@ final class ServerFailure extends Failure {
   String toString() => 'ServerFailure($statusCode)';
 }
 
+/// The requested resource does not exist (HTTP 404).
+final class NotFoundFailure extends Failure {
+  const new();
+
+  @override
+  bool operator ==(Object other) => other is NotFoundFailure;
+
+  @override
+  int get hashCode => (NotFoundFailure).hashCode;
+
+  @override
+  String toString() => 'NotFoundFailure()';
+}
+
 /// The API is throttling this client (HTTP 429).
 final class RateLimitFailure extends Failure {
   const new([this.retryAfter]);
@@ -54,20 +68,6 @@ final class RateLimitFailure extends Failure {
 
   @override
   String toString() => 'RateLimitFailure($retryAfter)';
-}
-
-/// The requested resource does not exist (HTTP 404).
-final class NotFoundFailure extends Failure {
-  const new();
-
-  @override
-  bool operator ==(Object other) => other is NotFoundFailure;
-
-  @override
-  int get hashCode => (NotFoundFailure).hashCode;
-
-  @override
-  String toString() => 'NotFoundFailure()';
 }
 
 /// Anything else, including cancelled requests.
