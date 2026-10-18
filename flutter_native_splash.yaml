@@ -14,6 +14,5 @@ flutter_native_splash:
   # Android 12+ only allows a centered icon on a solid color.
   android_12:
     image: assets/icon/icon_foreground.png
-    color: "#151629"
 
   web: false
