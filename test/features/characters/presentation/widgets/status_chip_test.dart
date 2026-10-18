@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:rickandmorty/app/theme/app_theme.dart';
-import 'package:rickandmorty/app/theme/status_colors.dart';
+import 'package:rickandmorty/core/theme/status_colors.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character_status.dart';
 import 'package:rickandmorty/features/characters/presentation/widgets/status_chip.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:rickandmorty/app/theme/status_colors.dart';
+import 'package:rickandmorty/core/theme/status_colors.dart';
 
 void main() {
   const black = Color(0xFF000000);

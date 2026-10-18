@@ -1,5 +1,5 @@
 import 'package:material_ui/material_ui.dart';
-import 'package:rickandmorty/app/theme/status_colors.dart';
+import 'package:rickandmorty/core/theme/status_colors.dart';
 
 abstract final class AppTheme {
   static const Color _portalGreen = Color(0xFF97CE4C);

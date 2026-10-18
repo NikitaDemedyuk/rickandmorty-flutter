@@ -1,5 +1,5 @@
 import 'package:material_ui/material_ui.dart';
-import 'package:rickandmorty/app/theme/status_colors.dart';
+import 'package:rickandmorty/core/theme/status_colors.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character_status.dart';
 import 'package:rickandmorty/l10n/l10n.dart';
 
