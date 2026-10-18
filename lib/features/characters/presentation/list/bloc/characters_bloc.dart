@@ -34,7 +34,8 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
 
   final CharactersRepository _repository;
 
-  /// Completing it cancels the request currently in flight.
+  /// Completing it cancels the request currently in flight. Every request
+  /// replaces it, so it also tells a response whether it is still the latest.
   Completer<void>? _cancelInFlight;
 
   Future<void> _onQueryChanged(
@@ -86,10 +87,12 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       cancelSignal: cancel.future,
     );
 
-    if (identical(_cancelInFlight, cancel)) _cancelInFlight = null;
-    // Stale guard: a new query or a refresh replaced the list meanwhile
-    // (this also discards the cancelled request's UnknownFailure).
-    if (!identical(state.paging, requested)) return;
+    // Stale guard: a new query or a refresh started a newer request meanwhile
+    // (this also discards the cancelled request's UnknownFailure). Keyed on
+    // the request, not on `state.paging`: Bloc skips emitting a state equal to
+    // the current one, so a refresh during a load leaves the paging untouched.
+    if (!identical(_cancelInFlight, cancel)) return;
+    _cancelInFlight = null;
 
     final base = page == 1 ? PagingState<int, Character>() : requested;
     emit(
