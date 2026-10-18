@@ -7,7 +7,7 @@ sealed class Failure {
   const new();
 }
 
-/// No connection, or the request timed out.
+/// No connection: the device is offline or the host is unreachable.
 final class NetworkFailure extends Failure {
   const new();
 
@@ -19,6 +19,20 @@ final class NetworkFailure extends Failure {
 
   @override
   String toString() => 'NetworkFailure()';
+}
+
+/// The connection was made (or tried) but the server took too long.
+final class TimeoutFailure extends Failure {
+  const new();
+
+  @override
+  bool operator ==(Object other) => other is TimeoutFailure;
+
+  @override
+  int get hashCode => (TimeoutFailure).hashCode;
+
+  @override
+  String toString() => 'TimeoutFailure()';
 }
 
 /// The server answered with an unexpected status code.

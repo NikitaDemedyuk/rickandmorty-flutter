@@ -14,12 +14,18 @@ void main() {
       DioExceptionType.sendTimeout,
       DioExceptionType.receiveTimeout,
       DioExceptionType.transformTimeout,
-      DioExceptionType.connectionError,
     ]) {
-      test('maps $type to NetworkFailure', () {
-        expect(mapDioException(dioException(type)), const NetworkFailure());
+      test('maps $type to TimeoutFailure', () {
+        expect(mapDioException(dioException(type)), const TimeoutFailure());
       });
     }
+
+    test('maps connectionError to NetworkFailure', () {
+      expect(
+        mapDioException(dioException(DioExceptionType.connectionError)),
+        const NetworkFailure(),
+      );
+    });
 
     for (final error in <IOException>[
       const SocketException('Failed host lookup'),

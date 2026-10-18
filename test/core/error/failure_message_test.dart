@@ -12,6 +12,11 @@ void main() {
       'No internet connection. Check your network and try again.',
     ),
     (
+      const TimeoutFailure(),
+      'The server is taking too long to respond. '
+          'Check your connection and try again.',
+    ),
+    (
       const ServerFailure(503),
       'The server is not responding properly. Please try again later.',
     ),

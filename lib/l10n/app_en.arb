@@ -22,7 +22,11 @@
   },
   "errorNetwork": "No internet connection. Check your network and try again.",
   "@errorNetwork": {
-    "description": "Shown when the device is offline or a request timed out."
+    "description": "Shown when the device is offline or the server can't be reached."
+  },
+  "errorTimeout": "The server is taking too long to respond. Check your connection and try again.",
+  "@errorTimeout": {
+    "description": "Shown when a request timed out."
   },
   "errorServer": "The server is not responding properly. Please try again later.",
   "@errorServer": {
