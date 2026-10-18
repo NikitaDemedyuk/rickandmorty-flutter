@@ -119,7 +119,10 @@ void main() {
 
     expect(find.byType(ErrorView), findsOneWidget);
     expect(
-      find.text('No internet connection. Check your network and try again.'),
+      find.text(
+        "Can't reach the server. "
+        'Check your internet connection and try again.',
+      ),
       findsOneWidget,
     );
 

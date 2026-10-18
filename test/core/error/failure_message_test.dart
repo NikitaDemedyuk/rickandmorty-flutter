@@ -9,7 +9,8 @@ void main() {
   final cases = <(Failure, String)>[
     (
       const NetworkFailure(),
-      'No internet connection. Check your network and try again.',
+      "Can't reach the server. "
+          'Check your internet connection and try again.',
     ),
     (
       const TimeoutFailure(),

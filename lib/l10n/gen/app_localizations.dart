@@ -127,7 +127,7 @@ abstract class AppLocalizations {
   /// Shown when the device is offline or the server can't be reached.
   ///
   /// In en, this message translates to:
-  /// **'No internet connection. Check your network and try again.'**
+  /// **'Can\'t reach the server. Check your internet connection and try again.'**
   String get errorNetwork;
 
   /// Shown when a request timed out.
