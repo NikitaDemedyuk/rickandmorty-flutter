@@ -1,8 +1,12 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:rickandmorty/app/home_placeholder_page.dart';
 import 'package:rickandmorty/core/widgets/error_view.dart';
+import 'package:rickandmorty/features/characters/domain/repositories/characters_repository.dart';
+import 'package:rickandmorty/features/characters/presentation/list/bloc/characters_bloc.dart';
+import 'package:rickandmorty/features/characters/presentation/list/characters_list_page.dart';
 import 'package:rickandmorty/l10n/l10n.dart';
 
 abstract final class AppRoutes {
@@ -19,7 +23,11 @@ GoRouter createRouter({
   routes: [
     GoRoute(
       path: AppRoutes.home,
-      builder: (context, state) => const HomePlaceholderPage(),
+      // The bloc lives on the list route, so pushing details keeps its state.
+      builder: (context, state) => BlocProvider(
+        create: (_) => CharactersBloc(getIt<CharactersRepository>()),
+        child: CharactersListPage(cacheManager: getIt<BaseCacheManager>()),
+      ),
     ),
   ],
   errorBuilder: (context, state) => Scaffold(
