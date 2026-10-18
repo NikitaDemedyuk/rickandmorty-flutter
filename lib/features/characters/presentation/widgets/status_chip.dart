@@ -1,4 +1,5 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:rickandmorty/app/theme/status_colors.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character_status.dart';
 import 'package:rickandmorty/l10n/l10n.dart';
 
@@ -8,20 +9,16 @@ class StatusChip extends StatelessWidget {
 
   final CharacterStatus status;
 
-  static const Color _aliveColor = Color(0xFF55A630);
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final statusColors = theme.extension<StatusColors>()!;
     final l10n = context.l10n;
     final (label, color) = switch (status) {
-      CharacterStatus.alive => (l10n.statusAlive, _aliveColor),
-      CharacterStatus.dead => (l10n.statusDead, colorScheme.error),
-      CharacterStatus.unknown => (
-        l10n.statusUnknown,
-        colorScheme.onSurfaceVariant,
-      ),
+      CharacterStatus.alive => (l10n.statusAlive, statusColors.alive),
+      CharacterStatus.dead => (l10n.statusDead, statusColors.dead),
+      CharacterStatus.unknown => (l10n.statusUnknown, statusColors.unknown),
     };
     return DecoratedBox(
       decoration: ShapeDecoration(
