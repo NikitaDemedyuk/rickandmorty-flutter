@@ -131,6 +131,14 @@ void main() {
       expect(result, const Err<CharactersPage>(NotFoundFailure()));
     });
 
+    test('keeps a 404 with a blank name as NotFoundFailure', () async {
+      stubFetch(() => Future.error(badResponse(404)));
+
+      final result = await repository.getCharacters(page: 99, name: '');
+
+      expect(result, const Err<CharactersPage>(NotFoundFailure()));
+    });
+
     test('keeps other errors on a search as failures', () async {
       stubFetch(() => Future.error(badResponse(500)));
 
