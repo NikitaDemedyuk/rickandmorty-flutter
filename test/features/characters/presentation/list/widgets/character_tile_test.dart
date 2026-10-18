@@ -30,8 +30,6 @@ void main() {
     expect(image.cacheManager, same(cacheManager));
     // A circle: half the avatar's size.
     expect(image.borderRadius, const BorderRadius.all(Radius.circular(28)));
-    // Decoded at thumbnail size: 56 logical px at the test's 3x ratio.
-    expect(image.memCacheWidth, 168);
   });
 
   testWidgets('calls onTap when tapped', (tester) async {

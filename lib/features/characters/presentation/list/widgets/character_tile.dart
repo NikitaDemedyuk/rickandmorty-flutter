@@ -31,9 +31,6 @@ class CharacterTile extends StatelessWidget {
           borderRadius: const BorderRadius.all(
             Radius.circular(_avatarSize / 2),
           ),
-          // Decode at thumbnail size, not the API's 300 px original.
-          memCacheWidth: (_avatarSize * MediaQuery.devicePixelRatioOf(context))
-              .round(),
         ),
       ),
       title: Text(character.name, maxLines: 1, overflow: TextOverflow.ellipsis),

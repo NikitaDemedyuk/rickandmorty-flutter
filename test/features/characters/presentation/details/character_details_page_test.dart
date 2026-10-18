@@ -94,8 +94,6 @@ void main() {
     expect(image.characterId, 1);
     expect(image.imageUrl, rick.imageUrl);
     expect(image.cacheManager, same(cacheManager));
-    // Decoded at full size, unlike the list's thumbnail.
-    expect(image.memCacheWidth, isNull);
   });
 
   testWidgets('shows a placeholder for an unknown origin and location', (

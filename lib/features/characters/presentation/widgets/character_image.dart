@@ -7,13 +7,16 @@ String characterHeroTag(int id) => 'character-image-$id';
 
 /// A character's portrait, filling its parent. The clip sits inside the
 /// [Hero], so the portrait keeps its rounded shape while it flies.
+///
+/// Always decoded at the API's 300 px original: the list and the details
+/// screen then share one in-memory image, so the Hero flies the portrait
+/// (not the placeholder) on push and stays sharp on pop.
 class CharacterImage extends StatelessWidget {
   const new({
     required this.characterId,
     required this.imageUrl,
     required this.cacheManager,
     required this.borderRadius,
-    this.memCacheWidth,
     super.key,
   });
 
@@ -21,9 +24,6 @@ class CharacterImage extends StatelessWidget {
   final String imageUrl;
   final BaseCacheManager cacheManager;
   final BorderRadius borderRadius;
-
-  /// Decode width in physical pixels; `null` decodes the original.
-  final int? memCacheWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,6 @@ class CharacterImage extends StatelessWidget {
           imageUrl: imageUrl,
           cacheManager: cacheManager,
           fit: BoxFit.cover,
-          memCacheWidth: memCacheWidth,
           placeholder: (_, _) =>
               ColoredBox(color: colorScheme.surfaceContainerHighest),
           errorWidget: (_, _, _) => ColoredBox(

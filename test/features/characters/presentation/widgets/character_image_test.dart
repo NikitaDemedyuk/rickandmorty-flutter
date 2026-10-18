@@ -18,7 +18,6 @@ void main() {
         imageUrl: character(7).imageUrl,
         cacheManager: cacheManager,
         borderRadius: radius,
-        memCacheWidth: 100,
       ),
     );
 
@@ -35,6 +34,7 @@ void main() {
     );
     expect(image.imageUrl, character(7).imageUrl);
     expect(image.cacheManager, same(cacheManager));
-    expect(image.memCacheWidth, 100);
+    // No resize, so the list and the details screen share one decode.
+    expect(image.memCacheWidth, isNull);
   });
 }
