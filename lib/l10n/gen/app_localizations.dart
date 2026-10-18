@@ -124,11 +124,17 @@ abstract class AppLocalizations {
   /// **'Page not found'**
   String get pageNotFound;
 
-  /// Shown when the device is offline or a request timed out.
+  /// Shown when the device is offline or the server can't be reached.
   ///
   /// In en, this message translates to:
-  /// **'No internet connection. Check your network and try again.'**
+  /// **'Can\'t reach the server. Check your internet connection and try again.'**
   String get errorNetwork;
+
+  /// Shown when a request timed out.
+  ///
+  /// In en, this message translates to:
+  /// **'The request took too long. Please try again.'**
+  String get errorTimeout;
 
   /// Shown when the API returns a 5xx or unexpected status code.
   ///

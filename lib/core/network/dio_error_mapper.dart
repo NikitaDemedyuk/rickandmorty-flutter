@@ -5,10 +5,11 @@ import 'package:rickandmorty/core/error/failure.dart';
 
 Failure mapDioException(DioException exception) {
   switch (exception.type) {
-    case DioExceptionType.connectionTimeout:
     case DioExceptionType.sendTimeout:
     case DioExceptionType.receiveTimeout:
-    case DioExceptionType.transformTimeout:
+      return const TimeoutFailure();
+    // A connect timeout never reached the host: unreachable, not slow.
+    case DioExceptionType.connectionTimeout:
     case DioExceptionType.connectionError:
       return const NetworkFailure();
     case DioExceptionType.badResponse:
@@ -24,6 +25,8 @@ Failure mapDioException(DioException exception) {
       return const NetworkFailure();
     case DioExceptionType.badCertificate:
     case DioExceptionType.cancel:
+    // Decoding an answer the server already sent: client-side, not slow.
+    case DioExceptionType.transformTimeout:
     case DioExceptionType.unknown:
       return UnknownFailure(exception);
   }

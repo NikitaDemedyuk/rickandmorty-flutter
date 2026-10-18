@@ -30,12 +30,37 @@ void main() {
     test('differs from the other failures', () {
       for (final other in <Failure>[
         const NetworkFailure(),
+        const TimeoutFailure(),
         const ServerFailure(429),
         const NotFoundFailure(),
         const UnknownFailure(),
       ]) {
         expect(const RateLimitFailure(), isNot(other));
         expect(other, isNot(const RateLimitFailure()));
+      }
+    });
+  });
+
+  group('TimeoutFailure', () {
+    test('equals another TimeoutFailure', () {
+      // Not const, so the == and hashCode overrides actually run.
+      // ignore: prefer_const_constructors
+      final failure = TimeoutFailure();
+
+      expect(failure, const TimeoutFailure());
+      expect(failure.hashCode, const TimeoutFailure().hashCode);
+    });
+
+    test('differs from the other failures', () {
+      for (final other in <Failure>[
+        const NetworkFailure(),
+        const ServerFailure(),
+        const NotFoundFailure(),
+        const RateLimitFailure(),
+        const UnknownFailure(),
+      ]) {
+        expect(const TimeoutFailure(), isNot(other));
+        expect(other, isNot(const TimeoutFailure()));
       }
     });
   });
