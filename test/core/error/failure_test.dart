@@ -4,10 +4,15 @@ import 'package:rickandmorty/core/error/failure.dart';
 void main() {
   group('RateLimitFailure', () {
     test('equals another RateLimitFailure with the same hashCode', () {
-      expect(const RateLimitFailure(), const RateLimitFailure());
+      // Not const: const instances are canonicalized, so two of them are
+      // identical and would match even without the == and hashCode overrides.
+      // ignore: prefer_const_constructors
+      final failure = RateLimitFailure(Duration(seconds: 1));
+
+      expect(failure, const RateLimitFailure(Duration(seconds: 1)));
       expect(
-        const RateLimitFailure().hashCode,
-        const RateLimitFailure().hashCode,
+        failure.hashCode,
+        const RateLimitFailure(Duration(seconds: 1)).hashCode,
       );
     });
 
