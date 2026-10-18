@@ -18,14 +18,18 @@ final class CharactersRepositoryImpl implements CharactersRepository {
   Future<Result<CharactersPage>> getCharacters({
     required int page,
     String? name,
+    Future<void>? cancelSignal,
   }) async {
     final query = switch (name?.trim()) {
       null || '' => null,
       final trimmed => trimmed,
     };
     final result = await _guard(
-      () async =>
-          (await _remote.fetchCharacters(page: page, name: query)).toEntity(),
+      () async => (await _remote.fetchCharacters(
+        page: page,
+        name: query,
+        cancelToken: _cancelTokenFor(cancelSignal),
+      )).toEntity(),
     );
     return switch (result) {
       // The API answers a search with no matches with a 404.
@@ -39,6 +43,14 @@ final class CharactersRepositoryImpl implements CharactersRepository {
   @override
   Future<Result<Character>> getCharacter(int id) =>
       _guard(() async => (await _remote.fetchCharacter(id)).toEntity());
+
+  /// Keeps dio's [CancelToken] out of the domain interface.
+  CancelToken? _cancelTokenFor(Future<void>? signal) {
+    if (signal == null) return null;
+    final token = CancelToken();
+    signal.then((_) => token.cancel()).ignore();
+    return token;
+  }
 
   Future<Result<T>> _guard<T>(Future<T> Function() request) async {
     try {

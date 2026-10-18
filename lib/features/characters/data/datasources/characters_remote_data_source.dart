@@ -13,10 +13,12 @@ class CharactersRemoteDataSource {
   Future<PaginatedResponseDto<CharacterDto>> fetchCharacters({
     required int page,
     String? name,
+    CancelToken? cancelToken,
   }) async {
     final response = await _dio.get<Map<String, Object?>>(
       '/character',
       queryParameters: {'page': page, 'name': ?name},
+      cancelToken: cancelToken,
     );
     // Dio decodes an empty body to null; parsing `{}` turns that into a
     // CheckedFromJsonException instead of a null-check TypeError.

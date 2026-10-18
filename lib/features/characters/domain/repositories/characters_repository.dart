@@ -7,9 +7,13 @@ abstract interface class CharactersRepository {
   /// blank.
   ///
   /// A search with no matches is an empty page, not a `NotFoundFailure`.
+  ///
+  /// Completing [cancelSignal] aborts the request; it then fails with an
+  /// `UnknownFailure`.
   Future<Result<CharactersPage>> getCharacters({
     required int page,
     String? name,
+    Future<void>? cancelSignal,
   });
 
   Future<Result<Character>> getCharacter(int id);

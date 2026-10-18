@@ -45,6 +45,24 @@ void main() {
       });
     });
 
+    test('throws a cancel DioException once the token is cancelled', () async {
+      adapter.respond(fixture('characters_page.json'));
+
+      expect(
+        () => dataSource.fetchCharacters(
+          page: 1,
+          cancelToken: CancelToken()..cancel(),
+        ),
+        throwsA(
+          isA<DioException>().having(
+            (e) => e.type,
+            'type',
+            DioExceptionType.cancel,
+          ),
+        ),
+      );
+    });
+
     test('throws a bad-response DioException on 404', () async {
       adapter.respond(fixture('not_found.json'), statusCode: 404);
 

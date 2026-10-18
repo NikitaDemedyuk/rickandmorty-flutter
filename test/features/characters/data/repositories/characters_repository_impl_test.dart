@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -57,6 +59,7 @@ void main() {
           () => remote.fetchCharacters(
             page: any(named: 'page'),
             name: any(named: 'name'),
+            cancelToken: any(named: 'cancelToken'),
           ),
         ).thenAnswer((_) => f());
 
@@ -102,6 +105,27 @@ void main() {
         verify(() => remote.fetchCharacters(page: 1)).called(1);
       });
     }
+
+    test('cancels the request when the cancel signal completes', () async {
+      stubFetch(() async => pageDto);
+      final cancel = Completer<void>();
+
+      await repository.getCharacters(page: 1, cancelSignal: cancel.future);
+      final token =
+          verify(
+                () => remote.fetchCharacters(
+                  page: 1,
+                  cancelToken: captureAny(named: 'cancelToken'),
+                ),
+              ).captured.single
+              as CancelToken;
+      expect(token.isCancelled, isFalse);
+
+      cancel.complete();
+      await Future<void>.delayed(Duration.zero);
+
+      expect(token.isCancelled, isTrue);
+    });
 
     test('maps a 404 on a search to an empty page', () async {
       stubFetch(() => Future.error(badResponse(404)));
