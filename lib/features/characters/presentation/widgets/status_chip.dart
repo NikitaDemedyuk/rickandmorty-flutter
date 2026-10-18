@@ -9,6 +9,9 @@ class StatusChip extends StatelessWidget {
 
   final CharacterStatus status;
 
+  /// Keys the colored dot, so tests read its color without matching its shape.
+  static const dotKey = Key('status-chip-dot');
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -32,6 +35,7 @@ class StatusChip extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             DecoratedBox(
+              key: dotKey,
               decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               child: const SizedBox.square(dimension: 8),
             ),

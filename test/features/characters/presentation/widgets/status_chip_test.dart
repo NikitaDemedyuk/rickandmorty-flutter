@@ -16,14 +16,7 @@ void main() {
   };
 
   Color dotColor(WidgetTester tester) {
-    final dot = tester.widget<DecoratedBox>(
-      find.byWidgetPredicate(
-        (widget) =>
-            widget is DecoratedBox &&
-            widget.decoration is BoxDecoration &&
-            (widget.decoration as BoxDecoration).shape == BoxShape.circle,
-      ),
-    );
+    final dot = tester.widget<DecoratedBox>(find.byKey(StatusChip.dotKey));
     return (dot.decoration as BoxDecoration).color!;
   }
 
