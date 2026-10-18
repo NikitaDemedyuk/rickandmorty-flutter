@@ -14,6 +14,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Characters data layer: DTOs, remote data source, and repository ([#3](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/3)).
 - Tooling: very_good_analysis, CI (generated code, format, analyze, tests, coverage), and PR and issue templates ([#1](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/1)).
 - "Rick and Morty" as the app name on the Android and iOS launchers ([#10](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/10)).
+- An original portal app icon, adaptive on Android and with dark and tinted variants on iOS ([#12](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/12)).
+- A native splash screen showing the portal icon on the app's dark background ([#13](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/13)).
 - README with an architecture overview, and ADRs in `docs/adr/`.
 
 [Unreleased]: https://github.com/NikitaDemedyuk/rickandmorty-flutter/compare/main...develop
