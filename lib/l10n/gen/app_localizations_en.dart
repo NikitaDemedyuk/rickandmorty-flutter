@@ -26,7 +26,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorNetwork =>
-      'No internet connection. Check your network and try again.';
+      'Can\'t reach the server. Check your internet connection and try again.';
+
+  @override
+  String get errorTimeout => 'The request took too long. Please try again.';
 
   @override
   String get errorServer =>

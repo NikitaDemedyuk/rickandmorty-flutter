@@ -65,7 +65,10 @@ void main() {
 
       expect(find.byType(ErrorView), findsOneWidget);
       expect(
-        find.text('No internet connection. Check your network and try again.'),
+        find.text(
+          "Can't reach the server. "
+          'Check your internet connection and try again.',
+        ),
         findsOneWidget,
       );
 
@@ -120,6 +123,25 @@ void main() {
 
       await tester.tap(find.text('Retry'));
       verify(() => bloc.add(const CharactersNextPageRequested())).called(1);
+    });
+
+    testWidgets('shows the timeout message in the next-page footer', (
+      tester,
+    ) async {
+      await pumpWithState(
+        tester,
+        PagingState(
+          pages: pageOf([1, 2]),
+          keys: const [1],
+          error: const TimeoutFailure(),
+        ),
+      );
+
+      expect(find.byType(NextPageErrorFooter), findsOneWidget);
+      expect(
+        find.text('The request took too long. Please try again.'),
+        findsOneWidget,
+      );
     });
 
     testWidgets('shows the end-of-list footer after the last page', (

@@ -29,7 +29,7 @@ void main() {
 
   DioException badResponse(int statusCode) =>
       dioException(DioExceptionType.badResponse, statusCode: statusCode);
-  final timeout = dioException(DioExceptionType.connectionTimeout);
+  final timeout = dioException(DioExceptionType.receiveTimeout);
   final malformed = CheckedFromJsonException(
     const {},
     'id',
@@ -147,12 +147,12 @@ void main() {
       expect(result, const Err<CharactersPage>(ServerFailure(500)));
     });
 
-    test('maps a timeout to NetworkFailure', () async {
+    test('maps a timeout to TimeoutFailure', () async {
       stubFetch(() => Future.error(timeout));
 
       final result = await repository.getCharacters(page: 1);
 
-      expect(result, const Err<CharactersPage>(NetworkFailure()));
+      expect(result, const Err<CharactersPage>(TimeoutFailure()));
     });
 
     test('maps a malformed payload to UnknownFailure', () async {
@@ -187,12 +187,12 @@ void main() {
       expect(result, const Err<Character>(NotFoundFailure()));
     });
 
-    test('maps a timeout to NetworkFailure', () async {
+    test('maps a timeout to TimeoutFailure', () async {
       when(() => remote.fetchCharacter(any())).thenThrow(timeout);
 
       final result = await repository.getCharacter(1);
 
-      expect(result, const Err<Character>(NetworkFailure()));
+      expect(result, const Err<Character>(TimeoutFailure()));
     });
 
     test('maps other bad responses to ServerFailure', () async {
