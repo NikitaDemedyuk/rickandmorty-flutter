@@ -115,7 +115,10 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
 
   @override
   Future<void> close() {
+    // Cleared so a second close() doesn't complete it again, and so the
+    // cancelled response counts as stale.
     _cancelInFlight?.complete();
+    _cancelInFlight = null;
     return super.close();
   }
 }
