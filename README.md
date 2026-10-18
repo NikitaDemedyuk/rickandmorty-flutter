@@ -10,7 +10,7 @@ A Flutter client for the [Rick and Morty API](https://rickandmortyapi.com): a pa
 
 ## Features
 
-- **Infinite scroll** over every character in the API (42 pages of 20), with pull-to-refresh.
+- **Infinite scroll** over every character in the API, 20 per page, with pull-to-refresh.
 - **Search by name**, debounced (400 ms); a newer query cancels the request of an older one.
 - **Every list state has its own UI:** first-page loader, error with retry, empty results, next-page loader, next-page error with retry, end of list.
 - **Details screen** with a `Hero` portrait, status, species, origin and last known location. It fetches by id, so deep links (`/character/42`) work too.
