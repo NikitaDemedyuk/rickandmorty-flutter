@@ -473,7 +473,11 @@ void main() {
       ]);
     });
 
-    testBloc('shows the first-page error when it fails', (async, bloc, states) {
+    testBloc('keeps the items and the failure when it fails', (
+      async,
+      bloc,
+      states,
+    ) {
       loadFirstPage(async, bloc, states, [1, 2]);
       stubResult(1, const Err(NetworkFailure()));
 
@@ -482,9 +486,16 @@ void main() {
 
       expect(
         bloc.state,
-        charactersState(paging: paging(error: const NetworkFailure())),
+        charactersState(
+          paging: paging(
+            pages: [
+              [1, 2],
+            ],
+            error: const NetworkFailure(),
+          ),
+        ),
       );
-      expect(bloc.state.paging.status, PagingStatus.firstPageError);
+      expect(bloc.state.paging.status, PagingStatus.subsequentPageError);
     });
 
     testBloc('cancels and discards a next page in flight', (

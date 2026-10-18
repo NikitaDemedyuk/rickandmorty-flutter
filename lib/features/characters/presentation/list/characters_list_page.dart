@@ -36,15 +36,25 @@ class _CharactersListPageState extends State<CharactersListPage> {
   void _requestNextPage() =>
       context.read<CharactersBloc>().add(const CharactersNextPageRequested());
 
-  /// Completes when the refreshed page has arrived (or failed).
-  Future<void> _refresh() {
+  /// Completes when the refreshed page has arrived (or failed). A failure
+  /// that kept the loaded items shows in a snack bar: the user is at the top,
+  /// far from the list's error footer.
+  Future<void> _refresh() async {
     final bloc = context.read<CharactersBloc>();
     final done = bloc.stream.firstWhere(
       (state) => !state.paging.isLoading,
       orElse: () => bloc.state,
     );
     bloc.add(const CharactersRefreshRequested());
-    return done;
+    final state = await done;
+    if (!mounted) return;
+    final failure = state.failure;
+    if (failure == null || state.paging.status == PagingStatus.firstPageError) {
+      return;
+    }
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(failureMessage(context, failure))));
   }
 
   @override

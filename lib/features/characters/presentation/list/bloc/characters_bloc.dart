@@ -75,7 +75,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   }
 
   /// Loads [page] of the current query on top of the current paging state;
-  /// page 1 replaces the list.
+  /// page 1 replaces the list once it arrives.
   Future<void> _fetchPage(int page, Emitter<CharactersState> emit) async {
     _cancelInFlight?.complete();
     final cancel = _cancelInFlight = Completer<void>();
@@ -104,7 +104,8 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
             hasNextPage: value.hasNext,
             isLoading: false,
           ),
-          Err(:final failure) => base.copyWith(
+          // A failed refresh keeps the items the user was reading.
+          Err(:final failure) => requested.copyWith(
             error: failure,
             isLoading: false,
           ),
