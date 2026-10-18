@@ -8,7 +8,7 @@ import 'package:rickandmorty/core/error/failure.dart';
 import 'package:rickandmorty/core/result/result.dart';
 import 'package:rickandmorty/features/characters/data/datasources/characters_remote_data_source.dart';
 import 'package:rickandmorty/features/characters/data/dto/character_dto.dart';
-import 'package:rickandmorty/features/characters/data/dto/paginated_response_dto.dart';
+import 'package:rickandmorty/features/characters/data/dto/characters_response_dto.dart';
 import 'package:rickandmorty/features/characters/data/repositories/characters_repository_impl.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character.dart';
 import 'package:rickandmorty/features/characters/domain/entities/characters_page.dart';
@@ -22,9 +22,8 @@ void main() {
   late CharactersRepositoryImpl repository;
 
   final requestOptions = RequestOptions(path: '/character');
-  final pageDto = PaginatedResponseDto.fromJson(
+  final pageDto = CharactersResponseDto.fromJson(
     fixtureJson('characters_page.json'),
-    (json) => CharacterDto.fromJson(json! as Map<String, Object?>),
   );
   final characterDto = CharacterDto.fromJson(fixtureJson('character.json'));
 
@@ -54,14 +53,13 @@ void main() {
   });
 
   group('getCharacters', () {
-    void stubFetch(Future<PaginatedResponseDto<CharacterDto>> Function() f) =>
-        when(
-          () => remote.fetchCharacters(
-            page: any(named: 'page'),
-            name: any(named: 'name'),
-            cancelToken: any(named: 'cancelToken'),
-          ),
-        ).thenAnswer((_) => f());
+    void stubFetch(Future<CharactersResponseDto> Function() f) => when(
+      () => remote.fetchCharacters(
+        page: any(named: 'page'),
+        name: any(named: 'name'),
+        cancelToken: any(named: 'cancelToken'),
+      ),
+    ).thenAnswer((_) => f());
 
     test('maps the page to entities', () async {
       stubFetch(() async => pageDto);

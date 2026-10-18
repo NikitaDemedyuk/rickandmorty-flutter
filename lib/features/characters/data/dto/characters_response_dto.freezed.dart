@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'paginated_response_dto.dart';
+part of 'characters_response_dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,45 +14,45 @@ part of 'paginated_response_dto.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$PaginatedResponseDto<T> {
+mixin _$CharactersResponseDto {
 
- PageInfoDto get info; List<T> get results;
-/// Create a copy of PaginatedResponseDto
+ PageInfoDto get info; List<CharacterDto> get results;
+/// Create a copy of CharactersResponseDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$PaginatedResponseDtoCopyWith<T, PaginatedResponseDto<T>> get copyWith => _$PaginatedResponseDtoCopyWithImpl<T, PaginatedResponseDto<T>>(this as PaginatedResponseDto<T>, _$identity);
+$CharactersResponseDtoCopyWith<CharactersResponseDto> get copyWith => _$CharactersResponseDtoCopyWithImpl<CharactersResponseDto>(this as CharactersResponseDto, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  final _this = this as PaginatedResponseDto<T>;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaginatedResponseDto<T>&&(identical(other.info, _this.info) || other.info == _this.info)&&const DeepCollectionEquality().equals(other.results, _this.results));
+  final _this = this as CharactersResponseDto;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CharactersResponseDto&&(identical(other.info, _this.info) || other.info == _this.info)&&const DeepCollectionEquality().equals(other.results, _this.results));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode {
-  final _this = this as PaginatedResponseDto<T>;
+  final _this = this as CharactersResponseDto;
   return Object.hash(runtimeType,_this.info,const DeepCollectionEquality().hash(_this.results));
 }
 
 @override
 String toString() {
-  final _this = this as PaginatedResponseDto<T>;
-  return 'PaginatedResponseDto<$T>(info: ${_this.info}, results: ${_this.results})';
+  final _this = this as CharactersResponseDto;
+  return 'CharactersResponseDto(info: ${_this.info}, results: ${_this.results})';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $PaginatedResponseDtoCopyWith<T,$Res>  {
-  factory $PaginatedResponseDtoCopyWith(PaginatedResponseDto<T> value, $Res Function(PaginatedResponseDto<T>) _then) = _$PaginatedResponseDtoCopyWithImpl;
+abstract mixin class $CharactersResponseDtoCopyWith<$Res>  {
+  factory $CharactersResponseDtoCopyWith(CharactersResponseDto value, $Res Function(CharactersResponseDto) _then) = _$CharactersResponseDtoCopyWithImpl;
 @useResult
 $Res call({
- PageInfoDto info, List<T> results
+ PageInfoDto info, List<CharacterDto> results
 });
 
 
@@ -60,23 +60,23 @@ $PageInfoDtoCopyWith<$Res> get info;
 
 }
 /// @nodoc
-class _$PaginatedResponseDtoCopyWithImpl<T,$Res>
-    implements $PaginatedResponseDtoCopyWith<T, $Res> {
-  _$PaginatedResponseDtoCopyWithImpl(this._self, this._then);
+class _$CharactersResponseDtoCopyWithImpl<$Res>
+    implements $CharactersResponseDtoCopyWith<$Res> {
+  _$CharactersResponseDtoCopyWithImpl(this._self, this._then);
 
-  final PaginatedResponseDto<T> _self;
-  final $Res Function(PaginatedResponseDto<T>) _then;
+  final CharactersResponseDto _self;
+  final $Res Function(CharactersResponseDto) _then;
 
-/// Create a copy of PaginatedResponseDto
+/// Create a copy of CharactersResponseDto
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? info = null,Object? results = null,}) {
-  return _then(PaginatedResponseDto(
+  return _then(CharactersResponseDto(
 info: null == info ? _self.info : info // ignore: cast_nullable_to_non_nullable
 as PageInfoDto,results: null == results ? _self.results : results // ignore: cast_nullable_to_non_nullable
-as List<T>,
+as List<CharacterDto>,
   ));
 }
-/// Create a copy of PaginatedResponseDto
+/// Create a copy of CharactersResponseDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -89,8 +89,8 @@ $PageInfoDtoCopyWith<$Res> get info {
 }
 
 
-/// Adds pattern-matching-related methods to [PaginatedResponseDto].
-extension PaginatedResponseDtoPatterns<T> on PaginatedResponseDto<T> {
+/// Adds pattern-matching-related methods to [CharactersResponseDto].
+extension CharactersResponseDtoPatterns on CharactersResponseDto {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -103,10 +103,10 @@ extension PaginatedResponseDtoPatterns<T> on PaginatedResponseDto<T> {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PaginatedResponseDto<T> value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CharactersResponseDto value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _PaginatedResponseDto() when $default != null:
+case _CharactersResponseDto() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -125,10 +125,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PaginatedResponseDto<T> value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CharactersResponseDto value)  $default,){
 final _that = this;
 switch (_that) {
-case _PaginatedResponseDto():
+case _CharactersResponseDto():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -146,10 +146,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PaginatedResponseDto<T> value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CharactersResponseDto value)?  $default,){
 final _that = this;
 switch (_that) {
-case _PaginatedResponseDto() when $default != null:
+case _CharactersResponseDto() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -167,9 +167,9 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( PageInfoDto info,  List<T> results)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( PageInfoDto info,  List<CharacterDto> results)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _PaginatedResponseDto() when $default != null:
+case _CharactersResponseDto() when $default != null:
 return $default(_that.info,_that.results);case _:
   return orElse();
 
@@ -188,9 +188,9 @@ return $default(_that.info,_that.results);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( PageInfoDto info,  List<T> results)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( PageInfoDto info,  List<CharacterDto> results)  $default,) {final _that = this;
 switch (_that) {
-case _PaginatedResponseDto():
+case _CharactersResponseDto():
 return $default(_that.info,_that.results);case _:
   throw StateError('Unexpected subclass');
 
@@ -208,9 +208,9 @@ return $default(_that.info,_that.results);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( PageInfoDto info,  List<T> results)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( PageInfoDto info,  List<CharacterDto> results)?  $default,) {final _that = this;
 switch (_that) {
-case _PaginatedResponseDto() when $default != null:
+case _CharactersResponseDto() when $default != null:
 return $default(_that.info,_that.results);case _:
   return null;
 
@@ -220,32 +220,32 @@ return $default(_that.info,_that.results);case _:
 }
 
 /// @nodoc
-@JsonSerializable(createToJson: false,genericArgumentFactories: true)
+@JsonSerializable(createToJson: false)
 
-class _PaginatedResponseDto<T> implements PaginatedResponseDto<T> {
-  const _PaginatedResponseDto({required this.info, required  List<T> results}): _results = results;
-  factory _PaginatedResponseDto.fromJson(Map<String, dynamic> json,T Function(Object?) fromJsonT) => _$PaginatedResponseDtoFromJson(json,fromJsonT);
+class _CharactersResponseDto implements CharactersResponseDto {
+  const _CharactersResponseDto({required this.info, required  List<CharacterDto> results}): _results = results;
+  factory _CharactersResponseDto.fromJson(Map<String, dynamic> json) => _$CharactersResponseDtoFromJson(json);
 
 @override final  PageInfoDto info;
- final  List<T> _results;
-@override List<T> get results {
+ final  List<CharacterDto> _results;
+@override List<CharacterDto> get results {
   if (_results is EqualUnmodifiableListView) return _results;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_results);
 }
 
 
-/// Create a copy of PaginatedResponseDto
+/// Create a copy of CharactersResponseDto
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$PaginatedResponseDtoCopyWith<T, _PaginatedResponseDto<T>> get copyWith => __$PaginatedResponseDtoCopyWithImpl<T, _PaginatedResponseDto<T>>(this, _$identity);
+_$CharactersResponseDtoCopyWith<_CharactersResponseDto> get copyWith => __$CharactersResponseDtoCopyWithImpl<_CharactersResponseDto>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaginatedResponseDto<T>&&(identical(other.info, info) || other.info == info)&&const DeepCollectionEquality().equals(other.results, _results));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CharactersResponseDto&&(identical(other.info, info) || other.info == info)&&const DeepCollectionEquality().equals(other.results, _results));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -256,18 +256,18 @@ int get hashCode {
 
 @override
 String toString() {
-    return 'PaginatedResponseDto<$T>(info: $info, results: $results)';
+    return 'CharactersResponseDto(info: $info, results: $results)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$PaginatedResponseDtoCopyWith<T,$Res> implements $PaginatedResponseDtoCopyWith<T, $Res> {
-  factory _$PaginatedResponseDtoCopyWith(_PaginatedResponseDto<T> value, $Res Function(_PaginatedResponseDto<T>) _then) = __$PaginatedResponseDtoCopyWithImpl;
+abstract mixin class _$CharactersResponseDtoCopyWith<$Res> implements $CharactersResponseDtoCopyWith<$Res> {
+  factory _$CharactersResponseDtoCopyWith(_CharactersResponseDto value, $Res Function(_CharactersResponseDto) _then) = __$CharactersResponseDtoCopyWithImpl;
 @override @useResult
 $Res call({
- PageInfoDto info, List<T> results
+ PageInfoDto info, List<CharacterDto> results
 });
 
 
@@ -275,24 +275,24 @@ $Res call({
 
 }
 /// @nodoc
-class __$PaginatedResponseDtoCopyWithImpl<T,$Res>
-    implements _$PaginatedResponseDtoCopyWith<T, $Res> {
-  __$PaginatedResponseDtoCopyWithImpl(this._self, this._then);
+class __$CharactersResponseDtoCopyWithImpl<$Res>
+    implements _$CharactersResponseDtoCopyWith<$Res> {
+  __$CharactersResponseDtoCopyWithImpl(this._self, this._then);
 
-  final _PaginatedResponseDto<T> _self;
-  final $Res Function(_PaginatedResponseDto<T>) _then;
+  final _CharactersResponseDto _self;
+  final $Res Function(_CharactersResponseDto) _then;
 
-/// Create a copy of PaginatedResponseDto
+/// Create a copy of CharactersResponseDto
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? info = null,Object? results = null,}) {
-  return _then(_PaginatedResponseDto<T>(
+  return _then(_CharactersResponseDto(
 info: null == info ? _self.info : info // ignore: cast_nullable_to_non_nullable
 as PageInfoDto,results: null == results ? _self._results : results // ignore: cast_nullable_to_non_nullable
-as List<T>,
+as List<CharacterDto>,
   ));
 }
 
-/// Create a copy of PaginatedResponseDto
+/// Create a copy of CharactersResponseDto
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')

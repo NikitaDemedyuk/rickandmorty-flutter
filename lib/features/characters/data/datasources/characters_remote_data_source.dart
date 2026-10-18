@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:rickandmorty/features/characters/data/dto/character_dto.dart';
-import 'package:rickandmorty/features/characters/data/dto/paginated_response_dto.dart';
+import 'package:rickandmorty/features/characters/data/dto/characters_response_dto.dart';
 
 /// Talks to the `/character` endpoints. Throws [DioException] on transport
 /// and HTTP errors, and `CheckedFromJsonException` on a malformed or empty
@@ -10,7 +10,7 @@ class CharactersRemoteDataSource {
 
   final Dio _dio;
 
-  Future<PaginatedResponseDto<CharacterDto>> fetchCharacters({
+  Future<CharactersResponseDto> fetchCharacters({
     required int page,
     String? name,
     CancelToken? cancelToken,
@@ -22,10 +22,7 @@ class CharactersRemoteDataSource {
     );
     // Dio decodes an empty body to null; parsing `{}` turns that into a
     // CheckedFromJsonException instead of a null-check TypeError.
-    return PaginatedResponseDto.fromJson(
-      response.data ?? const {},
-      (json) => CharacterDto.fromJson(json! as Map<String, Object?>),
-    );
+    return CharactersResponseDto.fromJson(response.data ?? const {});
   }
 
   Future<CharacterDto> fetchCharacter(int id) async {

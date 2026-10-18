@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rickandmorty/features/characters/data/dto/character_dto.dart';
-import 'package:rickandmorty/features/characters/data/dto/paginated_response_dto.dart';
+import 'package:rickandmorty/features/characters/data/dto/characters_response_dto.dart';
 import 'package:rickandmorty/features/characters/data/mappers/character_mapper.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character_status.dart';
@@ -57,9 +57,9 @@ void main() {
     }
   });
 
-  group('PaginatedResponseDto<CharacterDto>.toEntity', () {
+  group('CharactersResponseDto.toEntity', () {
     test('maps the results and has a next page when next is set', () {
-      final page = PaginatedResponseDto(
+      final page = CharactersResponseDto(
         info: const PageInfoDto(next: 'https://example.test/?page=2'),
         results: [dto()],
       ).toEntity();
@@ -69,7 +69,7 @@ void main() {
     });
 
     test('has no next page when next is null', () {
-      final page = const PaginatedResponseDto<CharacterDto>(
+      final page = const CharactersResponseDto(
         info: PageInfoDto(next: null),
         results: [],
       ).toEntity();

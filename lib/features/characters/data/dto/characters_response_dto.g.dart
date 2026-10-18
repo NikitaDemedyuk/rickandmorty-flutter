@@ -1,23 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'paginated_response_dto.dart';
+part of 'characters_response_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_PaginatedResponseDto<T> _$PaginatedResponseDtoFromJson<T>(
+_CharactersResponseDto _$CharactersResponseDtoFromJson(
   Map<String, dynamic> json,
-  T Function(Object? json) fromJsonT,
-) => $checkedCreate('_PaginatedResponseDto', json, ($checkedConvert) {
-  final val = _PaginatedResponseDto<T>(
+) => $checkedCreate('_CharactersResponseDto', json, ($checkedConvert) {
+  final val = _CharactersResponseDto(
     info: $checkedConvert(
       'info',
       (v) => PageInfoDto.fromJson(v as Map<String, dynamic>),
     ),
     results: $checkedConvert(
       'results',
-      (v) => (v as List<dynamic>).map(fromJsonT).toList(),
+      (v) => (v as List<dynamic>)
+          .map((e) => CharacterDto.fromJson(e as Map<String, dynamic>))
+          .toList(),
     ),
   );
   return val;

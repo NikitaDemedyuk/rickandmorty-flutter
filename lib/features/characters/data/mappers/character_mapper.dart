@@ -1,5 +1,5 @@
 import 'package:rickandmorty/features/characters/data/dto/character_dto.dart';
-import 'package:rickandmorty/features/characters/data/dto/paginated_response_dto.dart';
+import 'package:rickandmorty/features/characters/data/dto/characters_response_dto.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character_status.dart';
 import 'package:rickandmorty/features/characters/domain/entities/characters_page.dart';
@@ -16,7 +16,7 @@ extension CharacterDtoMapper on CharacterDto {
   );
 }
 
-extension CharactersPageDtoMapper on PaginatedResponseDto<CharacterDto> {
+extension CharactersResponseDtoMapper on CharactersResponseDto {
   CharactersPage toEntity() => CharactersPage(
     characters: [for (final dto in results) dto.toEntity()],
     hasNext: info.next != null,
