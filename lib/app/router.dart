@@ -34,8 +34,12 @@ GoRouter createRouter({
         create: (_) => CharactersBloc(getIt<CharactersRepository>()),
         child: CharactersListPage(
           cacheManager: getIt<BaseCacheManager>(),
-          onCharacterTap: (character) =>
-              context.push(AppRoutes.character(character.id)),
+          // Only the portrait travels, so the Hero can fly on push; the
+          // details screen still fetches the character by id.
+          onCharacterTap: (character) => context.push(
+            AppRoutes.character(character.id),
+            extra: character.imageUrl,
+          ),
         ),
       ),
       routes: [
@@ -45,7 +49,11 @@ GoRouter createRouter({
           builder: (_, state) {
             final id = int.tryParse(state.pathParameters['id']!);
             if (id == null) return const _NotFoundPage();
-            // Only the id travels: the page always fetches what it shows.
+            // A deep link has no extra: it just shows a loader instead.
+            final imageUrl = switch (state.extra) {
+              final String url => url,
+              _ => null,
+            };
             return BlocProvider(
               create: (_) {
                 final cubit = CharacterDetailsCubit(
@@ -56,6 +64,8 @@ GoRouter createRouter({
                 return cubit;
               },
               child: CharacterDetailsPage(
+                characterId: id,
+                imageUrl: imageUrl,
                 cacheManager: getIt<BaseCacheManager>(),
               ),
             );

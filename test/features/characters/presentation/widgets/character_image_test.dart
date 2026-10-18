@@ -8,20 +8,25 @@ import '../../../../helpers/fake_cache_manager.dart';
 import '../../../../helpers/pump_app.dart';
 
 void main() {
-  testWidgets('loads the image through the cache manager inside a Hero', (
-    tester,
-  ) async {
+  testWidgets('loads the image through the cache manager, clipped inside a '
+      'Hero', (tester) async {
     final cacheManager = FakeCacheManager();
+    const radius = BorderRadius.all(Radius.circular(12));
     await tester.pumpApp(
       CharacterImage(
-        character: character(7),
+        characterId: 7,
+        imageUrl: character(7).imageUrl,
         cacheManager: cacheManager,
+        borderRadius: radius,
         memCacheWidth: 100,
       ),
     );
 
     final hero = tester.widget<Hero>(find.byType(Hero));
     expect(hero.tag, characterHeroTag(7));
+    // The clip is the Hero's child, so the shape flies with the image.
+    final clip = hero.child as ClipRRect;
+    expect(clip.borderRadius, radius);
     final image = tester.widget<CachedNetworkImage>(
       find.descendant(
         of: find.byType(Hero),

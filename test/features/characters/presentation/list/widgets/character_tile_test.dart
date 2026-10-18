@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character_status.dart';
 import 'package:rickandmorty/features/characters/presentation/list/widgets/character_tile.dart';
 import 'package:rickandmorty/features/characters/presentation/widgets/character_image.dart';
@@ -24,8 +25,11 @@ void main() {
     expect(find.text('Dead'), findsOneWidget);
     expect(find.byType(StatusChip), findsOneWidget);
     final image = tester.widget<CharacterImage>(find.byType(CharacterImage));
-    expect(image.character, character(1, status: CharacterStatus.dead));
+    expect(image.characterId, 1);
+    expect(image.imageUrl, character(1).imageUrl);
     expect(image.cacheManager, same(cacheManager));
+    // A circle: half the avatar's size.
+    expect(image.borderRadius, const BorderRadius.all(Radius.circular(28)));
     // Decoded at thumbnail size: 56 logical px at the test's 3x ratio.
     expect(image.memCacheWidth, 168);
   });

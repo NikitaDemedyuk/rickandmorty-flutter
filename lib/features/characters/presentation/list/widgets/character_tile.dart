@@ -22,16 +22,18 @@ class CharacterTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      leading: ClipOval(
-        child: SizedBox.square(
-          dimension: _avatarSize,
-          child: CharacterImage(
-            character: character,
-            cacheManager: cacheManager,
-            // Decode at thumbnail size, not the API's 300 px original.
-            memCacheWidth:
-                (_avatarSize * MediaQuery.devicePixelRatioOf(context)).round(),
+      leading: SizedBox.square(
+        dimension: _avatarSize,
+        child: CharacterImage(
+          characterId: character.id,
+          imageUrl: character.imageUrl,
+          cacheManager: cacheManager,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(_avatarSize / 2),
           ),
+          // Decode at thumbnail size, not the API's 300 px original.
+          memCacheWidth: (_avatarSize * MediaQuery.devicePixelRatioOf(context))
+              .round(),
         ),
       ),
       title: Text(character.name, maxLines: 1, overflow: TextOverflow.ellipsis),

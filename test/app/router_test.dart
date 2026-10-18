@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
@@ -9,11 +11,13 @@ import 'package:rickandmorty/app/router.dart';
 import 'package:rickandmorty/core/error/failure.dart';
 import 'package:rickandmorty/core/result/result.dart';
 import 'package:rickandmorty/core/widgets/error_view.dart';
+import 'package:rickandmorty/core/widgets/loading_view.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character.dart';
 import 'package:rickandmorty/features/characters/domain/repositories/characters_repository.dart';
 import 'package:rickandmorty/features/characters/presentation/details/character_details_page.dart';
 import 'package:rickandmorty/features/characters/presentation/list/bloc/characters_bloc.dart';
 import 'package:rickandmorty/features/characters/presentation/list/characters_list_page.dart';
+import 'package:rickandmorty/features/characters/presentation/widgets/character_image.dart';
 
 import '../helpers/characters.dart';
 import '../helpers/fake_cache_manager.dart';
@@ -38,6 +42,13 @@ void main() {
   Future<void> pumpAt(WidgetTester tester, String location) async {
     await tester.pumpWidget(App(getIt: getIt, initialLocation: location));
     await tester.pumpAndSettle();
+  }
+
+  /// Runs the page transition to its end. A loader never settles, so
+  /// `pumpAndSettle` would time out while a fetch is pending.
+  Future<void> pumpPastTransition(WidgetTester tester) async {
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
   }
 
   ScrollPosition listPosition(WidgetTester tester) => tester
@@ -93,11 +104,60 @@ void main() {
     verifyNoMoreInteractions(repository);
   });
 
+  testWidgets('a tap hands the portrait over, so it shows while loading', (
+    tester,
+  ) async {
+    final response = Completer<Result<Character>>();
+    when(() => repository.getCharacter(1)).thenAnswer((_) => response.future);
+    await pumpAt(tester, AppRoutes.home);
+
+    await tester.tap(find.text('Character 1'));
+    await pumpPastTransition(tester);
+
+    final details = find.byType(CharacterDetailsPage);
+    final portrait = find.descendant(
+      of: details,
+      matching: find.byType(CharacterImage),
+    );
+    expect(
+      tester.widget<CharacterImage>(portrait).imageUrl,
+      character(1).imageUrl,
+    );
+    expect(
+      find.descendant(of: details, matching: find.byType(LoadingView)),
+      findsOneWidget,
+    );
+
+    response.complete(Ok(character(1)));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Character 1'), findsNWidgets(2));
+    expect(portrait, findsOneWidget);
+  });
+
   testWidgets('a deep link fetches the character and goes back to the list', (
     tester,
   ) async {
-    repository.stubCharacter(1, Ok(character(1)));
-    await pumpAt(tester, AppRoutes.character(1));
+    final response = Completer<Result<Character>>();
+    when(() => repository.getCharacter(1)).thenAnswer((_) => response.future);
+    await tester.pumpWidget(
+      App(getIt: getIt, initialLocation: AppRoutes.character(1)),
+    );
+    await pumpPastTransition(tester);
+
+    // No portrait was handed over, so there's nothing to show yet.
+    final details = find.byType(CharacterDetailsPage);
+    expect(
+      find.descendant(of: details, matching: find.byType(CharacterImage)),
+      findsNothing,
+    );
+    expect(
+      find.descendant(of: details, matching: find.byType(LoadingView)),
+      findsOneWidget,
+    );
+
+    response.complete(Ok(character(1)));
+    await tester.pumpAndSettle();
 
     expect(find.byType(CharacterDetailsPage), findsOneWidget);
     expect(find.text('Character 1'), findsNWidgets(2));

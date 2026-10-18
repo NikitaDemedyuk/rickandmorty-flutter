@@ -5,7 +5,6 @@ import 'package:rickandmorty/core/error/failure.dart';
 import 'package:rickandmorty/core/error/failure_message.dart';
 import 'package:rickandmorty/core/widgets/error_view.dart';
 import 'package:rickandmorty/core/widgets/loading_view.dart';
-import 'package:rickandmorty/features/characters/domain/entities/character.dart';
 import 'package:rickandmorty/features/characters/presentation/details/cubit/character_details_cubit.dart';
 import 'package:rickandmorty/features/characters/presentation/details/widgets/character_facts.dart';
 import 'package:rickandmorty/features/characters/presentation/widgets/character_image.dart';
@@ -15,12 +14,23 @@ import 'package:rickandmorty/l10n/l10n.dart';
 /// A character's portrait, status and facts. Expects a
 /// [CharacterDetailsCubit] above it.
 class CharacterDetailsPage extends StatelessWidget {
-  const new({required this.cacheManager, super.key});
+  const new({
+    required this.characterId,
+    required this.cacheManager,
+    this.imageUrl,
+    super.key,
+  });
 
+  final int characterId;
   final BaseCacheManager cacheManager;
+
+  /// Portrait handed over by the list, shown while the character loads so
+  /// the [Hero] has somewhere to fly on push. `null` for a deep link.
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
+    final imageUrl = this.imageUrl;
     return BlocBuilder<CharacterDetailsCubit, CharacterDetailsState>(
       builder: (context, state) => Scaffold(
         appBar: AppBar(
@@ -30,6 +40,14 @@ class CharacterDetailsPage extends StatelessWidget {
           },
         ),
         body: switch (state) {
+          CharacterDetailsLoading() when imageUrl != null => _DetailsLayout(
+            characterId: characterId,
+            imageUrl: imageUrl,
+            cacheManager: cacheManager,
+            children: const [
+              Padding(padding: EdgeInsets.all(24), child: LoadingView()),
+            ],
+          ),
           CharacterDetailsLoading() => const LoadingView(),
           // Retrying an id the API doesn't know can't help; Back is there.
           CharacterDetailsFailure(failure: NotFoundFailure()) => ErrorView(
@@ -39,9 +57,25 @@ class CharacterDetailsPage extends StatelessWidget {
             message: failureMessage(context, failure),
             onRetry: context.read<CharacterDetailsCubit>().load,
           ),
-          CharacterDetailsLoaded(:final character) => _CharacterDetails(
-            character: character,
+          CharacterDetailsLoaded(:final character) => _DetailsLayout(
+            characterId: character.id,
+            imageUrl: character.imageUrl,
             cacheManager: cacheManager,
+            children: [
+              Row(
+                spacing: 12,
+                children: [
+                  Expanded(
+                    child: Text(
+                      character.name,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                  ),
+                  StatusChip(status: character.status),
+                ],
+              ),
+              CharacterFacts(character: character),
+            ],
           ),
         },
       ),
@@ -49,11 +83,20 @@ class CharacterDetailsPage extends StatelessWidget {
   }
 }
 
-class _CharacterDetails extends StatelessWidget {
-  const new({required this.character, required this.cacheManager});
+/// The portrait with [children] below it. Loading and loaded share it, so the
+/// portrait stays in place (and isn't reloaded) when the character arrives.
+class _DetailsLayout extends StatelessWidget {
+  const new({
+    required this.characterId,
+    required this.imageUrl,
+    required this.cacheManager,
+    required this.children,
+  });
 
-  final Character character;
+  final int characterId;
+  final String imageUrl;
   final BaseCacheManager cacheManager;
+  final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
@@ -69,27 +112,14 @@ class _CharacterDetails extends StatelessWidget {
             children: [
               AspectRatio(
                 aspectRatio: 1,
-                child: ClipRRect(
+                child: CharacterImage(
+                  characterId: characterId,
+                  imageUrl: imageUrl,
+                  cacheManager: cacheManager,
                   borderRadius: const BorderRadius.all(Radius.circular(24)),
-                  child: CharacterImage(
-                    character: character,
-                    cacheManager: cacheManager,
-                  ),
                 ),
               ),
-              Row(
-                spacing: 12,
-                children: [
-                  Expanded(
-                    child: Text(
-                      character.name,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                  ),
-                  StatusChip(status: character.status),
-                ],
-              ),
-              CharacterFacts(character: character),
+              ...children,
             ],
           ),
         ),

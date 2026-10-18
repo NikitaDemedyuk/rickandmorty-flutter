@@ -28,22 +28,48 @@ void main() {
 
   Future<void> pumpWithState(
     WidgetTester tester,
-    CharacterDetailsState state,
-  ) async {
+    CharacterDetailsState state, {
+    String? imageUrl,
+  }) async {
     when(() => cubit.state).thenReturn(state);
     await tester.pumpApp(
       BlocProvider<CharacterDetailsCubit>.value(
         value: cubit,
-        child: CharacterDetailsPage(cacheManager: cacheManager),
+        child: CharacterDetailsPage(
+          characterId: 1,
+          imageUrl: imageUrl,
+          cacheManager: cacheManager,
+        ),
       ),
     );
   }
 
-  testWidgets('shows a loader while fetching', (tester) async {
-    await pumpWithState(tester, const CharacterDetailsLoading());
+  group('while fetching', () {
+    testWidgets('shows only a loader without a handed-over portrait', (
+      tester,
+    ) async {
+      await pumpWithState(tester, const CharacterDetailsLoading());
 
-    expect(find.byType(LoadingView), findsOneWidget);
-    expect(find.byType(CharacterImage), findsNothing);
+      expect(find.byType(LoadingView), findsOneWidget);
+      expect(find.byType(CharacterImage), findsNothing);
+    });
+
+    testWidgets('shows the handed-over portrait above a loader', (
+      tester,
+    ) async {
+      final url = character(1).imageUrl;
+      await pumpWithState(
+        tester,
+        const CharacterDetailsLoading(),
+        imageUrl: url,
+      );
+
+      final image = tester.widget<CharacterImage>(find.byType(CharacterImage));
+      expect(image.characterId, 1);
+      expect(image.imageUrl, url);
+      expect(find.byType(LoadingView), findsOneWidget);
+      expect(find.byType(StatusChip), findsNothing);
+    });
   });
 
   testWidgets('shows the portrait, name, status and facts', (tester) async {
@@ -65,7 +91,8 @@ void main() {
     expect(find.text('Citadel of Ricks'), findsOneWidget);
 
     final image = tester.widget<CharacterImage>(find.byType(CharacterImage));
-    expect(image.character, rick);
+    expect(image.characterId, 1);
+    expect(image.imageUrl, rick.imageUrl);
     expect(image.cacheManager, same(cacheManager));
     // Decoded at full size, unlike the list's thumbnail.
     expect(image.memCacheWidth, isNull);
