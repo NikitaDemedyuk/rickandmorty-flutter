@@ -389,16 +389,26 @@ void main() {
     ) {
       loadFirstPage(async, bloc, states, [1, 2]);
       final stale = _PendingRequest();
+      final fresh = _PendingRequest();
       stubPage(2, stale.answer);
-      stubResult(1, Ok(charactersPage([7])), name: 'rick');
+      stubPage(1, fresh.answer, name: 'rick');
 
       bloc.add(const CharactersNextPageRequested());
       async.flushMicrotasks();
       search(async, bloc, 'rick');
+      // The cancelled request settles first, as in production.
       stale.completer.complete(Ok(charactersPage([3, 4])));
       async.flushMicrotasks();
 
       expect(stale.cancelled, isTrue);
+      expect(
+        bloc.state,
+        charactersState(query: 'rick', paging: paging(isLoading: true)),
+      );
+
+      fresh.completer.complete(Ok(charactersPage([7])));
+      async.flushMicrotasks();
+
       expect(
         bloc.state,
         charactersState(
@@ -414,15 +424,25 @@ void main() {
 
     testBloc('cancels and discards the previous query', (async, bloc, states) {
       final stale = _PendingRequest();
+      final fresh = _PendingRequest();
       stubPage(1, stale.answer, name: 'morty');
-      stubResult(1, Ok(charactersPage([7])), name: 'rick');
+      stubPage(1, fresh.answer, name: 'rick');
 
       search(async, bloc, 'morty');
       search(async, bloc, 'rick');
+      // The cancelled request settles first, as in production.
       stale.completer.complete(Ok(charactersPage([1])));
       async.flushMicrotasks();
 
       expect(stale.cancelled, isTrue);
+      expect(
+        bloc.state,
+        charactersState(query: 'rick', paging: paging(isLoading: true)),
+      );
+
+      fresh.completer.complete(Ok(charactersPage([7])));
+      async.flushMicrotasks();
+
       expect(
         bloc.state,
         charactersState(
@@ -505,17 +525,34 @@ void main() {
     ) {
       loadFirstPage(async, bloc, states, [1, 2]);
       final stale = _PendingRequest();
+      final fresh = _PendingRequest();
       stubPage(2, stale.answer);
 
       bloc.add(const CharactersNextPageRequested());
       async.flushMicrotasks();
-      stubResult(1, Ok(charactersPage([5])));
+      stubPage(1, fresh.answer);
       bloc.add(const CharactersRefreshRequested());
       async.flushMicrotasks();
+      // The cancelled request settles first, as in production.
       stale.completer.complete(const Err(UnknownFailure()));
       async.flushMicrotasks();
 
       expect(stale.cancelled, isTrue);
+      expect(
+        bloc.state,
+        charactersState(
+          paging: paging(
+            pages: [
+              [1, 2],
+            ],
+            isLoading: true,
+          ),
+        ),
+      );
+
+      fresh.completer.complete(Ok(charactersPage([5])));
+      async.flushMicrotasks();
+
       expect(
         bloc.state,
         charactersState(
