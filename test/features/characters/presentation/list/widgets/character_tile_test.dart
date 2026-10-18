@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character_status.dart';
 import 'package:rickandmorty/features/characters/presentation/list/widgets/character_tile.dart';
-import 'package:rickandmorty/features/characters/presentation/list/widgets/status_chip.dart';
+import 'package:rickandmorty/features/characters/presentation/widgets/character_image.dart';
+import 'package:rickandmorty/features/characters/presentation/widgets/status_chip.dart';
 
 import '../../../../../helpers/characters.dart';
 import '../../../../../helpers/fake_cache_manager.dart';
@@ -22,10 +22,10 @@ void main() {
     expect(find.text('Human'), findsOneWidget);
     expect(find.text('Dead'), findsOneWidget);
     expect(find.byType(StatusChip), findsOneWidget);
-    final image = tester.widget<CachedNetworkImage>(
-      find.byType(CachedNetworkImage),
-    );
-    expect(image.imageUrl, character(1).imageUrl);
+    final image = tester.widget<CharacterImage>(find.byType(CharacterImage));
+    expect(image.character, character(1, status: CharacterStatus.dead));
     expect(image.cacheManager, same(cacheManager));
+    // Decoded at thumbnail size: 56 logical px at the test's 3x ratio.
+    expect(image.memCacheWidth, 168);
   });
 }

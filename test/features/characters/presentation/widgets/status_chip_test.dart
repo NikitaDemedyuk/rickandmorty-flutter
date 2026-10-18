@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character_status.dart';
-import 'package:rickandmorty/features/characters/presentation/list/widgets/status_chip.dart';
+import 'package:rickandmorty/features/characters/presentation/widgets/status_chip.dart';
 
-import '../../../../../helpers/pump_app.dart';
+import '../../../../helpers/pump_app.dart';
 
 void main() {
   const labels = {
