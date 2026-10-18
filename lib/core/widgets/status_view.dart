@@ -18,21 +18,20 @@ class StatusView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final action = this.action;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          spacing: 16,
           children: [
             Icon(icon, size: 48, color: iconColor),
-            const SizedBox(height: 16),
             Text(
               message,
               style: Theme.of(context).textTheme.titleMedium,
               textAlign: TextAlign.center,
             ),
-            if (action != null) ...[const SizedBox(height: 16), action],
+            ?action,
           ],
         ),
       ),
