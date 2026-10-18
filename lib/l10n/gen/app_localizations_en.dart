@@ -59,4 +59,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get endOfList => 'That\'s everyone, Morty!';
+
+  @override
+  String get speciesLabel => 'Species';
+
+  @override
+  String get originLabel => 'Origin';
+
+  @override
+  String get locationLabel => 'Last known location';
+
+  @override
+  String get unknownPlace => 'Unknown';
+
+  @override
+  String get characterNotFound => 'This character doesn\'t exist.';
 }

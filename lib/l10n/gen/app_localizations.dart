@@ -189,6 +189,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'That\'s everyone, Morty!'**
   String get endOfList;
+
+  /// Label of the character's species on the details screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Species'**
+  String get speciesLabel;
+
+  /// Label of the character's place of origin on the details screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Origin'**
+  String get originLabel;
+
+  /// Label of the character's last known location on the details screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Last known location'**
+  String get locationLabel;
+
+  /// Shown on the details screen when the character's origin or location is unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get unknownPlace;
+
+  /// Shown when the details screen is opened for a character id the API doesn't know.
+  ///
+  /// In en, this message translates to:
+  /// **'This character doesn\'t exist.'**
+  String get characterNotFound;
 }
 
 class _AppLocalizationsDelegate

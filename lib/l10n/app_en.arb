@@ -63,5 +63,25 @@
   "endOfList": "That's everyone, Morty!",
   "@endOfList": {
     "description": "Footer shown after the last character of the list."
+  },
+  "speciesLabel": "Species",
+  "@speciesLabel": {
+    "description": "Label of the character's species on the details screen."
+  },
+  "originLabel": "Origin",
+  "@originLabel": {
+    "description": "Label of the character's place of origin on the details screen."
+  },
+  "locationLabel": "Last known location",
+  "@locationLabel": {
+    "description": "Label of the character's last known location on the details screen."
+  },
+  "unknownPlace": "Unknown",
+  "@unknownPlace": {
+    "description": "Shown on the details screen when the character's origin or location is unknown."
+  },
+  "characterNotFound": "This character doesn't exist.",
+  "@characterNotFound": {
+    "description": "Shown when the details screen is opened for a character id the API doesn't know."
   }
 }

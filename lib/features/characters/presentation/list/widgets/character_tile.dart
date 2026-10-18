@@ -1,37 +1,35 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character.dart';
-import 'package:rickandmorty/features/characters/presentation/list/widgets/status_chip.dart';
+import 'package:rickandmorty/features/characters/presentation/widgets/character_image.dart';
+import 'package:rickandmorty/features/characters/presentation/widgets/status_chip.dart';
 
 class CharacterTile extends StatelessWidget {
-  const new({required this.character, required this.cacheManager, super.key});
+  const new({
+    required this.character,
+    required this.cacheManager,
+    required this.onTap,
+    super.key,
+  });
 
   final Character character;
   final BaseCacheManager cacheManager;
+  final VoidCallback onTap;
 
   static const double _avatarSize = 56;
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
     return ListTile(
-      leading: ClipOval(
-        child: SizedBox.square(
-          dimension: _avatarSize,
-          child: CachedNetworkImage(
-            imageUrl: character.imageUrl,
-            cacheManager: cacheManager,
-            fit: BoxFit.cover,
-            // Decode at thumbnail size, not the API's 300 px original.
-            memCacheWidth:
-                (_avatarSize * MediaQuery.devicePixelRatioOf(context)).round(),
-            placeholder: (context, url) =>
-                ColoredBox(color: colorScheme.surfaceContainerHighest),
-            errorWidget: (context, url, error) => ColoredBox(
-              color: colorScheme.surfaceContainerHighest,
-              child: Icon(Icons.person, color: colorScheme.onSurfaceVariant),
-            ),
+      onTap: onTap,
+      leading: SizedBox.square(
+        dimension: _avatarSize,
+        child: CharacterImage(
+          characterId: character.id,
+          imageUrl: character.imageUrl,
+          cacheManager: cacheManager,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(_avatarSize / 2),
           ),
         ),
       ),

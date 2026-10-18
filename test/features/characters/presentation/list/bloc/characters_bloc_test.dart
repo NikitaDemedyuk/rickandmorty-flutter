@@ -175,6 +175,31 @@ void main() {
       verifyFetched(2);
     });
 
+    testBloc('drops characters an earlier page already holds', (
+      async,
+      bloc,
+      states,
+    ) {
+      loadFirstPage(async, bloc, states, [1, 2]);
+      // The data shifted by one between the two requests.
+      stubResult(2, Ok(charactersPage([2, 3])));
+
+      bloc.add(const CharactersNextPageRequested());
+      async.flushMicrotasks();
+
+      expect(
+        states.last,
+        charactersState(
+          paging: paging(
+            pages: [
+              [1, 2],
+              [3],
+            ],
+          ),
+        ),
+      );
+    });
+
     testBloc('stops after the last page', (async, bloc, states) {
       loadFirstPage(async, bloc, states, [1], hasNext: false);
       expect(bloc.state.paging.status, PagingStatus.completed);

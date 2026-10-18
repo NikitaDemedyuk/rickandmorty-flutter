@@ -16,9 +16,16 @@ import 'package:rickandmorty/l10n/l10n.dart';
 /// Searchable, infinitely scrolled characters list. Expects a
 /// [CharactersBloc] above it.
 class CharactersListPage extends StatefulWidget {
-  const new({required this.cacheManager, super.key});
+  const new({
+    required this.cacheManager,
+    required this.onCharacterTap,
+    super.key,
+  });
 
   final BaseCacheManager cacheManager;
+
+  /// Opens the character; the route decides where it goes.
+  final ValueChanged<Character> onCharacterTap;
 
   @override
   State<CharactersListPage> createState() => _CharactersListPageState();
@@ -88,9 +95,10 @@ class _CharactersListPageState extends State<CharactersListPage> {
                   // Every indicator is overridden: the package defaults use
                   // legacy Material and hard-coded English.
                   builderDelegate: PagedChildBuilderDelegate(
-                    itemBuilder: (context, character, index) => CharacterTile(
+                    itemBuilder: (_, character, _) => CharacterTile(
                       character: character,
                       cacheManager: widget.cacheManager,
+                      onTap: () => widget.onCharacterTap(character),
                     ),
                     firstPageProgressIndicatorBuilder: (_) =>
                         const LoadingView(),

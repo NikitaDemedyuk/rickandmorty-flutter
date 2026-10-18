@@ -1,5 +1,6 @@
 import 'package:mocktail/mocktail.dart';
 import 'package:rickandmorty/core/result/result.dart';
+import 'package:rickandmorty/features/characters/domain/entities/character.dart';
 import 'package:rickandmorty/features/characters/domain/entities/characters_page.dart';
 import 'package:rickandmorty/features/characters/domain/repositories/characters_repository.dart';
 
@@ -14,4 +15,8 @@ final class MockCharactersRepository extends Mock
       cancelSignal: any(named: 'cancelSignal'),
     ),
   ).thenAnswer((_) async => result);
+
+  /// Answers `getCharacter(id)` with [result].
+  void stubCharacter(int id, Result<Character> result) =>
+      when(() => getCharacter(id)).thenAnswer((_) async => result);
 }

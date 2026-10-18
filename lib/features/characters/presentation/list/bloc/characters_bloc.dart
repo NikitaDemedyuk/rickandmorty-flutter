@@ -99,7 +99,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
       state.copyWith(
         paging: switch (result) {
           Ok(:final value) => base.copyWith(
-            pages: [...?base.pages, value.characters],
+            pages: [...?base.pages, _unseen(value.characters, base)],
             keys: [...?base.keys, page],
             hasNextPage: value.hasNext,
             isLoading: false,
@@ -112,6 +112,19 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
         },
       ),
     );
+  }
+
+  /// Drops characters an earlier page already holds: the data can shift
+  /// between page requests, and a repeated id would repeat its Hero tag.
+  static List<Character> _unseen(
+    List<Character> characters,
+    PagingState<int, Character> loaded,
+  ) {
+    final ids = {...?loaded.items?.map((character) => character.id)};
+    return [
+      for (final character in characters)
+        if (!ids.contains(character.id)) character,
+    ];
   }
 
   @override
