@@ -4,16 +4,14 @@ import 'package:rickandmorty/app/theme/app_theme.dart';
 import 'package:rickandmorty/core/theme/status_colors.dart';
 
 void main() {
+  // The alive color as ARGB: an int compares by value, a const Color literal
+  // would be canonicalized and could compare by identity.
   final themes = {
-    // Not const: const instances are canonicalized and compare by identity.
-    // ignore: prefer_const_constructors
-    'light': (AppTheme.light, Brightness.light, Color(0xFF55A630)),
-    // Not const, for the same reason.
-    // ignore: prefer_const_constructors
-    'dark': (AppTheme.dark, Brightness.dark, Color(0xFF7CC957)),
+    'light': (AppTheme.light, Brightness.light, 0xFF55A630),
+    'dark': (AppTheme.dark, Brightness.dark, 0xFF7CC957),
   };
 
-  for (final MapEntry(key: name, value: (theme, brightness, alive))
+  for (final MapEntry(key: name, value: (theme, brightness, aliveArgb))
       in themes.entries) {
     group('AppTheme.$name', () {
       test('uses a $name color scheme', () {
@@ -26,7 +24,7 @@ void main() {
         expect(statusColors, isNotNull);
         expect(statusColors!.dead, theme.colorScheme.error);
         expect(statusColors.unknown, theme.colorScheme.onSurfaceVariant);
-        expect(statusColors.alive, alive);
+        expect(statusColors.alive.toARGB32(), aliveArgb);
       });
     });
   }
