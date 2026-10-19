@@ -114,6 +114,8 @@ void main() {
     );
 
     expect(find.byType(StatusChip), findsOneWidget);
+    final chip = tester.element(find.byType(StatusChip));
+    expect(Theme.of(chip).brightness, Brightness.dark);
     expect(tester.takeException(), isNull);
   });
 

@@ -119,6 +119,8 @@ void main() {
 
       expect(find.byType(CharacterTile), findsNWidgets(2));
       expect(find.byType(NextPageErrorFooter), findsOneWidget);
+      final tile = tester.element(find.byType(CharacterTile).first);
+      expect(Theme.of(tile).brightness, Brightness.dark);
       expect(tester.takeException(), isNull);
     });
 
