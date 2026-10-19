@@ -2,7 +2,6 @@ import 'package:material_ui/material_ui.dart';
 import 'package:rickandmorty/core/widgets/loading_view.dart';
 import 'package:rickandmorty/l10n/l10n.dart';
 
-/// Shown below the items while the next page loads.
 class NextPageLoadingFooter extends StatelessWidget {
   const new({super.key});
 
@@ -12,7 +11,6 @@ class NextPageLoadingFooter extends StatelessWidget {
   }
 }
 
-/// Shown below the items when the next page failed to load.
 class NextPageErrorFooter extends StatelessWidget {
   const new({required this.message, required this.onRetry, super.key});
 
@@ -38,7 +36,6 @@ class NextPageErrorFooter extends StatelessWidget {
   }
 }
 
-/// Shown after the last item.
 class EndOfListFooter extends StatelessWidget {
   const new({super.key});
 
