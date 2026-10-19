@@ -8,29 +8,36 @@ import 'package:rickandmorty/features/characters/presentation/widgets/status_chi
 import '../../../../helpers/pump_app.dart';
 
 void main() {
-  final statusColors = AppTheme.light.extension<StatusColors>()!;
-  final cases = {
-    CharacterStatus.alive: ('Alive', statusColors.alive),
-    CharacterStatus.dead: ('Dead', statusColors.dead),
-    CharacterStatus.unknown: ('Unknown', statusColors.unknown),
-  };
-
   Color dotColor(WidgetTester tester) {
     final dot = tester.widget<DecoratedBox>(find.byKey(StatusChip.dotKey));
     return (dot.decoration as BoxDecoration).color!;
   }
 
-  for (final MapEntry(key: status, value: (label, color)) in cases.entries) {
-    testWidgets('labels $status as "$label"', (tester) async {
-      await tester.pumpApp(StatusChip(status: status));
+  for (final MapEntry(key: themeName, value: theme) in {
+    'light': AppTheme.light,
+    'dark': AppTheme.dark,
+  }.entries) {
+    final statusColors = theme.extension<StatusColors>()!;
+    final cases = {
+      CharacterStatus.alive: ('Alive', statusColors.alive),
+      CharacterStatus.dead: ('Dead', statusColors.dead),
+      CharacterStatus.unknown: ('Unknown', statusColors.unknown),
+    };
 
-      expect(find.text(label), findsOneWidget);
-    });
+    for (final MapEntry(key: status, value: (label, color)) in cases.entries) {
+      testWidgets('labels $status as "$label" ($themeName)', (tester) async {
+        await tester.pumpApp(StatusChip(status: status), theme: theme);
 
-    testWidgets('colors the $status dot from StatusColors', (tester) async {
-      await tester.pumpApp(StatusChip(status: status));
+        expect(find.text(label), findsOneWidget);
+      });
 
-      expect(dotColor(tester), color);
-    });
+      testWidgets('colors the $status dot from StatusColors ($themeName)', (
+        tester,
+      ) async {
+        await tester.pumpApp(StatusChip(status: status), theme: theme);
+
+        expect(dotColor(tester), color);
+      });
+    }
   }
 }

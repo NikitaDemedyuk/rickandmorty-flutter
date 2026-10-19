@@ -44,6 +44,21 @@ void main() {
     expect(find.text('Rick and Morty'), findsOneWidget);
   });
 
+  for (final brightness in Brightness.values) {
+    testWidgets('follows the system appearance (${brightness.name})', (
+      tester,
+    ) async {
+      tester.platformDispatcher.platformBrightnessTestValue = brightness;
+      addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
+
+      await tester.pumpWidget(App(getIt: getIt));
+      await tester.pumpAndSettle();
+
+      final context = tester.element(find.byType(CharactersListPage));
+      expect(Theme.of(context).brightness, brightness);
+    });
+  }
+
   testWidgets('shows an error page for unknown routes and goes home', (
     tester,
   ) async {

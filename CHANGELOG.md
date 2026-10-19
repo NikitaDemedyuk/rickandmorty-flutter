@@ -5,6 +5,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+### Added
+
+- A dark theme that follows the system appearance.
+
 ### Fixed
 
 - Release Android builds can reach the network: the `INTERNET` permission is declared in the main manifest, not only in debug and profile.
