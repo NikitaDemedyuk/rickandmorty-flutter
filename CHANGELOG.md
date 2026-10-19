@@ -5,6 +5,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+### Fixed
+
+- Release Android builds can reach the network: the `INTERNET` permission is declared in the main manifest, not only in debug and profile.
+
 ## [1.0.0] - 2026-10-18
 
 ### Added
