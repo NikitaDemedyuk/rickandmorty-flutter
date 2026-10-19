@@ -1,7 +1,5 @@
 import 'package:material_ui/material_ui.dart';
 
-/// Centered icon + message (+ optional action) layout shared by the full-page
-/// state views.
 class StatusView extends StatelessWidget {
   const new({
     required this.icon,

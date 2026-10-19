@@ -3,7 +3,6 @@ import 'package:rickandmorty/core/theme/status_colors.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character_status.dart';
 import 'package:rickandmorty/l10n/l10n.dart';
 
-/// A colored dot with the localized status label.
 class StatusChip extends StatelessWidget {
   const new({required this.status, super.key});
 
