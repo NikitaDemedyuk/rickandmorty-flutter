@@ -39,6 +39,7 @@ class _AppState extends State<App> {
       routerConfig: _router,
       onGenerateTitle: (context) => context.l10n.appTitle,
       theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [
         AppLocalizations.delegate,

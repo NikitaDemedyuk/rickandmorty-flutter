@@ -5,10 +5,10 @@ import 'package:rickandmorty/l10n/l10n.dart';
 
 extension PumpApp on WidgetTester {
   /// Pumps [widget] inside a themed, localized [MaterialApp].
-  Future<void> pumpApp(Widget widget) {
+  Future<void> pumpApp(Widget widget, {ThemeData? theme}) {
     return pumpWidget(
       MaterialApp(
-        theme: AppTheme.light,
+        theme: theme ?? AppTheme.light,
         supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates: const [
           AppLocalizations.delegate,

@@ -20,6 +20,7 @@ A Flutter client for the [Rick and Morty API](https://rickandmortyapi.com): a pa
 - **Details screen** with a `Hero` portrait, status, species, origin and last known location. It fetches by id, so deep links (`/character/42`) work too.
 - **Round trip without a refetch:** coming back from details keeps the query, the loaded pages and the scroll position.
 - **Distinct error messages** for offline, timeout, rate limiting (HTTP 429), server errors and unknown ids.
+- **Light and dark themes** that follow the system appearance (there is no in-app switch).
 - English only, since that is the show's language (copy still goes through gen-l10n).
 
 ## Getting started
