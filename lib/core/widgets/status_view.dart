@@ -1,4 +1,5 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:rickandmorty/core/theme/spacing.dart';
 
 class StatusView extends StatelessWidget {
   const new({
@@ -18,10 +19,10 @@ class StatusView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(Spacing.xl),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          spacing: 16,
+          spacing: Spacing.lg,
           children: [
             Icon(icon, size: 48, color: iconColor),
             Text(
