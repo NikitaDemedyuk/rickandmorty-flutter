@@ -5,8 +5,12 @@ import 'package:rickandmorty/core/theme/status_colors.dart';
 
 void main() {
   final themes = {
-    'light': (AppTheme.light, Brightness.light, const Color(0xFF55A630)),
-    'dark': (AppTheme.dark, Brightness.dark, const Color(0xFF7CC957)),
+    // Not const: const instances are canonicalized and compare by identity.
+    // ignore: prefer_const_constructors
+    'light': (AppTheme.light, Brightness.light, Color(0xFF55A630)),
+    // Not const, for the same reason.
+    // ignore: prefer_const_constructors
+    'dark': (AppTheme.dark, Brightness.dark, Color(0xFF7CC957)),
   };
 
   for (final MapEntry(key: name, value: (theme, brightness, alive))
