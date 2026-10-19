@@ -1,4 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Required by release builds too (the app calls the API); the debug and
+         profile manifests only duplicate it. Do not remove. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="Rick and Morty"
         android:name="${applicationName}"
