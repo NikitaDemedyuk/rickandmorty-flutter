@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:rickandmorty/app/app.dart';
+import 'package:rickandmorty/app/theme/app_theme.dart';
 import 'package:rickandmorty/core/result/result.dart';
 import 'package:rickandmorty/core/widgets/error_view.dart';
 import 'package:rickandmorty/features/characters/domain/repositories/characters_repository.dart';
@@ -44,7 +45,10 @@ void main() {
     expect(find.text('Rick and Morty'), findsOneWidget);
   });
 
-  for (final brightness in Brightness.values) {
+  for (final MapEntry(key: brightness, value: theme) in {
+    Brightness.light: AppTheme.light,
+    Brightness.dark: AppTheme.dark,
+  }.entries) {
     testWidgets('follows the system appearance (${brightness.name})', (
       tester,
     ) async {
@@ -56,6 +60,7 @@ void main() {
 
       final context = tester.element(find.byType(CharactersListPage));
       expect(Theme.of(context).brightness, brightness);
+      expect(Theme.of(context).colorScheme, theme.colorScheme);
     });
   }
 
