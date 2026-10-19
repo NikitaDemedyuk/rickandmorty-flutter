@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:rickandmorty/app/theme/app_theme.dart';
@@ -26,6 +28,27 @@ void main() {
         expect(statusColors.unknown, theme.colorScheme.onSurfaceVariant);
         expect(statusColors.alive.toARGB32(), aliveArgb);
       });
+
+      // WCAG 1.4.11: the status dot is a non-text graphic, so it needs 3:1
+      // against the surface the chip sits on.
+      test('status colors keep 3:1 contrast on the surface', () {
+        final statusColors = theme.extension<StatusColors>()!;
+        final surface = theme.colorScheme.surface;
+
+        for (final color in [
+          statusColors.alive,
+          statusColors.dead,
+          statusColors.unknown,
+        ]) {
+          expect(_contrastRatio(color, surface), greaterThanOrEqualTo(3));
+        }
+      });
     });
   }
+}
+
+/// WCAG contrast ratio between two opaque colors.
+double _contrastRatio(Color a, Color b) {
+  final (la, lb) = (a.computeLuminance(), b.computeLuminance());
+  return (math.max(la, lb) + 0.05) / (math.min(la, lb) + 0.05);
 }
