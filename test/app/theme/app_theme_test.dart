@@ -7,8 +7,8 @@ void main() {
   // The alive color as ARGB: an int compares by value, a const Color literal
   // would be canonicalized and could compare by identity.
   final themes = {
-    'light': (AppTheme.light, Brightness.light, 0xFF55A630),
-    'dark': (AppTheme.dark, Brightness.dark, 0xFF7CC957),
+    'light': (AppTheme.light, Brightness.light, 0xFF266D00),
+    'dark': (AppTheme.dark, Brightness.dark, 0xFF86DB5F),
   };
 
   for (final MapEntry(key: name, value: (theme, brightness, aliveArgb))
