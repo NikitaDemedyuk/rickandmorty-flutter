@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:rickandmorty/app/theme/app_theme.dart';
 import 'package:rickandmorty/core/error/failure.dart';
 import 'package:rickandmorty/core/result/result.dart';
 import 'package:rickandmorty/core/widgets/empty_view.dart';
@@ -33,8 +34,9 @@ void main() {
 
   Future<void> pumpWithState(
     WidgetTester tester,
-    PagingState<int, Character> paging,
-  ) async {
+    PagingState<int, Character> paging, {
+    ThemeData? theme,
+  }) async {
     when(() => bloc.state)
         .thenReturn(CharactersState(query: '', paging: paging));
     await tester.pumpApp(
@@ -45,6 +47,7 @@ void main() {
           onCharacterTap: tapped.add,
         ),
       ),
+      theme: theme,
     );
     // Lets the list run its post-frame fetchNextPage, if any.
     await tester.pump();
@@ -99,6 +102,24 @@ void main() {
       expect(find.byType(CharacterTile), findsNWidgets(2));
       expect(find.text('Character 2'), findsOneWidget);
       expect(find.byType(NextPageLoadingFooter), findsOneWidget);
+    });
+
+    testWidgets('renders tiles and the error footer in the dark theme', (
+      tester,
+    ) async {
+      await pumpWithState(
+        tester,
+        PagingState(
+          pages: pageOf([1, 2]),
+          keys: const [1],
+          error: const NetworkFailure(),
+        ),
+        theme: AppTheme.dark,
+      );
+
+      expect(find.byType(CharacterTile), findsNWidgets(2));
+      expect(find.byType(NextPageErrorFooter), findsOneWidget);
+      expect(tester.takeException(), isNull);
     });
 
     testWidgets('shows a next-page error footer that retries', (tester) async {

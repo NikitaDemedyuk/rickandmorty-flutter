@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:rickandmorty/app/theme/app_theme.dart';
 import 'package:rickandmorty/core/error/failure.dart';
 import 'package:rickandmorty/core/widgets/error_view.dart';
 import 'package:rickandmorty/core/widgets/loading_view.dart';
@@ -31,6 +33,7 @@ void main() {
     WidgetTester tester,
     CharacterDetailsState state, {
     String? imageUrl,
+    ThemeData? theme,
   }) async {
     when(() => cubit.state).thenReturn(state);
     await tester.pumpApp(
@@ -41,6 +44,7 @@ void main() {
           cacheManager: cacheManager,
         ),
       ),
+      theme: theme,
     );
   }
 
@@ -100,6 +104,17 @@ void main() {
     expect(image.characterId, 1);
     expect(image.imageUrl, rick.imageUrl);
     expect(image.cacheManager, same(cacheManager));
+  });
+
+  testWidgets('renders a loaded character in the dark theme', (tester) async {
+    await pumpWithState(
+      tester,
+      CharacterDetailsLoadSuccess(character(1)),
+      theme: AppTheme.dark,
+    );
+
+    expect(find.byType(StatusChip), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('shows a placeholder for an unknown origin and location', (
