@@ -6,26 +6,34 @@ abstract final class AppTheme {
   static const Color _aliveGreen = Color(0xFF55A630);
   static const Color _aliveGreenDark = Color(0xFF7CC957);
 
-  static final ThemeData light = _build(Brightness.light, alive: _aliveGreen);
+  static final ColorScheme _lightScheme = ColorScheme.fromSeed(
+    seedColor: _portalGreen,
+  );
 
-  static final ThemeData dark = _build(Brightness.dark, alive: _aliveGreenDark);
+  static final ColorScheme _darkScheme = ColorScheme.fromSeed(
+    seedColor: _portalGreen,
+    brightness: Brightness.dark,
+  );
 
-  /// Each theme builds its own [StatusColors] from its scheme, since the
-  /// extension copies the roles instead of following the scheme.
-  static ThemeData _build(Brightness brightness, {required Color alive}) {
-    final scheme = ColorScheme.fromSeed(
-      seedColor: _portalGreen,
-      brightness: brightness,
-    );
-    return ThemeData(
-      colorScheme: scheme,
-      extensions: [
-        StatusColors(
-          alive: alive,
-          dead: scheme.error,
-          unknown: scheme.onSurfaceVariant,
-        ),
-      ],
-    );
-  }
+  static final ThemeData light = ThemeData(
+    colorScheme: _lightScheme,
+    extensions: [
+      StatusColors(
+        alive: _aliveGreen,
+        dead: _lightScheme.error,
+        unknown: _lightScheme.onSurfaceVariant,
+      ),
+    ],
+  );
+
+  static final ThemeData dark = ThemeData(
+    colorScheme: _darkScheme,
+    extensions: [
+      StatusColors(
+        alive: _aliveGreenDark,
+        dead: _darkScheme.error,
+        unknown: _darkScheme.onSurfaceVariant,
+      ),
+    ],
+  );
 }
