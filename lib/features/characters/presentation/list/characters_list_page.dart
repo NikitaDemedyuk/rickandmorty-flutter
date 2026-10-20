@@ -3,6 +3,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:rickandmorty/core/error/failure_message.dart';
+import 'package:rickandmorty/core/theme/spacing.dart';
 import 'package:rickandmorty/core/widgets/empty_view.dart';
 import 'package:rickandmorty/core/widgets/error_view.dart';
 import 'package:rickandmorty/core/widgets/loading_view.dart';
@@ -72,7 +73,10 @@ class _CharactersListPageState extends State<CharactersListPage> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+            padding: const EdgeInsets.symmetric(
+              horizontal: Spacing.lg,
+              vertical: Spacing.sm,
+            ),
             child: SearchField(
               controller: _searchController,
               onChanged: (query) => context.read<CharactersBloc>().add(

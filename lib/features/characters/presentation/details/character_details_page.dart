@@ -3,6 +3,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:rickandmorty/core/error/failure.dart';
 import 'package:rickandmorty/core/error/failure_message.dart';
+import 'package:rickandmorty/core/theme/spacing.dart';
 import 'package:rickandmorty/core/widgets/error_view.dart';
 import 'package:rickandmorty/core/widgets/loading_view.dart';
 import 'package:rickandmorty/features/characters/presentation/details/cubit/character_details_cubit.dart';
@@ -43,7 +44,10 @@ class CharacterDetailsPage extends StatelessWidget {
               imageUrl: imageUrl,
               cacheManager: cacheManager,
               children: const [
-                Padding(padding: EdgeInsets.all(24), child: LoadingView()),
+                Padding(
+                  padding: EdgeInsets.all(Spacing.xl),
+                  child: LoadingView(),
+                ),
               ],
             ),
           CharacterDetailsInitial() ||
@@ -100,14 +104,14 @@ class _DetailsLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(Spacing.lg),
       child: Center(
         // Keeps the portrait and facts readable in landscape and on tablets.
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 600),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            spacing: 16,
+            spacing: Spacing.lg,
             children: [
               AspectRatio(
                 aspectRatio: 1,
