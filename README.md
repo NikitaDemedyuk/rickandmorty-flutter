@@ -21,7 +21,7 @@ A Flutter client for the [Rick and Morty API](https://rickandmortyapi.com): a pa
 - **Round trip without a refetch:** coming back from details keeps the query, the loaded pages and the scroll position.
 - **Distinct error messages** for offline, timeout, rate limiting (HTTP 429), server errors and unknown ids.
 - **Light and dark themes** that follow the system appearance (there is no in-app switch).
-- **Accessibility:** screen reader labels for status, facts and loaders, and layouts checked at 2x text scale.
+- **Accessibility:** screen reader labels for status, facts and loaders; character rows and the details screen fit a small phone at 2x text size.
 - English only, since that is the show's language (copy still goes through gen-l10n).
 
 ## Getting started
