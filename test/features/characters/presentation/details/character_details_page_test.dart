@@ -136,14 +136,15 @@ void main() {
     );
   });
 
-  testWidgets('fits a long name at 2x text scale', (tester) async {
-    tester.platformDispatcher.textScaleFactorTestValue = 2;
-    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+  testWidgets('fits a long name at 2x text scale on a small phone', (
+    tester,
+  ) async {
+    tester.useSmallPhoneWith2xText();
 
     await pumpWithState(
       tester,
       CharacterDetailsLoadSuccess(
-        character(1).copyWith(
+        character(1, status: CharacterStatus.unknown).copyWith(
           name: 'Abradolf Lincler, Supreme Leader of the Galactic Federation',
           originName: 'Earth (Replacement Dimension)',
           locationName: 'Interdimensional Cable',
