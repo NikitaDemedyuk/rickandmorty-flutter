@@ -66,7 +66,7 @@ class CharacterDetailsPage extends StatelessWidget {
             cacheManager: cacheManager,
             children: [
               Row(
-                spacing: Spacing.md,
+                spacing: 12,
                 children: [
                   Expanded(
                     child: Text(
