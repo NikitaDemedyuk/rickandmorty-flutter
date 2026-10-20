@@ -15,6 +15,7 @@ import 'package:rickandmorty/features/characters/presentation/widgets/status_chi
 import '../../../../helpers/characters.dart';
 import '../../../../helpers/fake_cache_manager.dart';
 import '../../../../helpers/pump_app.dart';
+import '../../../../helpers/small_phone.dart';
 
 class _MockCubit extends Mock implements CharacterDetailsCubit;
 
@@ -148,6 +149,19 @@ void main() {
           locationName: 'Interdimensional Cable',
         ),
       ),
+    );
+
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('scrolls the error at 2x text scale on a small phone', (
+    tester,
+  ) async {
+    tester.useSmallPhoneWith2xText();
+
+    await pumpWithState(
+      tester,
+      const CharacterDetailsLoadFailure(NetworkFailure()),
     );
 
     expect(tester.takeException(), isNull);

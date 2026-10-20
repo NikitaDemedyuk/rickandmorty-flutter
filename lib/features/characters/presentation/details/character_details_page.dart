@@ -53,12 +53,15 @@ class CharacterDetailsPage extends StatelessWidget {
           CharacterDetailsInitial() ||
           CharacterDetailsLoadInProgress() => const LoadingView(),
           // Retrying an id the API doesn't know can't help; Back is there.
-          CharacterDetailsLoadFailure(failure: NotFoundFailure()) => ErrorView(
-            message: context.l10n.characterNotFound,
-          ),
-          CharacterDetailsLoadFailure(:final failure) => ErrorView(
-            message: failureMessage(context, failure),
-            onRetry: context.read<CharacterDetailsCubit>().load,
+          CharacterDetailsLoadFailure(failure: NotFoundFailure()) =>
+            _ScrollableFill(
+              child: ErrorView(message: context.l10n.characterNotFound),
+            ),
+          CharacterDetailsLoadFailure(:final failure) => _ScrollableFill(
+            child: ErrorView(
+              message: failureMessage(context, failure),
+              onRetry: context.read<CharacterDetailsCubit>().load,
+            ),
           ),
           CharacterDetailsLoadSuccess(:final character) => _DetailsLayout(
             characterId: character.id,
@@ -84,6 +87,26 @@ class CharacterDetailsPage extends StatelessWidget {
             ],
           ),
         },
+      ),
+    );
+  }
+}
+
+/// Centers [child] in the body, scrolling it when large text makes it taller
+/// than the screen.
+class _ScrollableFill extends StatelessWidget {
+  const new({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (_, constraints) => SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraints.maxHeight),
+          child: child,
+        ),
       ),
     );
   }
