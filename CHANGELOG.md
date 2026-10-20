@@ -5,9 +5,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-20
+
 ### Fixed
 
-- Release Android builds can reach the network: the `INTERNET` permission is declared in the main manifest, not only in debug and profile.
+- Release Android builds can reach the network: the `INTERNET` permission is declared in the main manifest, not only in debug and profile ([#18](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/18)).
 
 ## [1.0.0] - 2026-10-18
 
@@ -25,5 +27,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - README in English and Russian, with an architecture overview ([#11](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/11)).
 - Release workflow: a version tag publishes a GitHub Release with the APK ([#14](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/14)).
 
-[Unreleased]: https://github.com/NikitaDemedyuk/rickandmorty-flutter/compare/v1.0.0...develop
+[Unreleased]: https://github.com/NikitaDemedyuk/rickandmorty-flutter/compare/v1.0.1...develop
+[1.0.1]: https://github.com/NikitaDemedyuk/rickandmorty-flutter/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/NikitaDemedyuk/rickandmorty-flutter/releases/tag/v1.0.0
