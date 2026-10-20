@@ -120,19 +120,19 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('reads facts label first and the name as a header', (
+  testWidgets('reads facts label first and the name as one header', (
     tester,
   ) async {
     await pumpWithState(tester, CharacterDetailsLoadSuccess(character(1)));
 
     expect(find.bySemanticsLabel('Species: Human'), findsOneWidget);
     expect(find.bySemanticsLabel('Origin: Unknown'), findsOneWidget);
-    // The app bar title and the name under the portrait.
+    // Only the app bar title; the name under the portrait repeats it.
     expect(
       find.semantics.byPredicate(
         (node) => node.label == 'Character 1' && node.flagsCollection.isHeader,
       ),
-      findsExactly(2),
+      findsOneWidget,
     );
   });
 

@@ -72,12 +72,9 @@ class CharacterDetailsPage extends StatelessWidget {
                 spacing: 12,
                 children: [
                   Expanded(
-                    child: Semantics(
-                      header: true,
-                      child: Text(
-                        character.name,
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
+                    child: Text(
+                      character.name,
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
                   ),
                   StatusChip(status: character.status),
