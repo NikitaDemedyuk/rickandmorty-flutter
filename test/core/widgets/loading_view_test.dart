@@ -10,4 +10,10 @@ void main() {
 
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
+
+  testWidgets('announces itself to screen readers', (tester) async {
+    await tester.pumpApp(const LoadingView());
+
+    expect(find.bySemanticsLabel('Loading'), findsOneWidget);
+  });
 }

@@ -119,6 +119,40 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('reads facts label first and the name as a header', (
+    tester,
+  ) async {
+    await pumpWithState(tester, CharacterDetailsLoadSuccess(character(1)));
+
+    expect(find.bySemanticsLabel('Species: Human'), findsOneWidget);
+    expect(find.bySemanticsLabel('Origin: Unknown'), findsOneWidget);
+    // The app bar title and the name under the portrait.
+    expect(
+      find.semantics.byPredicate(
+        (node) => node.label == 'Character 1' && node.flagsCollection.isHeader,
+      ),
+      findsExactly(2),
+    );
+  });
+
+  testWidgets('fits a long name at 2x text scale', (tester) async {
+    tester.platformDispatcher.textScaleFactorTestValue = 2;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+
+    await pumpWithState(
+      tester,
+      CharacterDetailsLoadSuccess(
+        character(1).copyWith(
+          name: 'Abradolf Lincler, Supreme Leader of the Galactic Federation',
+          originName: 'Earth (Replacement Dimension)',
+          locationName: 'Interdimensional Cable',
+        ),
+      ),
+    );
+
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('shows a placeholder for an unknown origin and location', (
     tester,
   ) async {

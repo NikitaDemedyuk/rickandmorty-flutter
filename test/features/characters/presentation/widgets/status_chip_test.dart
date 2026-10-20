@@ -25,6 +25,12 @@ void main() {
 
       expect(find.text(label), findsOneWidget);
     });
+
+    testWidgets('reads $status as "Status: $label"', (tester) async {
+      await tester.pumpApp(StatusChip(status: status));
+
+      expect(find.bySemanticsLabel('Status: $label'), findsOneWidget);
+    });
   }
 
   for (final MapEntry(key: themeName, value: theme) in {

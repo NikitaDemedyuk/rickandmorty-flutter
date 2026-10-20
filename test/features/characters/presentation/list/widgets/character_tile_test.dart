@@ -46,4 +46,21 @@ void main() {
 
     expect(taps, 1);
   });
+
+  testWidgets('fits a long name at 2x text scale', (tester) async {
+    tester.platformDispatcher.textScaleFactorTestValue = 2;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+
+    await tester.pumpApp(
+      CharacterTile(
+        character: character(1).copyWith(
+          name: 'Abradolf Lincler, Supreme Leader of the Galactic Federation',
+        ),
+        cacheManager: FakeCacheManager(),
+        onTap: () {},
+      ),
+    );
+
+    expect(tester.takeException(), isNull);
+  });
 }

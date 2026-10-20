@@ -8,6 +8,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Added
 
 - A dark theme that follows the system appearance.
+- Screen reader labels for the status chip ("Status: Alive"), the details facts ("Species: Human") and the loaders; the character name is a header. Long names are checked at 2x text scale.
 
 ### Fixed
 

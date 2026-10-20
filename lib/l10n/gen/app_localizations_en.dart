@@ -77,4 +77,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get characterNotFound => 'This character doesn\'t exist.';
+
+  @override
+  String get loading => 'Loading';
+
+  @override
+  String statusSemanticLabel(String status) {
+    return 'Status: $status';
+  }
+
+  @override
+  String factSemanticLabel(String label, String value) {
+    return '$label: $value';
+  }
 }
