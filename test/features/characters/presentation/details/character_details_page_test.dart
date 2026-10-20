@@ -127,6 +127,10 @@ void main() {
 
     expect(find.bySemanticsLabel('Species: Human'), findsOneWidget);
     expect(find.bySemanticsLabel('Origin: Unknown'), findsOneWidget);
+    expect(
+      find.bySemanticsLabel('Last known location: Unknown'),
+      findsOneWidget,
+    );
     // Only the app bar title; the name under the portrait repeats it.
     expect(
       find.semantics.byPredicate(
