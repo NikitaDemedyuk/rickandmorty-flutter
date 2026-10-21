@@ -8,6 +8,7 @@ import 'package:rickandmorty/features/characters/presentation/widgets/status_chi
 import '../../../../../helpers/characters.dart';
 import '../../../../../helpers/fake_cache_manager.dart';
 import '../../../../../helpers/pump_app.dart';
+import '../../../../../helpers/small_phone.dart';
 
 void main() {
   testWidgets('shows the name, species, status and avatar', (tester) async {
@@ -45,5 +46,25 @@ void main() {
     await tester.tap(find.byType(CharacterTile));
 
     expect(taps, 1);
+  });
+
+  // The name and species are one ellipsized line each; the widest status
+  // chip is what has to fit.
+  testWidgets('fits the widest status at 2x text scale on a small phone', (
+    tester,
+  ) async {
+    tester.useSmallPhoneWith2xText();
+
+    await tester.pumpApp(
+      CharacterTile(
+        character: character(1, status: CharacterStatus.unknown).copyWith(
+          name: 'Abradolf Lincler, Supreme Leader of the Galactic Federation',
+        ),
+        cacheManager: FakeCacheManager(),
+        onTap: () {},
+      ),
+    );
+
+    expect(tester.takeException(), isNull);
   });
 }

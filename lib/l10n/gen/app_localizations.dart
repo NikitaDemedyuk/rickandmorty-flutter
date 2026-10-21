@@ -225,6 +225,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This character doesn\'t exist.'**
   String get characterNotFound;
+
+  /// Screen reader label of the progress indicators.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading'**
+  String get loading;
+
+  /// Screen reader label of the status chip.
+  ///
+  /// In en, this message translates to:
+  /// **'Status: {status}'**
+  String statusSemanticLabel(String status);
+
+  /// Screen reader label of a fact on the details screen, read label first.
+  ///
+  /// In en, this message translates to:
+  /// **'{label}: {value}'**
+  String factSemanticLabel(String label, String value);
 }
 
 class _AppLocalizationsDelegate
