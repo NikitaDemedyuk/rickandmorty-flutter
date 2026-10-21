@@ -5,6 +5,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-21
+
+### Added
+
+- A dark theme that follows the system appearance ([#20](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/20)).
+- Screen reader labels for the status chip ("Status: Alive"), the details facts ("Species: Human") and the loaders; screen readers skip the portraits. Character rows and the details screen, errors included, fit a small phone at 2x text size ([#24](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/24)).
+- A demo GIF in the READMEs ([#19](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/19)).
+
 ## [1.0.1] - 2026-10-20
 
 ### Fixed
@@ -27,6 +35,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - README in English and Russian, with an architecture overview ([#11](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/11)).
 - Release workflow: a version tag publishes a GitHub Release with the APK ([#14](https://github.com/NikitaDemedyuk/rickandmorty-flutter/pull/14)).
 
-[Unreleased]: https://github.com/NikitaDemedyuk/rickandmorty-flutter/compare/v1.0.1...develop
+[Unreleased]: https://github.com/NikitaDemedyuk/rickandmorty-flutter/compare/v1.1.0...develop
+[1.1.0]: https://github.com/NikitaDemedyuk/rickandmorty-flutter/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/NikitaDemedyuk/rickandmorty-flutter/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/NikitaDemedyuk/rickandmorty-flutter/releases/tag/v1.0.0

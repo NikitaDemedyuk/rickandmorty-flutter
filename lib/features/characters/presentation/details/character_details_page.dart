@@ -3,6 +3,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:rickandmorty/core/error/failure.dart';
 import 'package:rickandmorty/core/error/failure_message.dart';
+import 'package:rickandmorty/core/theme/spacing.dart';
 import 'package:rickandmorty/core/widgets/error_view.dart';
 import 'package:rickandmorty/core/widgets/loading_view.dart';
 import 'package:rickandmorty/features/characters/presentation/details/cubit/character_details_cubit.dart';
@@ -43,18 +44,24 @@ class CharacterDetailsPage extends StatelessWidget {
               imageUrl: imageUrl,
               cacheManager: cacheManager,
               children: const [
-                Padding(padding: EdgeInsets.all(24), child: LoadingView()),
+                Padding(
+                  padding: EdgeInsets.all(Spacing.xl),
+                  child: LoadingView(),
+                ),
               ],
             ),
           CharacterDetailsInitial() ||
           CharacterDetailsLoadInProgress() => const LoadingView(),
           // Retrying an id the API doesn't know can't help; Back is there.
-          CharacterDetailsLoadFailure(failure: NotFoundFailure()) => ErrorView(
-            message: context.l10n.characterNotFound,
-          ),
-          CharacterDetailsLoadFailure(:final failure) => ErrorView(
-            message: failureMessage(context, failure),
-            onRetry: context.read<CharacterDetailsCubit>().load,
+          CharacterDetailsLoadFailure(failure: NotFoundFailure()) =>
+            _ScrollableFill(
+              child: ErrorView(message: context.l10n.characterNotFound),
+            ),
+          CharacterDetailsLoadFailure(:final failure) => _ScrollableFill(
+            child: ErrorView(
+              message: failureMessage(context, failure),
+              onRetry: context.read<CharacterDetailsCubit>().load,
+            ),
           ),
           CharacterDetailsLoadSuccess(:final character) => _DetailsLayout(
             characterId: character.id,
@@ -82,6 +89,26 @@ class CharacterDetailsPage extends StatelessWidget {
   }
 }
 
+/// Centers [child] in the body, scrolling it when large text makes it taller
+/// than the screen.
+class _ScrollableFill extends StatelessWidget {
+  const new({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (_, constraints) => SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraints.maxHeight),
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+
 /// The portrait with [children] below it. Loading and loaded share it, so the
 /// portrait stays in place (and isn't reloaded) when the character arrives.
 class _DetailsLayout extends StatelessWidget {
@@ -100,14 +127,14 @@ class _DetailsLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(Spacing.lg),
       child: Center(
         // Keeps the portrait and facts readable in landscape and on tablets.
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 600),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            spacing: 16,
+            spacing: Spacing.lg,
             children: [
               AspectRatio(
                 aspectRatio: 1,

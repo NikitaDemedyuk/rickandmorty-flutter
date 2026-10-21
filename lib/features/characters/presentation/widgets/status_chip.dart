@@ -3,7 +3,6 @@ import 'package:rickandmorty/core/theme/status_colors.dart';
 import 'package:rickandmorty/features/characters/domain/entities/character_status.dart';
 import 'package:rickandmorty/l10n/l10n.dart';
 
-/// A colored dot with the localized status label.
 class StatusChip extends StatelessWidget {
   const new({required this.status, super.key});
 
@@ -23,25 +22,31 @@ class StatusChip extends StatelessWidget {
       CharacterStatus.dead => (l10n.statusDead, statusColors.dead),
       CharacterStatus.unknown => (l10n.statusUnknown, statusColors.unknown),
     };
-    return DecoratedBox(
-      decoration: ShapeDecoration(
-        shape: StadiumBorder(
-          side: BorderSide(color: colorScheme.outlineVariant),
+    // Read as "Status: Alive" rather than a bare "Alive"; the dot is
+    // decorative.
+    return Semantics(
+      label: l10n.statusSemanticLabel(label),
+      excludeSemantics: true,
+      child: DecoratedBox(
+        decoration: ShapeDecoration(
+          shape: StadiumBorder(
+            side: BorderSide(color: colorScheme.outlineVariant),
+          ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          spacing: 6,
-          children: [
-            DecoratedBox(
-              key: dotKey,
-              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-              child: const SizedBox.square(dimension: 8),
-            ),
-            Text(label, style: theme.textTheme.labelMedium),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            spacing: 6,
+            children: [
+              DecoratedBox(
+                key: dotKey,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+                child: const SizedBox.square(dimension: 8),
+              ),
+              Text(label, style: theme.textTheme.labelMedium),
+            ],
+          ),
         ),
       ),
     );

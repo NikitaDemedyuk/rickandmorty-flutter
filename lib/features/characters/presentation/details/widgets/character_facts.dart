@@ -14,6 +14,7 @@ class CharacterFacts extends StatelessWidget {
     final l10n = context.l10n;
     return Card(
       margin: EdgeInsets.zero,
+      semanticContainer: false,
       child: Column(
         children: [
           _Fact(
@@ -46,10 +47,14 @@ class _Fact extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(icon),
-      title: Text(value),
-      subtitle: Text(label),
+    return Semantics(
+      label: context.l10n.factSemanticLabel(label, value),
+      excludeSemantics: true,
+      child: ListTile(
+        leading: Icon(icon),
+        title: Text(value),
+        subtitle: Text(label),
+      ),
     );
   }
 }

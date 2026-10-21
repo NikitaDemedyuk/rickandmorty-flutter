@@ -8,29 +8,50 @@ import 'package:rickandmorty/features/characters/presentation/widgets/status_chi
 import '../../../../helpers/pump_app.dart';
 
 void main() {
-  final statusColors = AppTheme.light.extension<StatusColors>()!;
-  final cases = {
-    CharacterStatus.alive: ('Alive', statusColors.alive),
-    CharacterStatus.dead: ('Dead', statusColors.dead),
-    CharacterStatus.unknown: ('Unknown', statusColors.unknown),
-  };
-
   Color dotColor(WidgetTester tester) {
     final dot = tester.widget<DecoratedBox>(find.byKey(StatusChip.dotKey));
     return (dot.decoration as BoxDecoration).color!;
   }
 
-  for (final MapEntry(key: status, value: (label, color)) in cases.entries) {
+  final labels = {
+    CharacterStatus.alive: 'Alive',
+    CharacterStatus.dead: 'Dead',
+    CharacterStatus.unknown: 'Unknown',
+  };
+
+  for (final MapEntry(key: status, value: label) in labels.entries) {
     testWidgets('labels $status as "$label"', (tester) async {
       await tester.pumpApp(StatusChip(status: status));
 
       expect(find.text(label), findsOneWidget);
     });
 
-    testWidgets('colors the $status dot from StatusColors', (tester) async {
+    testWidgets('reads $status as "Status: $label"', (tester) async {
       await tester.pumpApp(StatusChip(status: status));
 
-      expect(dotColor(tester), color);
+      expect(find.bySemanticsLabel('Status: $label'), findsOneWidget);
     });
+  }
+
+  for (final MapEntry(key: themeName, value: theme) in {
+    'light': AppTheme.light,
+    'dark': AppTheme.dark,
+  }.entries) {
+    final statusColors = theme.extension<StatusColors>()!;
+    final colors = {
+      CharacterStatus.alive: statusColors.alive,
+      CharacterStatus.dead: statusColors.dead,
+      CharacterStatus.unknown: statusColors.unknown,
+    };
+
+    for (final MapEntry(key: status, value: color) in colors.entries) {
+      testWidgets('colors the $status dot from StatusColors ($themeName)', (
+        tester,
+      ) async {
+        await tester.pumpApp(StatusChip(status: status), theme: theme);
+
+        expect(dotColor(tester), color);
+      });
+    }
   }
 }

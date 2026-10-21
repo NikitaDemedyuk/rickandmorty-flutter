@@ -37,4 +37,25 @@ void main() {
     // No resize, so the list and the details screen share one decode.
     expect(image.memCacheWidth, isNull);
   });
+  testWidgets('is hidden from screen readers', (tester) async {
+    await tester.pumpApp(
+      CharacterImage(
+        characterId: 7,
+        imageUrl: character(7).imageUrl,
+        cacheManager: FakeCacheManager(),
+        borderRadius: BorderRadius.zero,
+      ),
+    );
+
+    // The fake never delivers the image, so check the wrapper, not the node.
+    final exclude = tester.widget<ExcludeSemantics>(
+      find
+          .ancestor(
+            of: find.byType(CachedNetworkImage),
+            matching: find.byType(ExcludeSemantics),
+          )
+          .first,
+    );
+    expect(exclude.excluding, isTrue);
+  });
 }

@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:rickandmorty/app/theme/app_theme.dart';
 import 'package:rickandmorty/core/error/failure.dart';
 import 'package:rickandmorty/core/widgets/error_view.dart';
 import 'package:rickandmorty/core/widgets/loading_view.dart';
@@ -13,6 +15,7 @@ import 'package:rickandmorty/features/characters/presentation/widgets/status_chi
 import '../../../../helpers/characters.dart';
 import '../../../../helpers/fake_cache_manager.dart';
 import '../../../../helpers/pump_app.dart';
+import '../../../../helpers/small_phone.dart';
 
 class _MockCubit extends Mock implements CharacterDetailsCubit;
 
@@ -31,6 +34,7 @@ void main() {
     WidgetTester tester,
     CharacterDetailsState state, {
     String? imageUrl,
+    ThemeData? theme,
   }) async {
     when(() => cubit.state).thenReturn(state);
     await tester.pumpApp(
@@ -41,6 +45,7 @@ void main() {
           cacheManager: cacheManager,
         ),
       ),
+      theme: theme,
     );
   }
 
@@ -100,6 +105,71 @@ void main() {
     expect(image.characterId, 1);
     expect(image.imageUrl, rick.imageUrl);
     expect(image.cacheManager, same(cacheManager));
+  });
+
+  testWidgets('renders a loaded character in the dark theme', (tester) async {
+    await pumpWithState(
+      tester,
+      CharacterDetailsLoadSuccess(character(1)),
+      theme: AppTheme.dark,
+    );
+
+    expect(find.byType(StatusChip), findsOneWidget);
+    final chip = tester.element(find.byType(StatusChip));
+    expect(Theme.of(chip).brightness, Brightness.dark);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('reads facts label first and the name as one header', (
+    tester,
+  ) async {
+    await pumpWithState(tester, CharacterDetailsLoadSuccess(character(1)));
+
+    expect(find.bySemanticsLabel('Species: Human'), findsOneWidget);
+    expect(find.bySemanticsLabel('Origin: Unknown'), findsOneWidget);
+    expect(
+      find.bySemanticsLabel('Last known location: Unknown'),
+      findsOneWidget,
+    );
+    // Only the app bar title; the name under the portrait repeats it.
+    expect(
+      find.semantics.byPredicate(
+        (node) => node.label == 'Character 1' && node.flagsCollection.isHeader,
+      ),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('fits a long name at 2x text scale on a small phone', (
+    tester,
+  ) async {
+    tester.useSmallPhoneWith2xText();
+
+    await pumpWithState(
+      tester,
+      CharacterDetailsLoadSuccess(
+        character(1, status: CharacterStatus.unknown).copyWith(
+          name: 'Abradolf Lincler, Supreme Leader of the Galactic Federation',
+          originName: 'Earth (Replacement Dimension)',
+          locationName: 'Interdimensional Cable',
+        ),
+      ),
+    );
+
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('scrolls the error at 2x text scale on a small phone', (
+    tester,
+  ) async {
+    tester.useSmallPhoneWith2xText();
+
+    await pumpWithState(
+      tester,
+      const CharacterDetailsLoadFailure(NetworkFailure()),
+    );
+
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('shows a placeholder for an unknown origin and location', (

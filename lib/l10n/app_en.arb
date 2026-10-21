@@ -87,5 +87,33 @@
   "characterNotFound": "This character doesn't exist.",
   "@characterNotFound": {
     "description": "Shown when the details screen is opened for a character id the API doesn't know."
+  },
+  "loading": "Loading",
+  "@loading": {
+    "description": "Screen reader label of the progress indicators."
+  },
+  "statusSemanticLabel": "Status: {status}",
+  "@statusSemanticLabel": {
+    "description": "Screen reader label of the status chip.",
+    "placeholders": {
+      "status": {
+        "type": "String",
+        "example": "Alive"
+      }
+    }
+  },
+  "factSemanticLabel": "{label}: {value}",
+  "@factSemanticLabel": {
+    "description": "Screen reader label of a fact on the details screen, read label first.",
+    "placeholders": {
+      "label": {
+        "type": "String",
+        "example": "Species"
+      },
+      "value": {
+        "type": "String",
+        "example": "Human"
+      }
+    }
   }
 }

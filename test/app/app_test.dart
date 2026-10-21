@@ -3,7 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:rickandmorty/app/app.dart';
+import 'package:rickandmorty/app/theme/app_theme.dart';
 import 'package:rickandmorty/core/result/result.dart';
+import 'package:rickandmorty/core/theme/status_colors.dart';
 import 'package:rickandmorty/core/widgets/error_view.dart';
 import 'package:rickandmorty/features/characters/domain/repositories/characters_repository.dart';
 import 'package:rickandmorty/features/characters/presentation/list/characters_list_page.dart';
@@ -42,6 +44,41 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Rick and Morty'), findsOneWidget);
+  });
+
+  for (final MapEntry(key: brightness, value: theme) in {
+    Brightness.light: AppTheme.light,
+    Brightness.dark: AppTheme.dark,
+  }.entries) {
+    testWidgets('follows the system appearance (${brightness.name})', (
+      tester,
+    ) async {
+      tester.platformDispatcher.platformBrightnessTestValue = brightness;
+      addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
+
+      await tester.pumpWidget(App(getIt: getIt));
+      await tester.pumpAndSettle();
+
+      final context = tester.element(find.byType(CharactersListPage));
+      expect(Theme.of(context).brightness, brightness);
+      expect(Theme.of(context).colorScheme, theme.colorScheme);
+    });
+  }
+
+  testWidgets('switches theme when the system appearance changes', (
+    tester,
+  ) async {
+    addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
+    await tester.pumpWidget(App(getIt: getIt));
+    await tester.pumpAndSettle();
+
+    tester.platformDispatcher.platformBrightnessTestValue = Brightness.dark;
+    // Lets the theme animation, which lerps StatusColors too, finish.
+    await tester.pumpAndSettle();
+
+    final context = tester.element(find.byType(CharactersListPage));
+    expect(Theme.of(context).colorScheme, AppTheme.dark.colorScheme);
+    expect(StatusColors.of(context), AppTheme.dark.extension<StatusColors>());
   });
 
   testWidgets('shows an error page for unknown routes and goes home', (

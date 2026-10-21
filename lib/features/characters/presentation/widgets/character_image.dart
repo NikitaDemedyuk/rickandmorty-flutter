@@ -28,19 +28,21 @@ class CharacterImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Hero(
-      tag: characterHeroTag(characterId),
-      child: ClipRRect(
-        borderRadius: borderRadius,
-        child: CachedNetworkImage(
-          imageUrl: imageUrl,
-          cacheManager: cacheManager,
-          fit: BoxFit.cover,
-          placeholder: (_, _) =>
-              ColoredBox(color: colorScheme.surfaceContainerHighest),
-          errorWidget: (_, _, _) => ColoredBox(
-            color: colorScheme.surfaceContainerHighest,
-            child: Icon(Icons.person, color: colorScheme.onSurfaceVariant),
+    return ExcludeSemantics(
+      child: Hero(
+        tag: characterHeroTag(characterId),
+        child: ClipRRect(
+          borderRadius: borderRadius,
+          child: CachedNetworkImage(
+            imageUrl: imageUrl,
+            cacheManager: cacheManager,
+            fit: BoxFit.cover,
+            placeholder: (_, _) =>
+                ColoredBox(color: colorScheme.surfaceContainerHighest),
+            errorWidget: (_, _, _) => ColoredBox(
+              color: colorScheme.surfaceContainerHighest,
+              child: Icon(Icons.person, color: colorScheme.onSurfaceVariant),
+            ),
           ),
         ),
       ),
