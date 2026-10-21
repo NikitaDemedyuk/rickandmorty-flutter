@@ -28,7 +28,6 @@ class CharacterImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    // Decorative: the name next to it already says who it is.
     return ExcludeSemantics(
       child: Hero(
         tag: characterHeroTag(characterId),
