@@ -1,7 +1,7 @@
 name: rickandmorty
 description: "Rick and Morty character catalog."
 publish_to: 'none'
-version: 1.0.1+2
+version: 1.1.0+3
 
 environment:
   sdk: ^3.13.5
