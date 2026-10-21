@@ -14,7 +14,6 @@ class CharacterFacts extends StatelessWidget {
     final l10n = context.l10n;
     return Card(
       margin: EdgeInsets.zero,
-      // One screen reader stop per fact, not one for the whole card.
       semanticContainer: false,
       child: Column(
         children: [
@@ -48,7 +47,6 @@ class _Fact extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Shown value first, but read label first: "Species: Human".
     return Semantics(
       label: context.l10n.factSemanticLabel(label, value),
       excludeSemantics: true,
