@@ -100,6 +100,17 @@ lib/
 | `material_ui` | The decoupled Material library. |
 | `mocktail`, `fake_async` | Mocks and deterministic time for the debounce and cancellation tests. |
 
+## How this was built
+
+Built with [Claude Code](https://claude.com/claude-code); a human makes the decisions and reads every change.
+
+- **A plan first.** The work was split into a roadmap of small pull requests (core, data, list, details, polish, releases), one issue per PR, each cut from `develop` and squash-merged.
+- **Written-down rules.** Conventions (architecture, bloc and error-handling patterns, theming, accessibility, test style) live in a project file the agent reads every session. When a review establishes a new convention, it is added there so the same mistake does not repeat.
+- **Guardrails that run locally.** Commands mirror CI (generate, format, analyze, tests), a script greps for the conventions no lint can catch, and a read-only reviewer subagent checks each diff against the rules before a PR is opened.
+- **Review before merge.** Nothing is committed or pushed until the diff has been read. Review findings are applied as one Conventional Commit each, and CI gates every merge.
+
+The agent configuration is local-only and not part of this repository.
+
 ## Workflow
 
 - `main` holds releases only; every merge into it is tagged.
